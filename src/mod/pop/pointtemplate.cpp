@@ -145,7 +145,27 @@ struct BrushEntityBoundingBox
 	std::string &max;
 };
 
-	
+void ValidateBrushBoundingBox(KeyValues *kv, std::string &mins, std::string &maxs) {
+    
+    float mins_x, mins_y, mins_z;
+    float maxs_x, maxs_y, maxs_z;
+    
+    if (sscanf(mins_str, "%f %f %f", &mins_x, &mins_y, &mins_z) != 3 ||
+        sscanf(maxs_str, "%f %f %f", &maxs_x, &maxs_y, &maxs_z) != 3) {
+        return;
+    }
+    
+    float mins_sum = mins_x + mins_y + mins_z;
+    float maxs_sum = maxs_x + maxs_y + maxs_z;
+    
+    // mins > maxs will crash the server
+    if (mins_sum > maxs_sum) {
+		Warning("SpawnTemplate ValidateBrushBoundingBox: mins > maxs, swapping mins and maxs\n");
+        kv->SetString("mins", maxs);
+        kv->SetString("maxs", mins);
+    }
+}
+
 bool TriggerCollideable(CBaseEntity *entity)
 {
 	return entity->GetSolid() != SOLID_NONE && !entity->CollisionProp()->IsSolidFlagSet(FSOLID_TRIGGER) && !entity->CollisionProp()->IsSolidFlagSet(FSOLID_NOT_SOLID);
@@ -278,8 +298,11 @@ std::shared_ptr<PointTemplateInstance> PointTemplate::SpawnTemplate(CBaseEntity 
 			list_spawned[num_entity].m_pDeferredParent = NULL;
 			
 			//To make brush entities working
-			if (keys.find("mins") != keys.end() && keys.find("maxs") != keys.end()){
-				brush_entity_bounding_box.push_back({entity, keys.find("mins")->second, keys.find("maxs")->second});
+			if (keys.find("mins") != keys.end() && keys.find("maxs") != keys.end()) {
+				std::string mins = keys.find("mins")->second;
+				std::string maxs = keys.find("maxs")->second;
+				ValidateBrushBoundingBox(mins, maxs);
+				brush_entity_bounding_box.push_back({entity, mins, maxs});
 			}
 			num_entity++;
 		}
