@@ -615,6 +615,7 @@ for sdk_name in Extension.sdks:
       binary.compiler.sourcedeps += wrapper
       binary.compiler.linkflags  += [os.path.join('..', wrapper_obj)]
 
+    binary.compiler.linkflags += [
         '-Wl,--no-as-needed',
         '-lvstdlib_srv',
         '-Wl,--as-needed'
