@@ -145,10 +145,13 @@ struct BrushEntityBoundingBox
 	std::string &max;
 };
 
-void ValidateBrushBoundingBox(KeyValues *kv, std::string &mins, std::string &maxs) {
+void ValidateBrushBoundingBox(std::multimap<std::string, std::string, CaseInsensitiveLess> &keys, std::string &mins, std::string &maxs) {
     
     float mins_x, mins_y, mins_z;
     float maxs_x, maxs_y, maxs_z;
+
+    const char* mins_str = mins.c_str();
+    const char* maxs_str = maxs.c_str();
     
     if (sscanf(mins_str, "%f %f %f", &mins_x, &mins_y, &mins_z) != 3 ||
         sscanf(maxs_str, "%f %f %f", &maxs_x, &maxs_y, &maxs_z) != 3) {
@@ -160,9 +163,11 @@ void ValidateBrushBoundingBox(KeyValues *kv, std::string &mins, std::string &max
     
     // mins > maxs will crash the server
     if (mins_sum > maxs_sum) {
-		Warning("SpawnTemplate ValidateBrushBoundingBox: mins > maxs, swapping mins and maxs\n");
-        kv->SetString("mins", maxs);
-        kv->SetString("maxs", mins);
+        Warning("SpawnTemplate ValidateBrushBoundingBox: mins > maxs, swapping mins and maxs\n");
+        keys.erase("mins");
+        keys.erase("maxs");
+		keys.emplace("mins", maxs);
+        keys.emplace("maxs", mins);
     }
 }
 
@@ -301,7 +306,7 @@ std::shared_ptr<PointTemplateInstance> PointTemplate::SpawnTemplate(CBaseEntity 
 			if (keys.find("mins") != keys.end() && keys.find("maxs") != keys.end()) {
 				std::string mins = keys.find("mins")->second;
 				std::string maxs = keys.find("maxs")->second;
-				ValidateBrushBoundingBox(mins, maxs);
+				ValidateBrushBoundingBox(keys, mins, maxs);
 				brush_entity_bounding_box.push_back({entity, mins, maxs});
 			}
 			num_entity++;
