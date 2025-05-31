@@ -615,5 +615,14 @@ for sdk_name in Extension.sdks:
       binary.compiler.sourcedeps += wrapper
       binary.compiler.linkflags  += [os.path.join('..', wrapper_obj)]
 
+        '-Wl,--no-as-needed',
+        '-lvstdlib_srv',
+        '-Wl,--as-needed'
+    ]
+    binary.compiler.linkflags += [
+        '-L' + os.path.join(sdk['path'], 'lib', 'public', 'linux'),
+        '-L' + os.path.join(sdk['path'], 'lib', 'public', 'linux64')
+    ]
+
 
 Extension.extensions += builder.Add(project)
