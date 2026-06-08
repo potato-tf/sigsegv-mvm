@@ -9,11 +9,12 @@ then
     exit
 fi
 
-_INSTALL_DIR="/root"
+SIGMOD_BUILD_DIR="$(pwd)"
+GAMESERVER_DIR="/var/tf2server/tf"
 
 function build()
 {
-    cd $_INSTALL_DIR/sigsegv-mvm
+    cd $SIGMOD_BUILD_DIR/sigsegv-mvm
     ./autoconfig.sh
 
     cd build/x86
@@ -22,21 +23,22 @@ function build()
     cd ../../build/x64
     ambuild
 
-    cp -rf $_INSTALL_DIR/sigsegv-mvm/build/x86/package/addons/sourcemod/* /var/tf2server/tf/addons/sourcemod
-    cp -rf $_INSTALL_DIR/sigsegv-mvm/build/x64/package/addons/sourcemod/* /var/tf2server/tf/addons/sourcemod
+    cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/x86/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
+    cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/x64/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
 }
 function build_release()
 {
-    cd $_INSTALL_DIR/sigsegv-mvm
+    cd $SIGMOD_BUILD_DIR/sigsegv-mvm
     ./autoconfig.sh
+    ./multibuild.sh
 
-    cd build/release
-    ambuild
-
-    cp -rf $_INSTALL_DIR/sigsegv-mvm/build/release/package/addons/sourcemod/* /var/tf2server/tf/addons/sourcemod
-    cp -rf $_INSTALL_DIR/sigsegv-mvm/build/release/package/addons/sourcemod/* /var/tf2server/tf/addons/sourcemod
+    if [ -d $GAMESERVER_DIR/addons/sourcemod ]; then
+        cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/release/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
+        cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/release/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
+    fi
 }
 
+# pass additional args to only build
 if [[ $# -gt 0 ]]; then
     build_release
     exit
@@ -47,74 +49,76 @@ apt update
 
 apt install -y autoconf automake libtool pip python3-venv nasm libiberty-dev libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 g++-multilib
 
-read -p "Full clone and (re)build? (y/n): " full_rebuild
-# full_rebuild="n"
+# read -p "Full clone and (re)build? (y/n): " full_rebuild
+full_rebuild="y"
 if [ "$full_rebuild" = "y" ]; then
-    rm -rf $_INSTALL_DIR/sigsegv-mvm
-    rm -rf $_INSTALL_DIR/alliedmodders
+    rm -rf $SIGMOD_BUILD_DIR/sigsegv-mvm
+    rm -rf $SIGMOD_BUILD_DIR/alliedmodders
 fi
 
-mkdir -p $_INSTALL_DIR/sigsegv-mvm
+mkdir -p $SIGMOD_BUILD_DIR/sigsegv-mvm
 
 # clone sigsegv-mvm
-git clone --recursive --branch minmaxfix "https://github.com/Brain-dawg/sigsegv-mvm.git"
+if [ ! -d "$SIGMOD_BUILD_DIR/sigsegv-mvm/.git" ]; then
+    git clone --recursive "https://github.com/rafradek/sigsegv-mvm.git" "$SIGMOD_BUILD_DIR/sigsegv-mvm"
+fi
 
-chmod -R 755 $_INSTALL_DIR/sigsegv-mvm
+chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm
 
 # Clone SM/AMBuild repositories
-mkdir -p $_INSTALL_DIR/alliedmodders
-cd $_INSTALL_DIR/alliedmodders
+mkdir -p $SIGMOD_BUILD_DIR/alliedmodders
+cd $SIGMOD_BUILD_DIR/alliedmodders
 
-git clone https://github.com/alliedmodders/ambuild.git --depth 1
-git clone https://github.com/alliedmodders/hl2sdk.git --depth 1 -b sdk2013 hl2sdk-sdk2013
-git clone https://github.com/alliedmodders/hl2sdk --depth 1 -b tf2 hl2sdk-tf2
-git clone https://github.com/alliedmodders/hl2sdk.git --depth 1 -b css hl2sdk-css
-git clone https://github.com/alliedmodders/metamod-source.git --depth 1 -b 1.11-dev
-git clone --recursive https://github.com/alliedmodders/sourcemod.git --depth 1 -b 1.11-dev
+[ ! -d ambuild/.git ] && git clone https://github.com/alliedmodders/ambuild.git --depth 1
+[ ! -d hl2sdk-sdk2013/.git ] && git clone https://github.com/alliedmodders/hl2sdk.git --depth 1 -b sdk2013 hl2sdk-sdk2013
+[ ! -d hl2sdk-tf2/.git ] && git clone https://github.com/alliedmodders/hl2sdk --depth 1 -b tf2 hl2sdk-tf2
+[ ! -d hl2sdk-css/.git ] && git clone https://github.com/alliedmodders/hl2sdk.git --depth 1 -b css hl2sdk-css
+[ ! -d metamod-source/.git ] && git clone https://github.com/alliedmodders/metamod-source.git --depth 1 -b 1.11-dev
+[ ! -d sourcemod/.git ] && git clone --recursive https://github.com/alliedmodders/sourcemod.git --depth 1 -b 1.11-dev
 
-chmod -R 755 $_INSTALL_DIR/alliedmodders
+chmod -R 755 $SIGMOD_BUILD_DIR/alliedmodders
 
-# export LD_LIBRARY_PATH="${_INSTALL_DIR}/alliedmodders/hl2sdk-sdk2013/lib/public/linux64:${_INSTALL_DIR}/alliedmodders/hl2sdk-sdk2013/lib/public/linux"
+# export LD_LIBRARY_PATH="${SIGMOD_BUILD_DIR}/alliedmodders/hl2sdk-sdk2013/lib/public/linux64:${SIGMOD_BUILD_DIR}/alliedmodders/hl2sdk-sdk2013/lib/public/linux"
 
 # echo $LD_LIBRARY_PATH
 # read -p "Press any key to continue..."
 
 # create python venv
-# mkdir -p .venvs
-# python3 -m venv ./bin/python
-# python3 -m venv .venvs/ambuild
-# chmod -R 755 $_INSTALL_DIR/.venvs
+mkdir -p .venvs
+python3 -m venv ./bin/python
+python3 -m venv .venvs/ambuild
+chmod -R 755 $SIGMOD_BUILD_DIR/.venvs
 
-# .venvs/ambuild/bin/pip install alliedmodders/ambuild
-pip install ./ambuild --break-system-packages
+.venvs/ambuild/bin/pip install alliedmodders/ambuild
+# pip install ./ambuild --break-system-packages
 #replace configure.py shebang line to use python3
-sed -i '1s|^.*|#!/usr/bin/python3|' $_INSTALL_DIR/sigsegv-mvm/configure.py
+sed -i '1s|^.*|#!/usr/bin/python3|' $SIGMOD_BUILD_DIR/sigsegv-mvm/configure.py
 cd ..
 
 # add ambuild to PATH
-pathfile=$_INSTALL_DIR/.bashrc
-# pathvar='export PATH='$_INSTALL_DIR'/.venvs/ambuild/bin/:$PATH'
-pathvar='export PATH='$_INSTALL_DIR'/bin/:$PATH'
+pathfile=$SIGMOD_BUILD_DIR/.bashrc
+pathvar="export PATH='$SIGMOD_BUILD_DIR'/.venvs/ambuild/bin/:$PATH"
+# pathvar='export PATH='$SIGMOD_BUILD_DIR'/bin/:$PATH'
 
 touch $pathfile
 if ! grep -q -F -x "$pathvar" "$pathfile"; then
     echo "$pathvar" >> $pathfile
 fi
-source $_INSTALL_DIR/.bashrc
+source $SIGMOD_BUILD_DIR/.bashrc
 
-cd $_INSTALL_DIR/sigsegv-mvm
+cd $SIGMOD_BUILD_DIR/sigsegv-mvm
 git submodule init
 git submodule update --depth 1
 
-chmod -R 755 $_INSTALL_DIR/sigsegv-mvm
+chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm
 
 # build submodules
 if [ "$full_rebuild" = "y" ]; then
     cd libs/udis86
-    # $_INSTALL_DIR/.venvs/ambuild/bin/python $_INSTALL_DIR/sigsegv-mvm/libs/udis86/scripts/ud_itab.py $_INSTALL_DIR/sigsegv-mvm/libs/udis86/docs/x86/optable.xml $_INSTALL_DIR/sigsegv-mvm/libs/udis86/libudis86
-    /usr/bin/python3 $_INSTALL_DIR/sigsegv-mvm/libs/udis86/scripts/ud_itab.py $_INSTALL_DIR/sigsegv-mvm/libs/udis86/docs/x86/optable.xml $_INSTALL_DIR/sigsegv-mvm/libs/udis86/libudis86
+    $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86/scripts/ud_itab.py $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86/docs/x86/optable.xml $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86/libudis86
+    # /usr/bin/python3 $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86/scripts/ud_itab.py $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86/docs/x86/optable.xml $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86/libudis86
     ./autogen.sh
-    ./configure --enable-static=yes --with-python=/usr/bin/python3
+    ./configure --enable-static=yes --with-python=$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python3
     make clean
     make CFLAGS="-m32" LDFLAGS="-m32"
     mv libudis86/.libs/libudis86.a ../libudis86.a
@@ -123,15 +127,15 @@ if [ "$full_rebuild" = "y" ]; then
     mv libudis86/.libs/libudis86.a ../libudis86x64.a
     cd ../..
 
-    chmod -R 755 $_INSTALL_DIR/sigsegv-mvm/libs/udis86
+    chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm/libs/udis86
 fi
 
 # build lua
 if [ "$full_rebuild" = "y" ]; then
-    cd $_INSTALL_DIR/sigsegv-mvm/libs
+    cd $SIGMOD_BUILD_DIR/sigsegv-mvm/libs
     wget https://www.lua.org/ftp/lua-5.4.4.tar.gz
 
-    chmod -R 755 $_INSTALL_DIR/sigsegv-mvm/libs
+    chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm/libs
 
     tar -xf lua-*.tar.gz
     rm lua-*.tar.gz
@@ -144,7 +148,7 @@ if [ "$full_rebuild" = "y" ]; then
     mv src/liblua.a ../libluax64.a
     cd ../..
 
-    chmod -R 755 $_INSTALL_DIR/sigsegv-mvm
+    chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm
 fi
 
 build_release

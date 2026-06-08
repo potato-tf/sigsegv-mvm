@@ -615,5 +615,12 @@ for sdk_name in Extension.sdks:
       binary.compiler.sourcedeps += wrapper
       binary.compiler.linkflags  += [os.path.join('..', wrapper_obj)]
 
+    if cxx.target.platform == 'linux':
+      if cxx.target.arch == 'x86_64':
+        vstdlib_lib = os.path.join(sdk['path'], 'lib', 'public', 'linux64', 'libvstdlib_srv.so')
+      else:
+        vstdlib_lib = os.path.join(sdk['path'], 'lib', 'public', 'linux', 'libvstdlib_srv.so')
+      binary.compiler.postlink += [vstdlib_lib]
+
 
 Extension.extensions += builder.Add(project)
