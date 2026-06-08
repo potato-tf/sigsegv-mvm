@@ -97,7 +97,7 @@ cd ..
 
 # add ambuild to PATH
 pathfile=$SIGMOD_BUILD_DIR/.bashrc
-pathvar="export PATH='$SIGMOD_BUILD_DIR'/.venvs/ambuild/bin/:$PATH"
+pathvar="export PATH=$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/:$PATH"
 # pathvar='export PATH='$SIGMOD_BUILD_DIR'/bin/:$PATH'
 
 touch $pathfile
