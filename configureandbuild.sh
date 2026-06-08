@@ -1,8 +1,11 @@
 #!/bin/bash
 
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-echo "nameserver 1.1.1.1" >> /etc/resolv.conf
+if grep -qi microsoft /proc/version; then
+    echo "nameserver 8.8.8.8" > /etc/resolv.conf
+    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+    echo "nameserver 1.1.1.1" >> /etc/resolv.conf
+fi
+
 if [[ $EUID -ne 0 ]]
 then
     echo "Not running as root!"
@@ -11,26 +14,36 @@ fi
 
 SIGMOD_BUILD_DIR="$(pwd)"
 GAMESERVER_DIR="/var/tf2server/tf"
+AMBUILDPY="$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python3"
+
+function use_ambuild_venv()
+{
+    export PATH="$SIGMOD_BUILD_DIR/.venvs/ambuild/bin:$PATH"
+    export AMBUILDPY
+}
 
 function build()
 {
+    use_ambuild_venv
     cd $SIGMOD_BUILD_DIR/sigsegv-mvm
     ./autoconfig.sh
 
     cd build/x86
-    ambuild
+    $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/ambuild
 
     cd ../../build/x64
-    ambuild
+    $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/ambuild
 
     cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/x86/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
     cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/x64/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
 }
 function build_release()
 {
+    use_ambuild_venv
     cd $SIGMOD_BUILD_DIR/sigsegv-mvm
     ./autoconfig.sh
     ./multibuild.sh
+
 
     if [ -d $GAMESERVER_DIR/addons/sourcemod ]; then
         cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/release/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
@@ -50,7 +63,7 @@ apt update
 apt install -y git autoconf automake libtool pip python3-venv nasm libiberty-dev libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 g++-multilib
 
 # read -p "Full clone and (re)build? (y/n): " full_rebuild
-full_rebuild="y"
+full_rebuild="n"
 if [ "$full_rebuild" = "y" ]; then
     rm -rf $SIGMOD_BUILD_DIR/sigsegv-mvm
     rm -rf $SIGMOD_BUILD_DIR/alliedmodders
@@ -60,7 +73,7 @@ mkdir -p $SIGMOD_BUILD_DIR/sigsegv-mvm
 
 # clone sigsegv-mvm
 if [ ! -d "$SIGMOD_BUILD_DIR/sigsegv-mvm/.git" ]; then
-    git clone --recursive "https://github.com/rafradek/sigsegv-mvm.git" "$SIGMOD_BUILD_DIR/sigsegv-mvm"
+    git clone --recursive --branch buildscript "https://github.com/Brain-dawg/sigsegv-mvm.git" "$SIGMOD_BUILD_DIR/sigsegv-mvm"
 fi
 
 chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm
@@ -83,22 +96,22 @@ chmod -R 755 $SIGMOD_BUILD_DIR/alliedmodders
 # echo $LD_LIBRARY_PATH
 # read -p "Press any key to continue..."
 
-# create python venv
-mkdir -p .venvs
-python3 -m venv ./bin/python
-python3 -m venv .venvs/ambuild
-chmod -R 755 $SIGMOD_BUILD_DIR/.venvs
+# create python venv (AMBuild lives here)
+if [ ! -x "$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/pip" ]; then
+    mkdir -p "$SIGMOD_BUILD_DIR/.venvs"
+    python3 -m venv "$SIGMOD_BUILD_DIR/.venvs/ambuild"
+    chmod -R 755 "$SIGMOD_BUILD_DIR/.venvs"
+fi
 
-.venvs/ambuild/bin/pip install alliedmodders/ambuild
-# pip install ./ambuild --break-system-packages
-#replace configure.py shebang line to use python3
-sed -i '1s|^.*|#!/usr/bin/python3|' $SIGMOD_BUILD_DIR/sigsegv-mvm/configure.py
-cd ..
+"$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/pip" install "$SIGMOD_BUILD_DIR/alliedmodders/ambuild"
+sed -i "1s|^.*|#!$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python3|" "$SIGMOD_BUILD_DIR/sigsegv-mvm/configure.py"
+use_ambuild_venv
+cd "$SIGMOD_BUILD_DIR"
 
 # add ambuild to PATH
 pathfile=$SIGMOD_BUILD_DIR/.bashrc
-pathvar="export PATH=$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/:$PATH"
-# pathvar='export PATH='$SIGMOD_BUILD_DIR'/bin/:$PATH'
+pathvar="export PATH=\"$SIGMOD_BUILD_DIR/.venvs/ambuild/bin:$PATH\""
+# pathvar='export PATH='$SIGMOD_BUILD_DIR'/bin:$PATH'
 
 touch $pathfile
 if ! grep -q -F -x "$pathvar" "$pathfile"; then
