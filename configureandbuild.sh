@@ -109,10 +109,10 @@ apt install -y git autoconf automake libtool pip python3-venv nasm libiberty-dev
 
 # read -p "Full clone and (re)build? (y/n): " full_rebuild
 
-# if [ "$full_rebuild" = "y" ]; then
-#     rm -rf $SIGMOD_BUILD_DIR/sigsegv-mvm
-#     rm -rf $SIGMOD_BUILD_DIR/alliedmodders
-# fi
+if [ "$full_rebuild" = "y" ]; then
+    rm -rf $SIGMOD_BUILD_DIR/sigsegv-mvm
+    rm -rf $SIGMOD_BUILD_DIR/alliedmodders
+fi
 
 mkdir -p $SIGMOD_BUILD_DIR/sigsegv-mvm
 
