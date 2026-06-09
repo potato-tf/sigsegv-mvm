@@ -613,13 +613,13 @@ if builder.backend == 'amb2':
 builder.autoversion = builder.AddCommand(
   inputs  = builder.ALWAYS_DIRTY,
   outputs = [ 'version.o' ],
-  argv    = [ 'g++', os.path.join(builder.currentSourcePath,"src/version.cpp"), '-c', '-m32', '-include', os.path.join(builder.currentSourcePath,"src/version.h")],
+  argv    = [ 'g++-15', os.path.join(builder.currentSourcePath,"src/version.cpp"), '-c', '-m32', '-include', os.path.join(builder.currentSourcePath,"src/version.h")],
 )
 
 builder.autoversionx64 = builder.AddCommand(
   inputs  = builder.ALWAYS_DIRTY,
   outputs = [ 'versionx64.o' ],
-  argv    = [ 'g++', os.path.join(builder.currentSourcePath,"src/version.cpp"), '-c', '-m64', '-fPIC', '-include', os.path.join(builder.currentSourcePath,"src/version.h"), '-o', 'versionx64.o'],
+  argv    = [ 'g++-15', os.path.join(builder.currentSourcePath,"src/version.cpp"), '-c', '-m64', '-fPIC', '-include', os.path.join(builder.currentSourcePath,"src/version.h"), '-o', 'versionx64.o'],
 )
 
 if builder.options.build_all:
