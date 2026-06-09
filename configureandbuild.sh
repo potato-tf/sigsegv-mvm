@@ -31,7 +31,7 @@ fi
 
 SIGMOD_BUILD_DIR="$(pwd)"
 GAMESERVER_DIR=${2:-"/var/tf2server/tf"}
-export MAX_AMBUILD_JOBS=${3:-$(( $(nproc) / 2 ))}
+export MAX_AMBUILD_JOBS=${3:-$($nproc)}
 AMBUILDPY="$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python3"
 
 function use_ambuild_venv()
@@ -74,15 +74,30 @@ function ensure_gcc15()
     command -v gcc-15 >/dev/null 2>&1 && return 0
 
     apt install -y gnupg ca-certificates curl
-    if [ ! -f /usr/share/keyrings/ubuntu-toolchain-r-test.gpg ]; then
-        curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x60C317108A870663' \
-            | gpg --dearmor -o /usr/share/keyrings/ubuntu-toolchain-r-test.gpg
+
+    SUITE="$(. /etc/os-release && echo "$VERSION_CODENAME")"
+    KEYRING=/usr/share/keyrings/ubuntu-toolchain-r-test.gpg
+    SOURCES=/etc/apt/sources.list.d/ubuntu-toolchain-r-test.list
+
+    # Drop stale entries (wrong key, wrong suite, or add-apt-repository leftovers).
+    rm -f /etc/apt/sources.list.d/ubuntu-toolchain-r-test.list
+    rm -f /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-"${SUITE}".list
+
+    rm -f "$KEYRING"
+    tmp="$(mktemp -d)"
+    if ! gpg --homedir "$tmp" --batch --no-default-keyring --keyring "$KEYRING" \
+        --keyserver keyserver.ubuntu.com \
+        --recv-keys 1E9377A2BA9EF27F 2C277A0A352154E5 2>/dev/null; then
+        # keyserver.ubuntu.com is sometimes unreachable; fetch from HTTPS instead.
+        curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1E9377A2BA9EF27F' \
+            | gpg --homedir "$tmp" --batch --no-default-keyring --keyring "$KEYRING" --import
+        curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2C277A0A352154E5' \
+            | gpg --homedir "$tmp" --batch --no-default-keyring --keyring "$KEYRING" --import
     fi
-    if [ ! -f /etc/apt/sources.list.d/ubuntu-toolchain-r-test.list ]; then
-        SUITE="$(. /etc/os-release && echo "$VERSION_CODENAME")"
-        echo "deb [signed-by=/usr/share/keyrings/ubuntu-toolchain-r-test.gpg] https://ppa.launchpadcontent.net/ubuntu-toolchain-r/test/ubuntu ${SUITE} main" \
-            > /etc/apt/sources.list.d/ubuntu-toolchain-r-test.list
-    fi
+    rm -rf "$tmp"
+
+    echo "deb [signed-by=${KEYRING}] https://ppa.launchpadcontent.net/ubuntu-toolchain-r/test/ubuntu ${SUITE} main" \
+        > "$SOURCES"
 }
 
 dpkg --add-architecture i386
@@ -105,7 +120,9 @@ mkdir -p $SIGMOD_BUILD_DIR/sigsegv-mvm
 if [ ! -d "$SIGMOD_BUILD_DIR/sigsegv-mvm/.git" ]; then
     git clone --recursive --branch buildscript "https://github.com/Brain-dawg/sigsegv-mvm.git" "$SIGMOD_BUILD_DIR/sigsegv-mvm"
 else
+    pushd $SIGMOD_BUILD_DIR/sigsegv-mvm
     git pull
+    popd
 fi
 
 chmod -R 755 $SIGMOD_BUILD_DIR/sigsegv-mvm
