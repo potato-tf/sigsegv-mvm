@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd build/release
-ambuild
+nice -n 19 ionice -c 3 ambuild -j"${MAX_AMBUILD_JOBS:-$(nproc)}"
 
 pushd package
 	(

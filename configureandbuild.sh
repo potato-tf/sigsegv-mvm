@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export MAX_AMBUILD_JOBS=$(( $(nproc) / 2 ))
+
 if grep -qi microsoft /proc/version; then
     echo "nameserver 8.8.8.8" > /etc/resolv.conf
     echo "nameserver 8.8.4.4" >> /etc/resolv.conf
@@ -29,10 +31,10 @@ function build()
     ./autoconfig.sh
 
     cd build/x86
-    $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/ambuild
+    nice -n 19 ionice -c 3 $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/ambuild -j$MAX_AMBUILD_JOBS
 
     cd ../../build/x64
-    $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/ambuild
+    nice -n 19 ionice -c 3 $SIGMOD_BUILD_DIR/.venvs/ambuild/bin/ambuild -j$MAX_AMBUILD_JOBS
 
     cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/x86/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
     cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/x64/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
@@ -63,7 +65,7 @@ apt update
 apt install -y git autoconf automake libtool pip python3-venv nasm libiberty-dev libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 g++-multilib
 
 # read -p "Full clone and (re)build? (y/n): " full_rebuild
-full_rebuild="n"
+full_rebuild="y"
 if [ "$full_rebuild" = "y" ]; then
     rm -rf $SIGMOD_BUILD_DIR/sigsegv-mvm
     rm -rf $SIGMOD_BUILD_DIR/alliedmodders
