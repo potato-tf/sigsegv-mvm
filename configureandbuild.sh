@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export MAX_AMBUILD_JOBS=$(( $(nproc) / 2 ))
 export CC=gcc-15
 export CXX=g++-15
 
@@ -16,8 +15,23 @@ then
     exit
 fi
 
+full_rebuild=$( [ -d $SIGMOD_BUILD_DIR/sigsegv-mvm/.git ] && "y" || "n" )
+
+# pass additional args to only build
+if [ "$#" -gt 0 ]; then
+
+    if [ "$1" = "release" ]; then
+        build_release
+        exit
+
+    elif [ "$1" = "full_rebuild" ]; then
+        full_rebuild="y"
+    fi
+fi
+
 SIGMOD_BUILD_DIR="$(pwd)"
-GAMESERVER_DIR="/var/tf2server/tf"
+GAMESERVER_DIR=${2:-"/var/tf2server/tf"}
+export MAX_AMBUILD_JOBS=${3:-$(( $(nproc) / 2 ))}
 AMBUILDPY="$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python3"
 
 function use_ambuild_venv()
@@ -54,20 +68,6 @@ function build_release()
         cp -rf $SIGMOD_BUILD_DIR/sigsegv-mvm/build/release/package/addons/sourcemod/* $GAMESERVER_DIR/addons/sourcemod
     fi
 }
-
-full_rebuild="n"
-# pass additional args to only build
-if [ "$#" -gt 0 ]; then
-
-    if [ "$1" = "release" ]; then
-        build_release
-        exit
-
-    elif [ "$1" = "full_rebuild" ]; then
-        full_rebuild="y"
-    fi
-
-fi
 
 function ensure_gcc15()
 {
