@@ -1,6 +1,8 @@
 #!/bin/bash
 
 export MAX_AMBUILD_JOBS=$(( $(nproc) / 2 ))
+export CC=gcc-15
+export CXX=g++-15
 
 if grep -qi microsoft /proc/version; then
     echo "nameserver 8.8.8.8" > /etc/resolv.conf
@@ -67,10 +69,28 @@ if [ "$#" -gt 0 ]; then
 
 fi
 
+function ensure_gcc15()
+{
+    command -v gcc-15 >/dev/null 2>&1 && return 0
+
+    apt install -y gnupg ca-certificates curl
+    if [ ! -f /usr/share/keyrings/ubuntu-toolchain-r-test.gpg ]; then
+        curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x60C317108A870663' \
+            | gpg --dearmor -o /usr/share/keyrings/ubuntu-toolchain-r-test.gpg
+    fi
+    if [ ! -f /etc/apt/sources.list.d/ubuntu-toolchain-r-test.list ]; then
+        SUITE="$(. /etc/os-release && echo "$VERSION_CODENAME")"
+        echo "deb [signed-by=/usr/share/keyrings/ubuntu-toolchain-r-test.gpg] https://ppa.launchpadcontent.net/ubuntu-toolchain-r/test/ubuntu ${SUITE} main" \
+            > /etc/apt/sources.list.d/ubuntu-toolchain-r-test.list
+    fi
+}
+
 dpkg --add-architecture i386
 apt update
+ensure_gcc15
+apt update
 
-apt install -y git autoconf automake libtool pip python3-venv nasm libiberty-dev libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 g++-multilib
+apt install -y git autoconf automake libtool pip python3-venv nasm libiberty-dev libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 gcc-15-multilib g++-15-multilib
 
 # read -p "Full clone and (re)build? (y/n): " full_rebuild
 
@@ -145,10 +165,10 @@ if [ "$full_rebuild" = "y" ]; then
     ./autogen.sh
     ./configure --enable-static=yes --with-python=$SIGMOD_BUILD_DIR/.venvs/ambuild/bin/python3
     make clean
-    make CFLAGS="-m32" LDFLAGS="-m32"
+    make CC=gcc-15 CFLAGS="-m32" LDFLAGS="-m32"
     mv libudis86/.libs/libudis86.a ../libudis86.a
     make clean
-    make CFLAGS="-fPIC"
+    make CC=gcc-15 CFLAGS="-fPIC"
     mv libudis86/.libs/libudis86.a ../libudis86x64.a
     cd ../..
 
@@ -166,10 +186,10 @@ if [ "$full_rebuild" = "y" ]; then
     rm lua-*.tar.gz
     mv lua-* lua
     cd lua
-    make CC=g++ MYCFLAGS='-m32' MYLDFLAGS='-m32'
+    make CC=g++-15 MYCFLAGS='-m32' MYLDFLAGS='-m32'
     mv src/liblua.a ../liblua.a
     make clean
-    make CC=g++ MYCFLAGS="-fPIC"
+    make CC=g++-15 MYCFLAGS="-fPIC"
     mv src/liblua.a ../libluax64.a
     cd ../..
 

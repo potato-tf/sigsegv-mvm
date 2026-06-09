@@ -5,8 +5,8 @@ CONFIGURE="$PROJECT_DIR/configure.py"
 echo "$PROJECT_DIR"
 PATHS="--hl2sdk-root=$PROJECT_DIR/../alliedmodders --mms-path=$PROJECT_DIR/../alliedmodders/metamod-source --sm-path=$PROJECT_DIR/../alliedmodders/sourcemod"
 
-export CC=${CC:=gcc}
-export CXX=${CXX:=g++}
+export CC=${CC:=gcc-15}
+export CXX=${CXX:=g++-15}
 
 if [ -z "${AMBUILDPY:-}" ]; then
     if [ -x "$PROJECT_DIR/../.venvs/ambuild/bin/python3" ]; then

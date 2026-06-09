@@ -8,22 +8,22 @@ PATHS="--hl2sdk-root=$PROJECT_DIR/build/alliedmodders --mms-path=$PROJECT_DIR/bu
 
 mkdir -p build
 cd build
- 	CC=gcc CXX=g++ $CONFIGURE $PATHS --sdks=tf2 --enable-debug --exclude-mods-debug --enable-optimize --exclude-mods-visualize --exclude-vgui
+ 	CC=gcc-15 CXX=g++-15 $CONFIGURE $PATHS --sdks=tf2 --enable-debug --exclude-mods-debug --enable-optimize --exclude-mods-visualize --exclude-vgui
 cd ..
 
 mkdir -p build/release
 pushd build/release
-	CC=gcc CXX=g++ $CONFIGURE $PATHS --sdks=tf2 --enable-optimize --exclude-mods-debug --exclude-mods-visualize --exclude-vgui
+	CC=gcc-15 CXX=g++-15 $CONFIGURE $PATHS --sdks=tf2 --enable-optimize --exclude-mods-debug --exclude-mods-visualize --exclude-vgui
 popd
 
 mkdir -p build/release/optimize-only
 pushd build/release/optimize-only
-	CC=gcc CXX=g++ $CONFIGURE $PATHS --sdks=tf2 --enable-optimize --exclude-mods-debug --exclude-mods-visualize --exclude-vgui --optimize-mods-only
+	CC=gcc-15 CXX=g++-15 $CONFIGURE $PATHS --sdks=tf2 --enable-optimize --exclude-mods-debug --exclude-mods-visualize --exclude-vgui --optimize-mods-only
 popd
 
 mkdir -p build/release/no-mvm
 pushd build/release/no-mvm
-	CC=gcc CXX=g++ $CONFIGURE $PATHS --sdks=tf2 --enable-optimize --exclude-mods-debug --exclude-mods-visualize --exclude-vgui --exclude-mods-mvm
+	CC=gcc-15 CXX=g++-15 $CONFIGURE $PATHS --sdks=tf2 --enable-optimize --exclude-mods-debug --exclude-mods-visualize --exclude-vgui --exclude-mods-mvm
 popd
 
 # mkdir -p build/clang

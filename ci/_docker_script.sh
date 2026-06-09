@@ -2,7 +2,7 @@
 cd /mnt/sigsegv-mvm
 dpkg --add-architecture i386
 apt update
-apt install -y autoconf libtool pip nasm libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32stdc++-7-dev lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 g++-multilib
+apt install -y autoconf libtool pip nasm libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 gcc-15-multilib g++-15-multilib
 apt install -y git wget curl
 apt install -y nano
 
