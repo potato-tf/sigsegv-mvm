@@ -53,10 +53,18 @@ function build_release()
     fi
 }
 
+full_rebuild="n"
 # pass additional args to only build
-if [[ $# -gt 0 ]]; then
-    build_release
-    exit
+if [ "$#" -gt 0 ]; then
+
+    if [ "$1" = "release" ]; then
+        build_release
+        exit
+
+    elif [ "$1" = "full_rebuild" ]; then
+        full_rebuild="y"
+    fi
+
 fi
 
 dpkg --add-architecture i386
@@ -65,7 +73,7 @@ apt update
 apt install -y git autoconf automake libtool pip python3-venv nasm libiberty-dev libiberty-dev:i386 libelf-dev:i386 libboost-dev:i386 libbsd-dev:i386 libunwind-dev:i386 lib32z1-dev libc6-dev-i386 linux-libc-dev:i386 g++-multilib
 
 # read -p "Full clone and (re)build? (y/n): " full_rebuild
-full_rebuild="y"
+
 if [ "$full_rebuild" = "y" ]; then
     rm -rf $SIGMOD_BUILD_DIR/sigsegv-mvm
     rm -rf $SIGMOD_BUILD_DIR/alliedmodders
