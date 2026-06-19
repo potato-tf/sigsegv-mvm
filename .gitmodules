@@ -36,3 +36,7 @@
 [submodule "hl2sdk-manifests"]
 	path = hl2sdk-manifests
 	url = https://github.com/alliedmodders/hl2sdk-manifests.git
+
+[submodule "alliedmodders/ambuild"]
+	path = alliedmodders/ambuild
+	url = https://github.com/alliedmodders/ambuild.git
