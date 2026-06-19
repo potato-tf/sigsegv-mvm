@@ -28,9 +28,16 @@ Download a package (optimize-only, no-mvm, or full) from releases and extract it
 
 # How to build
 
-This extension requires gcc 13 to build
+One-liner build script for Ubuntu 22+.  Requires sudo to install dependencies.
+```
+bash <(curl -sL https://raw.githubusercontent.com/Brain-dawg/sigsegv-mvm/refs/heads/buildscript/configureandbuild.sh) "full_rebuild" "/your/server/directory/tf" "max_ambuild_jobs"
+```
+max_ambuild_jobs is optional, defaults to all CPU cores.  Build runs with `nice -n 19 ionice -c 3`.
 
-Ubuntu 20.04 docker image with gcc 13 and other dependencies already installed (skip to step 3): rafradek/ubuntu2004dev:latest 
+## Manual build
+This extension requires gcc 15 to build
+
+Ubuntu 20.04 docker image with gcc 15 and other dependencies already installed (skip to step 3): rafradek/ubuntu2004dev:latest 
 
 On Ubuntu 24.04:
 
