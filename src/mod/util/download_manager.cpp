@@ -262,6 +262,7 @@ namespace Mod::Util::Download_Manager
 	std::vector<std::string> late_dl_files;
 	int late_dl_files_current_mission_count = 0;
 	std::vector<std::string> late_dl_from_all_maps_files;
+	std::unordered_map<const char*, int> late_dl_file_sizes;
 
 	std::unordered_map<std::string, std::vector<std::string>> late_dl_files_per_mission;
 	std::unordered_map<uint64_t, std::unordered_set<std::string>> late_dl_download_history;
@@ -275,6 +276,7 @@ namespace Mod::Util::Download_Manager
 		bool lateDlCurMissionOnlyInformed = false;
 		bool lateDlCurMissionOnly = false;
 		bool testDownload = false;
+		bool debugMode = false;
 		float fileExistWaitExpire = 0;
 		float timeLastClientRequest = 0;
 		int lastDownloadNum = 0;
@@ -289,7 +291,14 @@ namespace Mod::Util::Download_Manager
 	LateDownloadInfo download_infos[MAX_PLAYERS + 1];
 
 	bool ShouldSendCookieForLateDl(const char *filename) {
-		return filesystem->Size(filename) > 512;
+
+		if (late_dl_file_sizes.contains(filename)) {
+			return late_dl_file_sizes[filename] > 512;
+		}
+
+		int size = filesystem->Size(filename);
+		late_dl_file_sizes[filename] = size;
+		return size > 512;
 	}
 
 	void StopLateFilesToDownloadForPlayer(int player) {
@@ -749,6 +758,11 @@ namespace Mod::Util::Download_Manager
 		late_dl_files.clear();
 		if (!cvar_late_download.GetBool()) return;
 
+
+		// this file needs to exist for linux clients, otherwise they get missing textures.
+		// send over latedl while joining
+		late_dl_files.push_back("materials/vgui/hud/linux_fix.vmt");
+
 		const char *currentMission = g_pPopulationManager != nullptr ? g_pPopulationManager->GetPopulationFilename() : nullptr;
 		if (currentMission != nullptr) {
 			auto iconsMission = late_dl_files_per_mission.find(currentMission);
@@ -771,6 +785,7 @@ namespace Mod::Util::Download_Manager
 		if (cvar_late_download_other_maps.GetBool()) {
 			late_dl_files.insert(late_dl_files.end(), late_dl_from_all_maps_files.begin(), late_dl_from_all_maps_files.end());
 		}
+
 		if (!late_dl_files.empty()) {
 			for (int i = 1; i <= gpGlobals->maxClients; i++) {
 				// Re-prioritize downloads
@@ -865,6 +880,12 @@ namespace Mod::Util::Download_Manager
 		for (auto &entry : scanner.files_add) {
 			downloadables->AddString(true, entry.name.c_str());
 		}
+
+		// this file needs to exist for linux clients, otherwise they get missing textures.
+		if (!cvar_late_download.GetBool()) {
+			downloadables->AddString(true, "materials/vgui/hud/linux_fix.vmt");
+		}
+
 		engine->LockNetworkStringTables(saved_lock);
 		timer.End();
 		Msg("GenerateDownloadables time %.9f\n", timer.GetDuration().GetSeconds());
@@ -1229,6 +1250,13 @@ namespace Mod::Util::Download_Manager
 	DETOUR_DECL_MEMBER(void, CServerGameDLL_ServerActivate, edict_t *pEdictList, int edictList, int clientMax)
 	{
 		DETOUR_MEMBER_CALL(pEdictList, edictList, clientMax);
+		auto dummyFile = std::format("{}/materials/vgui/hud/linux_fix.vmt",game_path);
+		std::filesystem::create_directories(std::filesystem::path(dummyFile).parent_path(),er);
+		auto file = fopen(dummyFile.c_str(), "w");
+		if (file) {
+			fputc('\n', file);
+			fclose(dummyFile);
+		}
 		
 		server_activated = true;
 		late_dl_files.clear();
@@ -1271,7 +1299,7 @@ namespace Mod::Util::Download_Manager
 			auto &info = download_infos[ENTINDEX(pEntity)];
 			info = LateDownloadInfo();
 			
-			std::vector<std::string> icons;
+			// std::vector<std::string> icons;
 
 			char path[512];
 			snprintf(path, 512, "%s%llu", latedl_curmission_only_path.c_str(), client->m_SteamID.ConvertToUint64());
@@ -1596,7 +1624,9 @@ namespace Mod::Util::Download_Manager
 			static uint transferId = RandomInt(0, UINT_MAX);
 			bool hasIconDownloads = false;
 			int maxclients = Min(gpGlobals->maxClients, (int)ARRAYSIZE(download_infos) - 1);
+
 			for (int i = 1; i <= maxclients; i++) {
+
 				auto &info = download_infos[i];
 
 				if (!info.active) continue;
@@ -1646,16 +1676,21 @@ namespace Mod::Util::Download_Manager
 					ClientMsg(UTIL_PlayerByIndex(i), "Started late download of %d files\n", info.filesToDownload.size() + info.filesToQuery.size() + info.filesQuerying.size());
 				}
 				RemoveIf(info.filesDownloading, [&](auto &filename){
+
 					bool waiting = netchan->IsFileInWaitingList(filename.c_str());
+
 					if (!waiting) {
+
 						int curFileIndex = info.filesQueried.size() - (info.filesDownloading.size() + info.filesToDownload.size() + info.filesToQuery.size() + info.filesQuerying.size()) + 1;
 						if (curFileIndex > 50 && !info.lateDlCurMissionOnlyInformed && !info.lateDlCurMissionOnly && UTIL_PlayerByIndex(i) != nullptr) {
 							info.lateDlCurMissionOnlyInformed = true;
 							ClientMsg(UTIL_PlayerByIndex(i), "Too many download messages? Type sig_latedl_current_mission_download_only in console\n");
 						}
-						if (curFileIndex / 100 > info.lastDownloadNum / 100 && UTIL_PlayerByIndex(i) != nullptr) {
-							ClientMsg(UTIL_PlayerByIndex(i), "(%d/%d) File downloaded: %s\n", curFileIndex, info.filesQueried.size(), filename.c_str());
+
+						if ( UTIL_PlayerByIndex(i) != nullptr && ( info.debugMode || curFileIndex / 100 > info.lastDownloadNum / 100) ) {
+							ClientMsg(UTIL_PlayerByIndex(i), "(%d/%d) File downloaded: %s (%d bytes)\n", curFileIndex, info.filesQueried.size(), filename.c_str(), late_dl_file_sizes[filename.c_str()]);
 						}
+
 						info.lastDownloadNum = curFileIndex;
 						late_dl_download_history[((CBaseClient *) sv->GetClient(i - 1))->m_SteamID.ConvertToUint64()].insert(filename);
 						
@@ -1990,6 +2025,18 @@ namespace Mod::Util::Download_Manager
 		static_cast<CNetChan *>(engine->GetPlayerNetInfo(player->entindex()))->RequestFile(args[1]);
 	}, &s_Mod);
 
+	ModCommandClient sig_latedl_debug("sig_latedl_debug", [](CCommandPlayer *player, const CCommand& args){
+
+		auto &info = download_infos[player->entindex()];
+		info.debugMode = !info.debugMode;
+		if (info.debugMode) {
+			for (auto &file : info.filesToDownload) {
+				ClientMsg(player, "%s\n", file.c_str());
+			}
+			ClientMsg(player, "Late download files: %d\n", info.filesToDownload.size());
+		}
+		ClientMsg(player, "Late download debug mode: %s\n", info.debugMode ? "enabled" : "disabled");
+	}, &s_Mod);
 	ModCommandClient sig_latedl_download("sig_latedl_download", [](CCommandPlayer *player, const CCommand& args){
 
 		StopLateFilesToDownloadForPlayer(player->entindex());

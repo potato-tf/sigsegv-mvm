@@ -835,11 +835,12 @@ namespace Mod::Etc::Detector
 		auto *server = reinterpret_cast<CBaseServer *>(this); 
 		
         int counter = ip_connect_counter[adr.GetIPHostByteOrder()]++;
+        DevMsg("IP connect counter for %s: %d\n", adr.ToString(), counter);
 
-        if (counter > 6) {
-            server->RejectConnection(adr, clientChallenge, "Too many reconnects. Please connect again in a minute");
-            return false;
-        }
+        // if (counter > 6) {
+        //     server->RejectConnection(adr, clientChallenge, "Too many reconnects. Please connect again in a minute");
+        //     return false;
+        // }
 		return DETOUR_MEMBER_CALL(adr, nProtocol, clientChallenge);
     }
 
