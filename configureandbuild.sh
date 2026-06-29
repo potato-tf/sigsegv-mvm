@@ -150,20 +150,29 @@ install_ambuild()
 
 build_udis86()
 {
-    cd "${REPO_DIR}/libs/udis86"
+    local udis="${REPO_DIR}/libs/udis86"
+    local python="${PYTHON:-python3}"
+
+    cd "$udis"
     ./autogen.sh
 
     if [ -f Makefile ]; then
         make distclean >/dev/null 2>&1 || make clean >/dev/null 2>&1 || true
     fi
+    rm -rf libudis86/.libs libudis86/.deps libudis86/*.o
 
-    ./configure --disable-shared --enable-static
-    # -B: force rebuild; WSL drvfs clock skew can leave stale .o without .a
-    make -B CFLAGS="-m32" LDFLAGS="-m32"
+    "$python" scripts/ud_itab.py docs/x86/optable.xml libudis86
+
+    ./configure --disable-shared --enable-static --with-python="$python"
+
+    log "Building udis86 (x86)"
+    make -C libudis86 CFLAGS="-m32" LDFLAGS="-m32"
     mv libudis86/.libs/libudis86.a ../libudis86.a
 
-    make clean
-    make -B CFLAGS="-fPIC"
+    log "Building udis86 (x64)"
+    make -C libudis86 clean
+    rm -rf libudis86/.libs libudis86/.deps libudis86/*.o
+    make -C libudis86 CFLAGS="-fPIC" LDFLAGS=""
     mv libudis86/.libs/libudis86.a ../libudis86x64.a
 }
 
