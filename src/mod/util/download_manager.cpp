@@ -40,12 +40,12 @@ Manual KV file format:
 		// Required key (must have at least one)
 		// Uses case-insensitive regex matching
 		// Otherwise, add one Map key per map that this block should apply to
-		
+
 		"File" "scripts/items/mvm_upgrades_sigsegv_v8.txt"
 		// Required key (must have at least one)
 		// Can have arbitrarily many
 		// Wildcard matching enabled (only for last component of filename, not for directories)
-		
+
 		"Precache" "no"
 		// Required key (can only appear once)
 		// Can specify "No" for no precache
@@ -54,7 +54,7 @@ Manual KV file format:
 		// Can specify "Decal" for PrecacheDecal
 		// Can specify "Sound" for PrecacheSound
 	}
-	
+
 	"Whatever2"
 	{
 		// ...
@@ -100,8 +100,8 @@ namespace Mod::Util::Download_Manager
 		});
 
 	ConVar cvar_download_refresh("sig_util_download_manager_download_refresh", "1", FCVAR_NOTIFY,
-		"Download Manager: Set if the downloads should be refreshed periodically", 
-		
+		"Download Manager: Set if the downloads should be refreshed periodically",
+
 		[](IConVar *pConVar, const char *pOldValue, float fOldValue) {
 			CreateNotifyDirectory();
 		});
@@ -148,7 +148,7 @@ namespace Mod::Util::Download_Manager
 
 	const char *game_path;
 	int base_path_len;
-	
+
 	struct DownloadBlock
 	{
 		DownloadBlock(                     ) = default;
@@ -156,16 +156,16 @@ namespace Mod::Util::Download_Manager
 		DownloadBlock(const DownloadBlock& ) = delete;
 		DownloadBlock(      DownloadBlock&&) = default;
 		DownloadBlock(const DownloadBlock&&) = delete;
-		
+
 		std::string name;
-		
+
 		std::vector<std::string> keys_map;
 		std::vector<std::string> keys_precache;
 		std::vector<std::string> keys_file;
-		
+
 		void (*l_precache)(const char *) = [](const char *path){ /* do nothing */ };
 	};
-	
+
 	bool case_sensitive_toggle = false;
 	CTFPlayer *GetMissionOwner()
 	{
@@ -175,7 +175,7 @@ namespace Mod::Util::Download_Manager
 
 			IGamePlayer *smplayer = playerhelpers->GetGamePlayer(player->edict());
 			AdminId id = smplayer->GetAdminId();
-			
+
 			if (id == INVALID_ADMIN_ID) return true;
 			uint count = adminsys->GetAdminGroupCount(id);
 			for (uint i = 0; i < count; i++) {
@@ -225,7 +225,7 @@ namespace Mod::Util::Download_Manager
 		return buf;
 	}
 
-	KeyValues *KeyValuesFromFile(const char *filepath, const char *resourceName) 
+	KeyValues *KeyValuesFromFile(const char *filepath, const char *resourceName)
 	{
 		KeyValues *kv = nullptr;
 		FILE *file = fopen(filepath, "r");
@@ -242,7 +242,7 @@ namespace Mod::Util::Download_Manager
 			kv->LoadFromBuffer(resourceName, buffer, filesystem);
 			delete[] buffer;
 		}
-		
+
 		return kv;
 	}
 
@@ -259,7 +259,7 @@ namespace Mod::Util::Download_Manager
 	CHandle<CTFPlayer> mission_owner;
 	std::unordered_multimap<int, std::string> missing_files;
 	std::unordered_map<std::string, int> missing_files_dirs;
-	
+
 	std::vector<std::string> late_dl_files;
 	int late_dl_files_current_mission_count = 0;
 	std::vector<std::string> late_dl_from_all_maps_files;
@@ -267,7 +267,7 @@ namespace Mod::Util::Download_Manager
 
 	std::unordered_map<std::string, std::vector<std::string>> late_dl_files_per_mission;
 	std::unordered_map<uint64_t, std::unordered_set<std::string>> late_dl_download_history;
-	
+
 	struct LateDownloadInfo
 	{
 		bool active = false;
@@ -303,9 +303,9 @@ namespace Mod::Util::Download_Manager
 	}
 
 	void StopLateFilesToDownloadForPlayer(int player) {
-		
+
 		if (player > (int)ARRAYSIZE(download_infos)) return;
-		
+
 		auto *netchan = static_cast<CNetChan *>(engine->GetPlayerNetInfo(player));
 		if (netchan == nullptr) return;
 
@@ -339,7 +339,7 @@ namespace Mod::Util::Download_Manager
 	}
 
 	void AddLateFilesToDownloadForPlayer(int player, const std::vector<std::string> &files, int curMissionFilesCount = 0) {
-		
+
 		if (player > (int)ARRAYSIZE(download_infos)) return;
 
 		auto *netchan = static_cast<CNetChan *>(engine->GetPlayerNetInfo(player));
@@ -355,7 +355,7 @@ namespace Mod::Util::Download_Manager
 			if (i++ >= curMissionFilesCount && info.lateDlCurMissionOnly) return;
 
 			if (!CNetChan::IsValidFileForTransfer(file.c_str())) continue;
-			
+
 			if (late_dl_download_history[((CBaseClient *) sv->GetClient(player - 1))->m_SteamID.ConvertToUint64()].contains(file)) continue;
 
 			auto [it, inserted] = info.filesQueried.insert(file);
@@ -396,12 +396,12 @@ namespace Mod::Util::Download_Manager
 			pathfull += "/";
 			pathfull += cvar_downloadpath.GetString();
 			pathfull += "/";
-			
+
 			std::string pathfullLowercase = pathfull;
 
 			pathfull += value;
 			pathfullLowercase += valueLowercase;
-			
+
 			bool customNormalCase = access(pathfull.c_str(), F_OK) == 0;
 			bool customLowerCase = access(pathfullLowercase.c_str(), F_OK) == 0;
 			bool custom = customNormalCase || customLowerCase;
@@ -427,7 +427,7 @@ namespace Mod::Util::Download_Manager
 			if (custom && (loadIconsForLateDl || loadOtherForLateDl)) {
 				if (filesystem->FileExists(value.c_str(), "vpks")) return;
 			}
-				
+
 			if (custom) {
 				if (StringEndsWith(value.c_str(),".vmt", false)){
 					KeyValues *kvroot = KeyValuesFromFile(customNormalCase ? pathfull.c_str() : pathfullLowercase.c_str(), value.c_str());
@@ -462,7 +462,7 @@ namespace Mod::Util::Download_Manager
 					FILE *mdlFile = fopen(customNormalCase ? pathfull.c_str() : pathfullLowercase.c_str(),"r");
 					//Msg("Model %s\n",value.c_str());
 					if (mdlFile != nullptr) {
-							
+
 						std::vector<std::string> texdirs;
 
 						fseek(mdlFile,212,SEEK_SET);
@@ -482,14 +482,14 @@ namespace Mod::Util::Download_Manager
 						int offsetdir2 = 0;
 						ReadFile(mdlFile, offsetdir2);
 						fseek(mdlFile,offsetdir2, SEEK_SET);
-						
+
 						//Msg("dircount %d\n", texdircount);
 						for (int i = 0; i < texdircount; i++) {
 							ReadFileString(mdlFile, texdir, 128);
 							texdirs.push_back(texdir);
 							//Msg("dir %s\n", texdir);
 						}
-						
+
 						fseek(mdlFile,208,SEEK_SET);
 						int offset1 = 0;
 						ReadFile(mdlFile, offset1);
@@ -526,7 +526,7 @@ namespace Mod::Util::Download_Manager
 									if (filesystem->FileExists(pathvmt)) {
 										break;
 									}
-									
+
 								}
 								if (found_texture)
 									AddFileIfCustom(pathvmt);
@@ -606,7 +606,7 @@ namespace Mod::Util::Download_Manager
 							if (*value == '#' || *value == '(') {
 								value += 1;
 							}
-							
+
 							if (StringEndsWith(value,".mp3") || StringEndsWith(value,".wav") ) {
 								AddFileIfCustom(std::format("{}{}","sound/", value));
 							}
@@ -625,7 +625,7 @@ namespace Mod::Util::Download_Manager
 		bool loadIconsForLateDl = false;
 		bool loadOtherForLateDl = false;
 	};
-	
+
 
 	std::unordered_set<std::string> popfiles_to_forced_update;
 	void ScanTemplateFileChange(const char *filename)
@@ -643,7 +643,7 @@ namespace Mod::Util::Download_Manager
 				if (StringHasPrefix(ent->d_name, map)) {
 					bool has = false;
 					snprintf(filepath, sizeof(filepath), "%s/%s", poppath, ent->d_name);
-					
+
 					FILE *file = fopen(filepath, "r");
 					if (file != nullptr) {
 						char line[128];
@@ -673,7 +673,7 @@ namespace Mod::Util::Download_Manager
 	{
 		return cvar_late_download.GetBool() && filename.find("leaderboard_class_") != std::string::npos;
 	}
-	
+
 	CustomFileScanner late_dl_all_missions_scanner;
 	DIR *late_dl_all_missions_dir = nullptr;
 	dirent *late_dl_all_missions_ent = nullptr;
@@ -743,7 +743,7 @@ namespace Mod::Util::Download_Manager
 
 		char poppath[256];
 		snprintf(poppath, sizeof(poppath), "%s/%s/scripts/population", game_path, cvar_downloadpath.GetString());
-		
+
 		if (late_dl_all_missions_dir != nullptr) {
 			closedir(late_dl_all_missions_dir);
 		}
@@ -833,7 +833,7 @@ namespace Mod::Util::Download_Manager
 					CFastTimer timer;
 					timer.Start();
 					snprintf(filepath, sizeof(filepath), "%s/%s", poppath, ent->d_name);
-					
+
 					struct stat stats;
 					stat(filepath, &stats);
 					if (stats.st_mtime < timestamp && !(!popfiles_to_forced_update.empty() && popfiles_to_forced_update.count(ent->d_name))) continue;
@@ -850,7 +850,7 @@ namespace Mod::Util::Download_Manager
 							iconScanner.printmissing = admin != nullptr && strcmp(respath, currentMission) == 0;
 							iconScanner.loadIconsForLateDl = true;
 							iconScanner.KeyValueBrowse(kv);
-							
+
 							auto &iconVec = late_dl_files_per_mission[respath];
 							iconVec.clear();
 							for (auto &entry : iconScanner.files_add) {
@@ -865,7 +865,7 @@ namespace Mod::Util::Download_Manager
 			}
 			closedir(dir);
 		}
-		
+
 		auto upgradeFile = TFGameRules()->GetCustomUpgradesFile();
 		if (upgradeFile != nullptr && upgradeFile[0] != '\0')
 			scanner.AddFileIfCustom(StringStartsWith(upgradeFile, "download/") ? upgradeFile + strlen("download/") : upgradeFile);
@@ -916,7 +916,7 @@ namespace Mod::Util::Download_Manager
 			snprintf(mapFile, sizeof(mapFile), "maps/%s", mapName);
 			bool addedToPath = false;
 			if ((dir = opendir(poppath)) != nullptr) {
-				
+
 				while ((ent = readdir(dir)) != nullptr) {
 					if (StringHasPrefix(ent->d_name, mapNameNoExt.c_str()) && StringEndsWith(ent->d_name, ".pop")) {
 						if (!addedToPath) {
@@ -978,7 +978,7 @@ namespace Mod::Util::Download_Manager
 		kvmap->SetString("popfile", mapNameStr.c_str());
 	}
 
-	void ResetVoteMapList() 
+	void ResetVoteMapList()
 	{
 		if (strlen(cvar_resource_file.GetString()) == 0 || strlen(cvar_mapcycle_file.GetString()) == 0) {
 			return;
@@ -1032,7 +1032,7 @@ namespace Mod::Util::Download_Manager
 			kvBannedMissions->deleteThis();
 			kvBannedMissions = nullptr;
 		}
-		
+
 		kvcat->SetInt("count", files);
 		kv->SaveToFile(filesystem, cvar_resource_file.GetString());
 		kv->deleteThis();
@@ -1055,7 +1055,7 @@ namespace Mod::Util::Download_Manager
 		timer2.Start();
 
 		std::string poplistStr;
-		CUtlVector<CUtlString> vec;	
+		CUtlVector<CUtlString> vec;
 		CPopulationManager::FindDefaultPopulationFileShortNames(vec);
 		FOR_EACH_VEC(vec, i)
 		{
@@ -1105,29 +1105,29 @@ namespace Mod::Util::Download_Manager
 	void LoadDownloadsFile()
 	{
 	//	if (!g_pSM->IsMapRunning()) return;
-		
+
 		INetworkStringTable *downloadables = networkstringtable->FindTable("downloadables");
 		if (downloadables == nullptr) {
 			Warning("LoadDownloadsFile: String table \"downloadables\" apparently doesn't exist!\n");
 			return;
 		}
-		
+
 		auto kv = new KeyValues("Downloads");
 		kv->UsesEscapeSequences(true);
-		
+
 		if (kv->LoadFromFile(filesystem, cvar_kvpath.GetString())) {
 			std::vector<DownloadBlock> blocks;
-			
+
 			FOR_EACH_SUBKEY(kv, kv_block) {
 				DownloadBlock block;
 				bool errors = false;
-				
+
 				block.name = kv_block->GetName();
-				
+
 				FOR_EACH_SUBKEY(kv_block, kv_key) {
 					const char *name  = kv_key->GetName();
 					const char *value = kv_key->GetString();
-					
+
 					if (FStrEq(name, "Map")) {
 						block.keys_map.emplace_back(value);
 					} else if (FStrEq(name, "File")) {
@@ -1139,22 +1139,22 @@ namespace Mod::Util::Download_Manager
 						errors = true;
 					}
 				}
-				
+
 				if (block.keys_map.empty()) {
 					Warning("LoadDownloadsFile: Block \"%s\": Must have at least one Map key\n", block.name.c_str());
 					errors = true;
 				}
-				
+
 				if (block.keys_file.empty()) {
 					Warning("LoadDownloadsFile: Block \"%s\": Must have at least one File key\n", block.name.c_str());
 					errors = true;
 				}
-				
+
 				if (block.keys_precache.size() != 1) {
 					Warning("LoadDownloadsFile: Block \"%s\": Must have exactly one Precache key\n", block.name.c_str());
 					errors = true;
 				}
-				
+
 				if (FStrEq(block.keys_precache[0].c_str(), "Generic")) {
 					block.l_precache = [](const char *path){ engine->PrecacheGeneric(path, true); };
 				} else if (FStrEq(block.keys_precache[0].c_str(), "Model")) {
@@ -1166,29 +1166,29 @@ namespace Mod::Util::Download_Manager
 				} else if (!FStrEq(block.keys_precache[0].c_str(), "No")) {
 					Warning("LoadDownloadsFile: Block \"%s\": Invalid Precache value \"%s\"\n", block.name.c_str(), block.keys_precache[0].c_str());
 				}
-				
+
 				if (!errors) {
 					blocks.push_back(std::move(block));
 				} else {
 					Warning("LoadDownloadsFile: Not applying block \"%s\" due to errors\n", block.name.c_str());
 				}
 			}
-			
+
 		//	std::vector<std::string> map_names;
 		//	ForEachMapName([&](const char *map_name){
 		//		map_names.emplace_back(map_name);
 		//	});
-			
+
 			for (const auto& block : blocks) {
 			//	DevMsg("LoadDownloadsFile: Block \"%s\"\n", block.name.c_str());
-				
+
 				/* check each Map regex pattern against the current map and see if any is applicable */
 				bool match = false;
 				for (const auto& map_re : block.keys_map) {
-					
+
 					try {
 						std::regex re(map_re, std::regex::ECMAScript | std::regex::icase);
-						
+
 						if (std::regex_match(STRING(gpGlobals->mapname), re, std::regex_constants::match_any)) {
 						//	DevMsg("LoadDownloadsFile:   Map \"%s\" vs \"%s\": MATCH\n", map_re.c_str(), STRING(gpGlobals->mapname));
 							match = true;
@@ -1202,11 +1202,11 @@ namespace Mod::Util::Download_Manager
 					}
 				}
 				if (!match) continue;
-				
+
 				/* for each File wildcard pattern, find all matching files and add+precache them */
 				for (const auto& file_wild : block.keys_file) {
 				//	DevMsg("LoadDownloadsFile:   File \"%s\":\n", file_wild.c_str());
-					
+
 					// TODO: maybe use an explicit PathID, rather than nullptr...?
 					FileFindHandle_t handle;
 					for (const char *file = filesystem->FindFirstEx(file_wild.c_str(), nullptr, &handle);
@@ -1215,23 +1215,23 @@ namespace Mod::Util::Download_Manager
 						V_ExtractFilePath(file_wild.c_str(), path, sizeof(path));
 						V_AppendSlash(path, sizeof(path));
 						V_strcat_safe(path, file);
-						
+
 						if (filesystem->FindIsDirectory(handle)) {
 						//	DevMsg("LoadDownloadsFile:     Skip Directory \"%s\"\n", path);
 							continue;
 						}
-						
+
 						const char *ext = V_GetFileExtension(path);
 						if (ext != nullptr && FStrEq(ext, "bz2")) {
 						//	DevMsg("LoadDownloadsFile:     Skip Bzip2 \"%s\"\n", path);
 							continue;
 						}
-						
+
 					//	DevMsg("LoadDownloadsFile:     Match \"%s\"\n", path);
-						
+
 					//	DevMsg("LoadDownloadsFile:       Precache\n");
 						block.l_precache(path);
-						
+
 					//	DevMsg("LoadDownloadsFile:       StringTable\n");
 						bool saved_lock = engine->LockNetworkStringTables(false);
 						downloadables->AddString(true, path);
@@ -1243,10 +1243,10 @@ namespace Mod::Util::Download_Manager
 		} else {
 			Warning("LoadDownloadsFile: Could not load KeyValues from \"%s\".\n", cvar_kvpath.GetString());
 		}
-		
+
 		kv->deleteThis();
 	}
-	
+
 	DETOUR_DECL_MEMBER(void, CServerGameDLL_ServerActivate, edict_t *pEdictList, int edictList, int clientMax)
 	{
 		DETOUR_MEMBER_CALL(pEdictList, edictList, clientMax);
@@ -1256,9 +1256,9 @@ namespace Mod::Util::Download_Manager
 		auto file = fopen(dummyFile.c_str(), "w");
 		if (file) {
 			fputc('\n', file);
-			fclose(dummyFile);
+			fclose(file);
 		}
-		
+
 		server_activated = true;
 		late_dl_files.clear();
 		late_dl_files_current_mission_count = 0;
@@ -1291,7 +1291,7 @@ namespace Mod::Util::Download_Manager
 	std::string latedl_curmission_only_path;
 
 	StaticFuncThunk<int, IClient *, const char *, bool> ft_SendCvarValueQueryToClient("SendCvarValueQueryToClient");
-	
+
 	DETOUR_DECL_MEMBER(bool, CTFGameRules_ClientConnected, edict_t *pEntity, const char *pszName, const char *pszAddress, char *reject, int maxrejectlen)
 	{
 		auto gamerules = reinterpret_cast<CTFGameRules *>(this);
@@ -1299,7 +1299,7 @@ namespace Mod::Util::Download_Manager
 		if (!client->IsFakeClient()) {
 			auto &info = download_infos[ENTINDEX(pEntity)];
 			info = LateDownloadInfo();
-			
+
 			// std::vector<std::string> icons;
 
 			char path[512];
@@ -1353,7 +1353,7 @@ namespace Mod::Util::Download_Manager
 	DETOUR_DECL_MEMBER(void, CGameClient_FileDenied, const char *fileName, unsigned int transferID)
 	{
 		auto client = static_cast<CGameClient *>(reinterpret_cast<IClient *>(this));
-		
+
 		auto &info = download_infos[client->GetPlayerSlot()+1];
 		auto afterPrefix = StringAfterPrefix(fileName, "latedlcookie/");
 		if (afterPrefix == nullptr && info.filesQueried.contains(fileName)) {
@@ -1395,7 +1395,7 @@ namespace Mod::Util::Download_Manager
 			info.lateDlEnabled = false;
 			info.active = false;
 		}
-		
+
     }
 
 	DETOUR_DECL_MEMBER(void, CTFGameRules_OnPlayerSpawned, CTFPlayer *player)
@@ -1403,7 +1403,7 @@ namespace Mod::Util::Download_Manager
 		DETOUR_MEMBER_CALL(player);
 		if (player->IsRealPlayer()) {
 			auto &info = download_infos[player->entindex()];
-			
+
 			if (!info.lateDlEnabled && !info.lateDlUploadInfoSend) {
 				auto text = TranslateText(player, "Late DL sv_allowupload notify");
 				PrintToChat(CFmtStr("%s\n",text), player);
@@ -1426,7 +1426,7 @@ namespace Mod::Util::Download_Manager
 
 	int inotify_fd = -1;
 	int inotify_wd = -1;
-	
+
 	#define EVENT_SIZE  ( sizeof (struct inotify_event) )
 	#define BUF_LEN     ( 1024 * ( EVENT_SIZE + 16 ) )
 
@@ -1444,14 +1444,14 @@ namespace Mod::Util::Download_Manager
 		if (!cvar_download_refresh.GetBool()) return;
 
 		inotify_fd = inotify_init1(IN_NONBLOCK);
-		
+
 		char poppath[256];
 		snprintf(poppath, sizeof(poppath), "%s/%s/scripts/population", game_path, cvar_downloadpath.GetString());
 
 		inotify_wd = inotify_add_watch(inotify_fd, poppath, IN_MODIFY | IN_CREATE | IN_DELETE | IN_MOVED_TO);
-		
+
 	}
-	
+
 	void WatchMissingFile(std::string &path)
 	{
 		if (inotify_fd >= 0) {
@@ -1590,10 +1590,10 @@ namespace Mod::Util::Download_Manager
 		}
 
 		virtual bool ShouldReceiveCallbacks() const override { return this->IsEnabled(); }
-		
+
 		DIR *ContinueReadingDir(DIR *dir, time_t &updateTime)
 		{
-			TIME_SCOPE2(CheckNewFilesContinueReading);	
+			TIME_SCOPE2(CheckNewFilesContinueReading);
 			dirent *ent;
 			int i = 0;
 			const char *map = STRING(gpGlobals->mapname);
@@ -1601,7 +1601,7 @@ namespace Mod::Util::Download_Manager
 			char filepath[512];
 			snprintf(poppath, sizeof(poppath), "%s/%s/scripts/population", game_path, cvar_downloadpath.GetString());
 			while ((ent = readdir(dir)) != nullptr) {
-				
+
 				if (StringEndsWith(ent->d_name, ".pop") && (StringHasPrefix(ent->d_name, map) || !StringStartsWith(ent->d_name, "mvm_"))) {
 					snprintf(filepath, sizeof(filepath), "%s/%s", poppath,ent->d_name);
 					struct stat stats;
@@ -1618,7 +1618,7 @@ namespace Mod::Util::Download_Manager
 			closedir(dir);
 			return nullptr;
 		}
-		
+
 		bool LateDownloadUpdate() {
 			if (!cvar_late_download.GetBool()) return false;
 
@@ -1659,9 +1659,9 @@ namespace Mod::Util::Download_Manager
 				bool notDownloading = info.filesQuerying.empty() && info.filesDownloading.empty() && info.filesToDownload.empty();
 				if (!info.filesToQuery.empty() && info.filesQuerying.size() < (client->IsActive() ? 4 : 16)) {
 					auto &filename = info.filesToQuery.front();
-					
+
 					netchan->RequestFile(ShouldSendCookieForLateDl(filename.c_str()) ? std::format("latedlcookie/{}", filename).c_str() : filename.c_str());
-					
+
 					info.filesQuerying.insert(filename);
 					info.filesToQuery.pop_front();
 				}
@@ -1694,7 +1694,7 @@ namespace Mod::Util::Download_Manager
 
 						info.lastDownloadNum = curFileIndex;
 						late_dl_download_history[((CBaseClient *) sv->GetClient(i - 1))->m_SteamID.ConvertToUint64()].insert(filename);
-						
+
 						if (filename.starts_with("materials/hud/leaderboard_class_")) {
 							auto find = info.iconsDownloading.find(filename.substr(strlen("materials/hud/leaderboard_class_"), filename.size() - 4 - strlen("materials/hud/leaderboard_class_")));
 							if (find != info.iconsDownloading.end()) {
@@ -1772,7 +1772,7 @@ namespace Mod::Util::Download_Manager
 		virtual void LevelInitPostEntity() override
 		{
 		}
-		
+
 		virtual void LevelShutdownPreEntity() override
 		{
 			vote_pass_listener.isVoteForNewMap = false;
@@ -1796,15 +1796,15 @@ namespace Mod::Util::Download_Manager
 			int ticknum = gpGlobals->tickcount % 256;
 
 			if (ticknum == 42) {
-				//TIME_SCOPE2(CheckNewFiles);	
+				//TIME_SCOPE2(CheckNewFiles);
 				if (!cvar_download_refresh.GetBool()) return;
-				
+
 				const char *map = STRING(gpGlobals->mapname);
 				bool updated = false;
 				if (inotify_fd >= 0) {
 					char buffer[BUF_LEN];
 					ssize_t length, i = 0;
-					length = read( inotify_fd, buffer, BUF_LEN );  
+					length = read( inotify_fd, buffer, BUF_LEN );
 					while (length != -1 && i < length) {
 						struct inotify_event *event = (struct inotify_event *) &buffer[i];
 						if (event != nullptr && event->len) {
@@ -1839,7 +1839,7 @@ namespace Mod::Util::Download_Manager
 											downloadables->AddString(true, realFileName.c_str());
 											engine->LockNetworkStringTables(saved_lock);
 										}
-										
+
 										if (mission_owner != nullptr) {
 											PrintToChat(CFmtStr("File no longer missing: %s\n", realFileName.c_str()), mission_owner);
 										}
@@ -1871,7 +1871,7 @@ namespace Mod::Util::Download_Manager
 					propOverrideIds[i] = mod->AddOverride(CallbackMvMCounts, (i < 12 ? mvm_count_prop_index : mvm_count_prop_index2) + i % 12, (i < 12 ? mvm_count_table : mvm_count_table2)->GetProp(i % 12), i);
 				}
 			}
-			else if (resource != nullptr && resourceOverrideAdded && !hasIconDownloads) { 
+			else if (resource != nullptr && resourceOverrideAdded && !hasIconDownloads) {
 				resourceOverrideAdded = false;
 				auto mod = TFObjectiveResource()->GetOrCreateEntityModule<Mod::Etc::SendProp_Override::SendpropOverrideModule>("sendpropoverride");
 				for (int i = 0; i < 24; i++) {
@@ -1896,12 +1896,12 @@ namespace Mod::Util::Download_Manager
 		VotePassListener vote_pass_listener;
 	};
 	CMod s_Mod;
-	
-	
+
+
 	// TODO: 'download/' prefix fixup for custom MvM upgrade files!
 	// TODO: AUTOMATIC download entry generation by scanning directories!
-	
-	
+
+
 	static void ReloadConfigIfModEnabled()
 	{
 		if (s_Mod.IsEnabled()) {
@@ -1946,14 +1946,14 @@ namespace Mod::Util::Download_Manager
 			}
 		}
 		filesystem->FindClose(mapHandle);
-		
-		
+
+
 		for (auto &value : missing_files_all) {
 			Msg("Missing file: %s\n", value.c_str());
 		}
 	}
-			
-	
+
+
 	// is FCVAR_NOTIFY even a valid thing for commands...?
 	CON_COMMAND_F(sig_util_download_manager_reload, "Utility: reload the configuration file", FCVAR_NOTIFY)
 	{
@@ -1970,7 +1970,7 @@ namespace Mod::Util::Download_Manager
 	ConVar cvar_custom_search_path("sig_util_download_manager_custom_search_path_tail", "", FCVAR_NOTIFY,
 		"Utility: optional additional search path",
 		[](IConVar *pConVar, const char *pOldValue, float fOldValue) {
-			
+
 			if (pOldValue != nullptr && pOldValue[0] != '\0') {
 				std::string oldFullPath = std::format("{}/{}", game_path, pOldValue);
 				filesystem->RemoveSearchPath(oldFullPath.c_str(), "game");
@@ -1983,7 +1983,7 @@ namespace Mod::Util::Download_Manager
 				AddPathToTail(cvar_custom_search_path.GetString(), "mod");
 				AddPathToTail(cvar_custom_search_path.GetString(), "custom");
 			}
-			
+
 		});
 
 	// is FCVAR_NOTIFY even a valid thing for commands...?
@@ -2012,7 +2012,7 @@ namespace Mod::Util::Download_Manager
 
 	ModCommandAdmin sig_latedl_test("sig_latedl_test", [](CCommandPlayer *player, const CCommand& args){
 		std::vector<std::string> files;
-		
+
 		FileFindHandle_t mapHandle;
 		for (const char *mapName = filesystem->FindFirstEx("materials/hud/leaderboard_class_*", "GAME", &mapHandle);
 							mapName != nullptr; mapName = filesystem->FindNext(mapHandle)) {
@@ -2043,7 +2043,7 @@ namespace Mod::Util::Download_Manager
 		StopLateFilesToDownloadForPlayer(player->entindex());
 		AddLateFilesToDownloadForPlayer(player->entindex(), late_dl_files, late_dl_files_current_mission_count);
 	}, &s_Mod);
-	
+
 	ModCommandClient sig_latedl_current_mission_download_only("sig_latedl_current_mission_download_only", [](CCommandPlayer *player, const CCommand& args){
 		auto &info = download_infos[player->entindex()];
 		info.lateDlCurMissionOnlyInformed = true;
@@ -2082,8 +2082,8 @@ namespace Mod::Util::Download_Manager
 		[](IConVar *pConVar, const char *pOldValue, float fOldValue) {
 			ReloadConfigIfModEnabled();
 		});
-	
-	
+
+
 	ConVar cvar_enable("sig_util_download_manager", "0", FCVAR_NOTIFY,
 		"Utility: add custom downloads from popfiles to the downloadables string table in a smart way, generates map list for mvm map votes. Recommended to set sig_perf_filesystem_optimize 1",
 		[](IConVar *pConVar, const char *pOldValue, float flOldValue){
