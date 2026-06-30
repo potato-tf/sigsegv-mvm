@@ -20,7 +20,7 @@ WaveSchedule
 	GrapplingHook 1 [$SIGSEGV] //Enables grappling hook for a mission
 	//MedievalMode 1 [$SIGSEGV] //Players can only use melee weapons. Bots are not weapon restricted
 	BunnyHop 1 [$SIGSEGV] // Allow bunnyhopping. 1 enables auto bhop. 2 disables auto bhop (default: 0)
-	AllowMultipleSappers 1 [$SIGSEGV] // Allow spies to place multiple active sappers (default: 0) 
+	AllowMultipleSappers 1 [$SIGSEGV] // Allow spies to place multiple active sappers (default: 0)
 	NoJoinMidwave 1 [$SIGSEGV] // If set to 1, players that joined the server midwave cannot spawn, unless they buyback (default: 0)
 	BurnTimeFasterBurn 1 [$SIGSEGV] //For players, burn time bonus increases afterburn damage frequency instead of duration (default: 1)
 	AllowBombBuffsForPlayerCarriers 1 [$SIGSEGV] // Allow bomb buffs for player bomb carriers (default: 0)
@@ -57,7 +57,7 @@ WaveSchedule
 	AllowBotExtraSlots 1 [$SIGSEGV] // If set to value:
 		// 0 - Default
 		// 1 - On servers with -unrestricted_maxplayers, sets player limit to maximum if not set already (this is 94 after excluding defenders)
-		// 2 - On servers with sig_etc_extra_player_slots 1, sets player limit up to 248 after exluding defenders. Bots on extra slots may experience visual glitches. Bots will prefer normal slots by default unless the TFBot has the PreferExtraSlots 1 key. Recommended to set AutoWeaponStrip RemoveBotExpressions
+		// 2 - Sets player limit up to 248 after excluding defenders. Bots on extra slots may experience visual glitches. Bots will prefer normal slots by default unless the TFBot has the PreferExtraSlots 1 key. Recommended to set AutoWeaponStrip RemoveBotExpressions
 	ExtraBotSlotsNoDeathcam 1 [$SIGSEGV] // With AllowBotExtraSlots 2, If bots in extra slots kill a player, the bot name in deathcam with display as ERRORNAME. If you don't like that you can turn deathcam off (default: 1)
 	ExtraBotSlotsReservedNormalSlotCount 8 [$SIGSEGV] // With AllowBotExtraSlots 2, If the Robot and human limit combined is above 100, reserve this many normal slots for giants and preferred bots. You can add PreferNormalSlots 1 to TFBot to make the robot use the reserved slot (default: 8)
 	RobotLimit 18 [$SIGSEGV] //Sets a robot limit. You can increase or decrease it, but increasing it will reduce max spectator and player count (you need to set MaxSpectators below 5). Without AllowBotExtraSlots, 94 (on -unrestricted_maxplayers servers, 26 otherwise) is maximum value to keep 6 players active (default: 22)
@@ -82,9 +82,9 @@ WaveSchedule
 	SentryHintBombForwardRange 0 [$SIGSEGV] // How far in front of the bomb the engineer can teleport in (default: 0)
 	SentryHintBombBackwardRange 3000 [$SIGSEGV] // How far behind the bomb the engineer can teleport in (default: 3000)
 	SentryHintMinDistanceFromBomb 1300 [$SIGSEGV] // How far the engineer spot must be behind the bomb (default: 1300)
-	DefaultMiniBossScale 1.6 [$SIGSEGV] // Default Giant Bot scale (default: 1.75) 
+	DefaultMiniBossScale 1.6 [$SIGSEGV] // Default Giant Bot scale (default: 1.75)
 	// CustomNavFile "mvm_bigrock_somecustomnav" [$SIGSEGV] // Custom nav file name
-	AllowBotsSapPlayers 1 [$SIGSEGV] // Allow bots to sap players (default: 0) 
+	AllowBotsSapPlayers 1 [$SIGSEGV] // Allow bots to sap players (default: 0)
 
 
 	//////////////////////////
@@ -104,7 +104,7 @@ WaveSchedule
 	//////////////////////////
 	// BLU Players Options //
 	//////////////////////////
-	// BLU players also are affected by BLU robot options 
+	// BLU players also are affected by BLU robot options
 	AllowJoinTeamBlue 1 [$SIGSEGV] //If it is possible to join team blue (with 'jointeam blue' client command unless forced)
 	AllowJoinTeamBlueMax 4 [$SIGSEGV] //How many players can join the blue team
 	HumansMustJoinTeam blue [$SIGSEGV] //Set to blue to force players join the blu team
@@ -200,7 +200,7 @@ WaveSchedule
 	//////////////////////////
 	FastEntityNameLookup 1 [$SIGSEGV] // Decreases entity lookup time 2-4 times. Set to 0 if you are reading m_iName or m_iClassname from datamaps directly and expecting uppercase letters (with $getdata or $setdata input for example) (default: 1)
 	FastWholeMapTriggers 1 [$SIGSEGV] // Optimize big triggers (larger than 5000 units in all directions) spawned by point templates, by automatically assuming all entities hit the trigger. Might cause issues, but in that case you should use an alternative method anyway (default: 1)
-	// FastWholeMapBuildInTriggersMinRadius 4500 [$SIGSEGV] // Same as FastWholeMapTriggers, except it applies to all triggers including map made. The trigger volume must be larger than a cube with specified size to be considered "whole map" trigger. It might improve performance of some map gimmics but usually does barely anyting (default: 0) 
+	// FastWholeMapBuildInTriggersMinRadius 4500 [$SIGSEGV] // Same as FastWholeMapTriggers, except it applies to all triggers including map made. The trigger volume must be larger than a cube with specified size to be considered "whole map" trigger. It might improve performance of some map gimmics but usually does barely anyting (default: 0)
 	AutoWeaponStrip 1 [$SIGSEGV] // Automatically strip stock weapons without attributes in slots that are not used (default: 0)
 	RemoveUnusedOffhandViewmodel 1 [$SIGSEGV] // Remove unused offhand viewmodel on other class than Spy (default: 1)
 	RemoveBotExpressions 1 [$SIGSEGV] // Remove expressions for bots (like yelling when firing minigun). Reduces entity count by 1 per bot (default: 0)
@@ -225,7 +225,7 @@ WaveSchedule
 
 	// Define custom soundscripts
 	// Overrides persist until next map load, use OverrideSounds instead
-	CustomScriptSounds [$SIGSEGV] 
+	CustomScriptSounds [$SIGSEGV]
 	{
 		"Dropship" // Example
 		{
@@ -240,12 +240,12 @@ WaveSchedule
 	// Load a file that adds or overrides existing (server side sounds only) soundscripts.
 	// Overrides persist until next map load, use OverrideSounds instead
 	// If you made any changes to the file, you need to reload the map for it to take effect
-	CustomScriptSoundFile "scripts/sigsegv_sound_overrides.txt" [$SIGSEGV] 
+	CustomScriptSoundFile "scripts/sigsegv_sound_overrides.txt" [$SIGSEGV]
 
 	///////////////////////
 	// Multiline options //
 	///////////////////////
-	
+
 	//////////////
 	// Sounds   //
 	//////////////
@@ -289,11 +289,11 @@ WaveSchedule
 	}
 	ItemAttributes [$SIGSEGV] //Adds attributes to specified item given to players
 	{
-		Classname "tf_weapon_grenadelauncher" // you can specify classname instead of itemname  
+		Classname "tf_weapon_grenadelauncher" // you can specify classname instead of itemname
 		"attach particle effect" 13 //burning flames
 		"fire rate bonus" 0.5
 	}
-	
+
 	CustomWeapon [$SIGSEGV] //Allows you to use an alias for items with custom attributes
 	{
 		"My Custom Item" // The name you would use in Item key in TFBot
@@ -312,7 +312,7 @@ WaveSchedule
 			"custom texture hi" "8.23836940293570411e-31n"
 		}
 	}
-	
+
 	ForceItem "The Breakneck Baggies" [$SIGSEGV] // Force an item to all applicable classes
 	ForceItem "Particulate Protector" [$SIGSEGV] // Force an item to all applicable classes
 	ForceItem [$SIGSEGV] // Force items to classes even if the item is not intended for the class
@@ -332,7 +332,7 @@ WaveSchedule
 			Item "Mad Milk"
 		}
 	}
-	
+
 	ForceItemNoRemove "The Chargin' Targe" [$SIGSEGV] // Force an item to all applicable classes, but does not remove old items in the slot.
 
 	ItemReplacement [$SIGSEGV] // Replace Items
@@ -357,7 +357,7 @@ WaveSchedule
 			Secondary "The Reserve Shooter" // Item slot and name
 			Primary // Extended syntax, Item slot to use
 			{
-				Item  "My Custom Item" // Item name, custom weapon names are available 
+				Item  "My Custom Item" // Item name, custom weapon names are available
 				Cost 100 // The cost of the weapon (default: 0)
 				AllowedMinWave 1 //The wave at which the weapon is enabled (default: 1)
 				AllowedMaxWave 55 //The max wave at which the weapon is enabled (default: infinite)
@@ -375,7 +375,7 @@ WaveSchedule
 			// Action (canteen)
 			// Misc2
 		}
-		
+
 		Head "The Cat's Pajamas" // All class item
 	}
 
@@ -394,7 +394,7 @@ WaveSchedule
 		Spy "models/weapons/c_models/c_sniper_arms.mdl"
 		Sniper "models/weapons/c_models/c_medic_arms.mdl"
 	}
-	
+
 	PlayerAttributes [$SIGSEGV] //Player attributes appied for the whole mission
 	{
 		"move speed bonus" 2
@@ -409,7 +409,7 @@ WaveSchedule
 	PlayerAddCond [$SIGSEGV] //Player conditions applied for the whole mission
 	{
 		//Index 57 //Ubercharge
-		
+
 	}
 
 
@@ -427,9 +427,9 @@ WaveSchedule
         Name "spawnalt"
 		// StartDisabled 1 // If the spawn point starts disabled (Default: 0)
         TeamNum 3 // 2 - Red team 3 - Robots. If you are adding spawn for reprogrammed robots, use team 3
-        X	"323"                     
-        Y	"-2505"                  
-        Z	"628"        
+        X	"323"
+        Y	"-2505"
+        Z	"628"
     }
 
 	ExtraTankPath [$SIGSEGV] //Adds tank path to follow
@@ -449,7 +449,7 @@ WaveSchedule
 		"Fireball" 3
 		"Ball O' Bats" 2
 		"Healing Aura" 3
-		"Pumpkin MIRV" 1 
+		"Pumpkin MIRV" 1
 		"Superjump" 4
 		"Invisibility" 2
 		"Teleport" 4
@@ -495,10 +495,10 @@ WaveSchedule
 		MaxLevel 0 // Maximum allowed level
 		IfUpgradePresent // Other upgrades that should not be present
 		{
-			"clip size upgrade atomic" 1 // "clip size upgrade atomic" at level 1 or more blocks this upgrade 
+			"clip size upgrade atomic" 1 // "clip size upgrade atomic" at level 1 or more blocks this upgrade
 		}
 	}
-	
+
 	// Enables extended upgrades displayed on the left of upgrade gui as SourceMod menu. This allows for more than 8 upgrades per weapon, with custom weapon rules
 	ExtendedUpgrades [$SIGSEGV]
 	{
@@ -520,7 +520,7 @@ WaveSchedule
 			Increment 25 // Attribute increment value per level
 			Cost 200 // Cost of the upgrade per level
 			PlayerUpgrade 1 // Is the upgrade a player upgrade
-			AllowPlayerClass Scout // Allow only specied classes if set 
+			AllowPlayerClass Scout // Allow only specied classes if set
 			AllowPlayerClass Heavyweapons
 			AllowPlayerClass Demoman
 			// RequiredWeapons // The player must have these items equipped for the upgrade to work
@@ -528,7 +528,7 @@ WaveSchedule
 			//	ItemName "The Wrangler"
 			//}
 			// RequiredWeaponsString "You need wrangler equipped" // The requirement text displayed if the player does not have the required items equipped
-			
+
 			// ForceUpgradeSlot 1 // When upgraded, upgrade weapon on this slot instead of the selected weapon. Use -1 to upgrade the player instead
 			// UIGroup 2 // UIGroup 2 - Canteens
 			// Tier 1 // Marks the upgrade as tieried. Tiered upgrades on the same level share special exclusivity rules, and one can only be bought if an upgrade of previous tier is bought beforehand
@@ -552,14 +552,14 @@ WaveSchedule
 				ItemName "The Short Circuit"
 			}
 			AllowedMinWave 3 //The wave at which the upgrade is enabled
-			
+
 			SecondaryAttributes //Secondary attributes applied when upgrade is applied, for each upgrade level
 			{
 				"fire rate bonus" -0.1
 			}
 			ShowRequirements 1 // If the upgrade should be visible in menu when it could not be applied (default: 1)
 			// Hidden 1 // If the upgrade should not be visible in the menu (default: 0)
-			Children bisonfield // Apply specified upgrade when this upgrade is applied 
+			Children bisonfield // Apply specified upgrade when this upgrade is applied
 			Children damagemastery
 
 			OnUpgrade // On upgrade output. Format: target,action,parameter,delay. If parameter is empty, the upgrade level is passed instead as parameter
@@ -571,12 +571,12 @@ WaveSchedule
 			{
 				Output "!activator,$displaytextchat,onapply,0"
 			}
-			OnDowngrade // Output fired when the upgrade is being downgraded (undo upgrades or refund button). Format: target,action,parameter,delay. 
+			OnDowngrade // Output fired when the upgrade is being downgraded (undo upgrades or refund button). Format: target,action,parameter,delay.
 			//If parameter is empty, the upgrade level is passed instead as parameter
 			{
 				Output "!activator,$displaytextchat,ondowngrade,0"
 			}
-			OnRestore // Output fired when the upgrade is being restored after a failed wave. Format: target,action,parameter,delay. 
+			OnRestore // Output fired when the upgrade is being restored after a failed wave. Format: target,action,parameter,delay.
 			//If parameter is empty, the upgrade level is passed instead as parameter, it can be 0 if no upgrades are restored
 			{
 				Output "!activator,$displaytextchat,onrestore,0"
@@ -629,13 +629,13 @@ WaveSchedule
 			{
 				Upgrade fireratemastery // Name of the upgrade, as specified in the outer block
 				Level 1 // Minimum level after which the upgrade becomes disabled (Default: 1)
-			} 
+			}
 
 			AllowedWeapons //Restricts upgrade to specified weapons
 			{
 				DealsDamage 1
 			}
-			
+
 			SecondaryAttributes //Secondary attributes applied when upgrade is applied, for each upgrade level
 			{
 				"fire rate penalty" 1
@@ -654,12 +654,12 @@ WaveSchedule
 			{
 				Upgrade damagemastery
 				Level 1
-			} 
+			}
 			AllowedWeapons //Restricts upgrade to specified weapons
 			{
 				DealsDamage 1
 			}
-			
+
 			SecondaryAttributes //Secondary attributes applied when upgrade is applied, for each upgrade level
 			{
 				"reload time decreased" -0.5
@@ -694,7 +694,7 @@ WaveSchedule
 	//
 	//Its also possible to copy the entity keyvalues from Hammer vmf file
 	//Alert, the used models / sounds in entities will not be downloaded unless PrecacheSound / PrecacheModel is included in waveschelude
-	PointTemplates  [$SIGSEGV] 
+	PointTemplates  [$SIGSEGV]
 	{
 		Blockade //Template name
 		{
@@ -705,7 +705,7 @@ WaveSchedule
 				"solid" "6" //Physics collision model (0- No collision, 1 - BSP, 2 - Bounding box, 3 - Oriented bounding box, 6 - VPhysics)=
 				"solid" "$Solid$" // Use Solid template parameter provided by SpawnTemplate
 			}
-			
+
 		}
 		Special //Template name
 		{
@@ -884,8 +884,8 @@ WaveSchedule
 				Action "setbuilder"
 				Delay 0.00
 			}
-			
-			obj_teleporter 
+
+			obj_teleporter
 			{
 				//"model" "models/buildables/teleporter_light.mdl"
 				"targetname" "tp"
@@ -978,7 +978,7 @@ WaveSchedule
 			}
 		}
 	}
-	
+
 	SpawnTemplate [$SIGSEGV] //Spawn template once the mission loads
 	{
 		Name "Blockade"
@@ -990,7 +990,7 @@ WaveSchedule
 		}
 	}
 
-	SpawnTemplate "RandomColors" [$SIGSEGV] 
+	SpawnTemplate "RandomColors" [$SIGSEGV]
 
 	SpawnTemplate [$SIGSEGV] //Spawn template once the mission loads
 	{
@@ -1128,7 +1128,7 @@ WaveSchedule
 				IfHealthBelow 800 //When set, the task activates only when the bot health is below specified value
 				Name "Attr1" // Name of the bot attributes listed in EventChangeAttributes
 			}
-			ChangeAttributes [$SIGSEGV]  
+			ChangeAttributes [$SIGSEGV]
 			{
 				Delay 6
 				Cooldown 10
@@ -1143,7 +1143,7 @@ WaveSchedule
 		}
 		ScoutTemplate2
 		{
-			
+
 			Skill Hard
 			CharacterAttributes
 			{
@@ -1192,8 +1192,8 @@ WaveSchedule
 						"move speed bonus" 0.5
 						"head scale" 0.5
 					}
-					ExtAttr TargetStickies [$SIGSEGV] //The bot will target stickies. 
-					
+					ExtAttr TargetStickies [$SIGSEGV] //The bot will target stickies.
+
 				}
 			}
 			Skin 4 [$SIGSEGV] // Force the bot to use specified model skin
@@ -1227,8 +1227,8 @@ WaveSchedule
 		BeginAtWave 1
 		RunForThisManyWaves 9
 
-		CooldownTime 40            
-        
+		CooldownTime 40
+
         SuppressSentryBusterModel 1 [$SIGSEGV] // Disable sentry buster model
 		TargetBluSentries 1 [$SIGSEGV] // Target blu sentries instead of red ones. This is for reprogrammed busters
 
@@ -1240,7 +1240,7 @@ WaveSchedule
     }
 	Mission
 	{
-		Objective Engineer  
+		Objective Engineer
 
 		InitialCooldown 1
 		Where spawnbot
@@ -1267,11 +1267,11 @@ WaveSchedule
 				"engy dispenser radius increased" 40
 			}
 		}
-	}	
+	}
 
 	Mission
 	{
-		Objective Engineer  
+		Objective Engineer
 
 		InitialCooldown 2
 		Where spawnbot
@@ -1289,7 +1289,7 @@ WaveSchedule
 				"engy dispenser radius increased" 40
 			}
 		}
-	}	
+	}
 	Wave
 	{
 		CustomWaveNumber 419 [$SIGSEGV] // Display custom wave number. 511 is max value
@@ -1306,14 +1306,14 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
 			}
 		WaitWhenDone 65
 		Checkpoint Yes
-		
+
 		PlayerAttributes [$SIGSEGV] //Add attributes to players when the wave is active
 		{
 			"increased jump height" 0.5
@@ -1347,8 +1347,8 @@ WaveSchedule
 			SpawnCount 5
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
-		
+			TotalCurrency 200
+
 			Squad
 			{
 				NoWaitForFormation 1 [$SIGSEGV] // Prevents squad leader from waiting for squad members
@@ -1411,8 +1411,8 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 14
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
-		
+			TotalCurrency 200
+
             TFBot
             {
 				Class Engineer
@@ -1431,8 +1431,8 @@ WaveSchedule
 					//FollowPath - Follow path specified in Path
 				Item "The Short Circuit"
 				DesiredAttackRange 100 [$SIGSEGV] // How close to the target the bot should want to move when trying to attack. For melee weapons, default is 100. For other weapons except sniper rifles - 500
-				MoveBehindEnemy 1 [$SIGSEGV] // Should the bot try to get behind the target, similar to how the Spy bot behaves. Instead of 1 you can also specify custom distance at which the bot will start strafing around the target (default: 0) 
-				ExtAttr AlwaysFireWeaponAlt [$SIGSEGV] 
+				MoveBehindEnemy 1 [$SIGSEGV] // Should the bot try to get behind the target, similar to how the Spy bot behaves. Instead of 1 you can also specify custom distance at which the bot will start strafing around the target (default: 0)
+				ExtAttr AlwaysFireWeaponAlt [$SIGSEGV]
 				WeaponRestrictions SecondaryOnly
 				CustomWeaponModel [$SIGSEGV] //Sets custom weapon model
 				{
@@ -1459,13 +1459,13 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 21
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
-		
+			TotalCurrency 200
+
             TFBot
             {
 				Class Pyro
 				Attributes TeleportToHint //Any bot can use teleporttohint
-				SpawnTemplate "KillOnKill" [$SIGSEGV] 
+				SpawnTemplate "KillOnKill" [$SIGSEGV]
 				NoCrouchButtonRelease 1 [$SIGSEGV] // Do not automatically release crouch button when the bot is on the ground
 				FireWeapon [$SIGSEGV]  //Periodically fires weapon
                 {
@@ -1506,9 +1506,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 14
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
+			TotalCurrency 200
 			Support 1
-			
+
             TFBot
             {
 				Class Soldier
@@ -1528,7 +1528,7 @@ WaveSchedule
 					Green 0
 					Blue 0
 				}
-				HomingRockets [$SIGSEGV] 
+				HomingRockets [$SIGSEGV]
 				{
 					IgnoreDisguisedSpies 1 // Default: 1
 					IgnoreStealthedSpies 1 // Default: 1
@@ -1573,13 +1573,13 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 35
 			WaitBetweenSpawns 1
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Spy
-				//Action SuicideBomber [$SIGSEGV]  
+				//Action SuicideBomber [$SIGSEGV]
 				AlwaysGlow 1 [$SIGSEGV] //If set, the bot is always highlighted
 				//NoGlow 1 [$SIGSEGV] //If set, the bot is never highlighted
 				StripItemSlot 1 [$SIGSEGV] //If set, weapon in specified slot is stripped
@@ -1592,7 +1592,7 @@ WaveSchedule
 						//4 - LOADOUT_POSITION_BUILDING
 						//5 - LOADOUT_POSITION_PDA
 						//6 - LOADOUT_POSITION_PDA2
-				FireInput [$SIGSEGV] 
+				FireInput [$SIGSEGV]
 				{
 					Target "random_color_case*" //Entity name to use
 					Action "PickRandom" //Input to fire
@@ -1603,7 +1603,7 @@ WaveSchedule
 					//IfHealthBelow 100 //When set, the task activates only when the bot health is below specified value
 					//IfHealthAbove 0 //When set, the task activates only when the bot health is above specified value
 				}
-				AddAttribute [$SIGSEGV] 
+				AddAttribute [$SIGSEGV]
 				{
 					Item "TF_WEAPON_KNIFE" // Item name to which add the attribute, or Player for player attribute, or Active for active weapon
 					Name "damage bonus" // Attribute name
@@ -1614,7 +1614,7 @@ WaveSchedule
 					//IfHealthBelow 100 //When set, the task activates only when the bot health is below specified value
 					//IfHealthAbove 0 //When set, the task activates only when the bot health is above specified value
 				}
-				RemoveAttribute [$SIGSEGV] 
+				RemoveAttribute [$SIGSEGV]
 				{
 					Item "TF_WEAPON_KNIFE" // Item name from which remove the attribute, or Player for player attribute, or Active for active weapon
 					Name "damage bonus" // Attribute name
@@ -1634,7 +1634,7 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
@@ -1659,12 +1659,12 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
+			TotalCurrency 200
 
-            FirstSpawnOutput                                                                                                                                                            
+            FirstSpawnOutput
 			{
-				 Target boss_spawn_relay                                            
-				 Action Trigger                         
+				 Target boss_spawn_relay
+				 Action Trigger
 			}
 
 			Tank
@@ -1675,16 +1675,16 @@ WaveSchedule
 				//StartingPathTrackNode "tankpath1_1"
 				StartingPathTrackNode "boss_path_a1"
 
-				OnKilledOutput                                  
+				OnKilledOutput
 				{
 					Target boss_dead_relay
-					Action Trigger                         
+					Action Trigger
 				}
-				
-				OnBombDroppedOutput                             
+
+				OnBombDroppedOutput
 				{
-					Target boss_deploy_relay 
-					Action Trigger                         
+					Target boss_deploy_relay
+					Action Trigger
 				}
 
 				SpawnTemplate "SentryTank" [$SIGSEGV] //Spawn custom tank template
@@ -1721,12 +1721,12 @@ WaveSchedule
 				EngineLoopSound "Dropship" [$SIGSEGV] //Tank engine sound override, will only loop if the sound was made to be looping. Only soundscripts are allowed, use CustomScriptSounds to add custom soundscripts
 				// DestroyTemplate "Blockade" [$SIGSEGV] //Override default tank destroy animation with template
 				TeamNum 2 [$SIGSEGV] //Override tank team (Default: 3)
-				OffsetZ 0 [$SIGSEGV] // Tank distance off the ground (Default: 0) 
+				OffsetZ 0 [$SIGSEGV] // Tank distance off the ground (Default: 0)
 					// 150 - Max melee range without jumping
 					// 174 - max sword range without jumping
 					// 190 - max melee range with jumping
 					// 270 - max melee range with upgraded jumping
-				RotatePitch 0 [$SIGSEGV] // If tank should change its pitch rotation (Default: 1) 
+				RotatePitch 0 [$SIGSEGV] // If tank should change its pitch rotation (Default: 1)
 				// ReplaceModelCollisions 1 [$SIGSEGV] // If set, the tank will use collisons from the custom model. Tank model must contain all sequences or else it will not deploy the bomb (Default: 0)
 				CritImmune 1 [$SIGSEGV] // If set, the tank is immune to crits (Default: 0)
 				TriggerDestroyBuildingFix 1 [$SIGSEGV] // Fixes trigger entities destroying buildings on touch if parented to the tank (Default: 0)
@@ -1744,20 +1744,20 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Soldier
-				
+
 				Item "The Flare Gun"
 				BodyPartScaleSpeed 0.1 [$SIGSEGV] //Multiplier of body part scale speed
 				ItemAttributes
 				{
 					ItemName "The Flare Gun"
 					"head scale" 0.01
-					"custom projectile model" "models/props_soho/bookstand002.mdl" //Precached before with PrecacheModel tag 
+					"custom projectile model" "models/props_soho/bookstand002.mdl" //Precached before with PrecacheModel tag
 					"set damagetype ignite" 1
 				}
 
@@ -1777,7 +1777,7 @@ WaveSchedule
 					Repeats 0 //How many times should bot display the message (Default: 0 - Infinite)
 					IfSeeTarget 1 //When set to 1, this task activates only when the bot can see the target player (Default 0 - Always activate)
 				}
-				
+
 				SpawnTemplate [$SIGSEGV] //Spawn custom player template
 				{
 					Name "Sentry"
@@ -1804,9 +1804,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 7
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Soldier
@@ -1826,21 +1826,21 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 12
 			WaitBetweenSpawns 1
-			TotalCurrency 200		
-		
+			TotalCurrency 200
+
 			StartWaveMessage "Wave start" [$SIGSEGV] //Chat message when wavespawn stops waiting for other wavespawns
 			StartWaveMessage "Wave start line 2" [$SIGSEGV] //Chat message when wavespawn stops waiting for other wavespawns
 			FirstSpawnMessage "First spawn" [$SIGSEGV] //Chat message when a bot is spawned for the first time
 			LastSpawnMessage "Last spawn" [$SIGSEGV] //Chat message when a bot is spawned for the last time
 			DoneMessage "Done" [$SIGSEGV] //Chat message when the wavespawn is finished
-			
+
             TFBot
             {
 				Class Scout
 				Item "The Sandman"
 				WeaponRestrictions MeleeOnly
 				Skill Expert
-				
+
 				ItemAttributes
 				{
 					ItemName "The Sandman"
@@ -1857,9 +1857,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Medic
@@ -1873,7 +1873,7 @@ WaveSchedule
                     Cooldown 3 //Time between each fire input (Default: 10)
                     Repeats 0 //How many times should bot use the fire input in total (Default: 0 - Infinite)
                     Duration 0.6 //How long should the button be pressed (Default: 0.1)
-					Type "Special" 
+					Type "Special"
 				}
 
 				ItemAttributes
@@ -1884,7 +1884,7 @@ WaveSchedule
 					"heal rate bonus" 2
 					"dmg penalty vs players" 0
 				}
-				
+
 				IgnoreBotsWithTag MyBotTag1 [$SIGSEGV] // Ignore bots with this tag
 				IgnoreBotsWithTag MyBotTag2 [$SIGSEGV] // Ignore bots with this tag
 			}
@@ -1900,8 +1900,8 @@ WaveSchedule
 			Health 934
 			Position
 			{
-				X 118 
-				Y -2006 
+				X 118
+				Y -2006
 				Z 516
 				Pitch 9
 				Yaw 4
@@ -1916,12 +1916,12 @@ WaveSchedule
 			Position
 			{
 				X -1000
-				Y 4000 
+				Y 4000
 				Z 516
 			}
 			Lifetime 5.4 // Boss lifetime for Monoculus and Merasmus in seconds (Default: 0)
 		}
-		SoundLoop [$SIGSEGV] //Played in a loop during wave. The sound must have looping enabled, like the minigun fire, or it will only play once. 
+		SoundLoop [$SIGSEGV] //Played in a loop during wave. The sound must have looping enabled, like the minigun fire, or it will only play once.
 		//Alternatively you can put multiple sound files and their length in seconds and they will be randomly selected
 		{
 			//SoundFile "Weapon_Minigun.Fire"
@@ -1935,7 +1935,7 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
@@ -1953,7 +1953,7 @@ WaveSchedule
 			WaitBetweenSpawns 0.25
 			TotalCurrency 200
 			TFBot
-			{	
+			{
 				Class Scout
 				Attributes SuppressFire
 				ForceRomeVision 1 [$SIGSEGV] // Enforces romevion cosmetics
@@ -1963,7 +1963,7 @@ WaveSchedule
 					ItemName "War Head"
 					Model "models/player/items/all_class/pet_balloonicorn.mdl"
 				}
-				
+
 				Item "Noise Maker - TF Birthday"
 			}
 		}
@@ -1976,8 +1976,8 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-			
+			TotalCurrency 200
+
             TFBot
             {
 				Class Soldier
@@ -1985,8 +1985,8 @@ WaveSchedule
 				RocketJump 1 //Enables rocket jumping. Type RocketJump 2 to only rocket jump when the clip is full
 				//ExtAttr SuppressCanteenUse [$SIGSEGV] //If set, the bot will not automatically activate canteens when looking at the enemy
 				Item "Battery Canteens"
-				UseBestWeapon 1 [$SIGSEGV] 
-				ForceRomeVision 1 [$SIGSEGV] 
+				UseBestWeapon 1 [$SIGSEGV]
+				ForceRomeVision 1 [$SIGSEGV]
 				ItemAttributes
 				{
 					ItemName "Battery Canteens"
@@ -2011,8 +2011,8 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-			
+			TotalCurrency 200
+
             TFBot
             {
 				Name "Engineer Bot"
@@ -2022,7 +2022,7 @@ WaveSchedule
 				WeaponRestrictions SecondaryOnly
 				Attributes MiniBoss
 				Item "The Short Circuit"
-				Action FetchFlag [$SIGSEGV] 
+				Action FetchFlag [$SIGSEGV]
 				FireWeapon [$SIGSEGV]  //Periodically fires weapon
                 {
                     Delay 0 //Time before the first fire input starts (Default: 10)
@@ -2031,7 +2031,7 @@ WaveSchedule
 					IfSeeTarget 0 //When set to 1, this task activates only when the bot can see the target player (Default 0 - Always activate)
                     Duration 2 //How long should the button be pressed (Default: 0.1)
 					Type "Secondary" // Type of fire input, Possible values:
-						
+
 					//IfHealthBelow 100 //When set, the task activates only when the bot health is below specified value
 					//IfHealthAbove 0 //When set, the task activates only when the bot health is above specified value
 				}
@@ -2058,9 +2058,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 15
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Heavyweapons
@@ -2071,7 +2071,7 @@ WaveSchedule
 					ItemName "Gold Frying Pan"
 					"is australium item" 0
 					"item style override" 3
-					
+
 				}
 			}
 		}
@@ -2084,9 +2084,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 20
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Name "Giant Armored Medic"
@@ -2109,7 +2109,7 @@ WaveSchedule
 					//IfSeeTarget 1 //When set to 1, this task activates only when the bot can see the target player (Default 0 - Always activate)
                     Duration 0.5 //How long should the button be pressed (Default: 0.1)
 					Type "Special" // Type of fire input, Possible values:
-						
+
 					//IfHealthBelow 100 //When set, the task activates only when the bot health is below specified value
 					//IfHealthAbove 0 //When set, the task activates only when the bot health is above specified value
 				}
@@ -2154,9 +2154,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 25
 			WaitBetweenSpawns 25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Medic
@@ -2172,14 +2172,14 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 30
 			WaitBetweenSpawns 30
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Heavyweapons
 				Item "Tomislav"
-				
+
 				ShootTemplate [$SIGSEGV]  //Shoot defined point template. Template is spawned at bot position in looking direction, forward velocity being applied to spawned entities
 				{
 					Name Jarate //Name of the template
@@ -2200,7 +2200,7 @@ WaveSchedule
 				}
 			}
 		}
-		SoundLoop [$SIGSEGV] //Played in a loop during wave. The sound must have looping enabled, like the minigun fire, or it will only play once. 
+		SoundLoop [$SIGSEGV] //Played in a loop during wave. The sound must have looping enabled, like the minigun fire, or it will only play once.
 		//Alternatively you can put multiple sound files and their length in seconds and they will be randomly selected
 		{
 			"ui/gamestartup1.mp3" 75
@@ -2217,7 +2217,7 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
@@ -2231,18 +2231,18 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
+			TotalCurrency 200
 			Support 1
-			
+
             TFBot
             {
 				Class Heavyweapons
 				Attributes HoldFireUntilFullReload
 				WeaponRestrictions SecondaryOnly
-				
+
 				AddCond "TF_COND_REPROGRAMMED" [$SIGSEGV] //Condition to apply. List of available conditions https://wiki.teamfortress.com/wiki/Cheats#addcond
 			}
-		}	
+		}
 		WaveSpawn //WAVE 01a: 27 total, 9 active, Scout (melee only)
 		{
 			Name "wave01a"
@@ -2252,9 +2252,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Skin 3 [$SIGSEGV] // Force the bot to use specified model skin
@@ -2263,7 +2263,7 @@ WaveSchedule
 				Attributes HoldFireUntilFullReload
 				WeaponRestrictions SecondaryOnly
 			}
-		}	
+		}
 		WaveSpawn //WAVE 01a: 27 total, 9 active, Scout (melee only)
 		{
 			Name "wave01a"
@@ -2273,16 +2273,16 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Soldier
 				Item "The Short Circuit"
 				WeaponRestrictions SecondaryOnly
 				ExtAttr AlwaysFireWeaponAlt [$SIGSEGV]
-				
+
 				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 				{
 					Target "330.196350 4876.522949 320.031250" // Move target location
@@ -2291,7 +2291,7 @@ WaveSchedule
 					// AimTarget "targetent" // Entity / bot / class name as an alternative. Also: RandomEnemy, ClosestPlayer
 					// KillAimTarget 1 // Attack aim target (Default: 0)
 					Name "a" // Name of the interrupt action. When the task is done, bot's $OnActionDone output is fired with name as parameter
-					
+
 					// AlwaysLook 1 // Normally, if KillAimTarget is set, the bot will not look at the target entity if its not in field of view. Set to 1 to always look at target (Default: 0)
 					Delay 1 // Time before the first task starts. Must be above 0, or it will not execute (Default: 10)
                     Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
@@ -2300,14 +2300,14 @@ WaveSchedule
 
 					WaitUntilDone 1 // If set, duration timer only starts when the bot moves to the target location or the aim target is killed (Default: 0)
 					OnDoneChangeAttributes "Action2" // When the task is done, switch to this EventChangeAttributes
-					
+
 					Distance 50 // How close should bot move to the target (Default: 0)
 					AddToQueue 1 // If there is already another interrupt action active, start this action after previous interrupt action ends (Default: 0)
 					// StopCurrentInterruptAction 1 // If there is already another interrupt action active, completely stop previous action instead of suspending it (Default: 0)
 				}
-				
+
 				SprayFile "materials/hud/leaderboard_class_dispenser.vtf"  [$SIGSEGV] // Spray file used for the spray attribute
-				Spray [$SIGSEGV] 
+				Spray [$SIGSEGV]
 				{
 					Delay 12 //Time before the first task starts (Default: 10)
                     Repeats 10 //How many times should bot do the task in total (Default: 0 - Infinite)
@@ -2320,7 +2320,7 @@ WaveSchedule
 				{
 					Action2
 					{
-						InterruptAction [$SIGSEGV] 
+						InterruptAction [$SIGSEGV]
 						{
 							Delay 1 //Time before the first fire input starts (Default: 10)
 							Repeats 1 //How many times should bot use the fire input in total (Default: 0 - Infinite)
@@ -2344,9 +2344,9 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 15
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200		
-		
-			
+			TotalCurrency 200
+
+
             TFBot
             {
 				Class Soldier
@@ -2368,7 +2368,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			
+
 			Name "wave01a"
 			Where spawnbot
 			TotalCount 1
@@ -2376,7 +2376,7 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 20
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			TFBot
 			{
 				Class Demoman
@@ -2396,7 +2396,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			
+
 			Name "wave01a"
 			Where spawnbot
 			TotalCount 1
@@ -2404,7 +2404,7 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			TFBot
 			{
 				Class Soldier
@@ -2441,7 +2441,7 @@ WaveSchedule
 			}
 		}
 	}
-	
+
 	Wave
 	{
 		StartWaveOutput
@@ -2449,7 +2449,7 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
@@ -2463,7 +2463,7 @@ WaveSchedule
 			SpawnCount 10
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			Support 1
 			PointTemplate [$SIGSEGV] // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
@@ -2488,13 +2488,13 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			TFBot
 			{
 				Class Soldier
 			}
 		}
-		
+
 	}
 
 	Wave
@@ -2504,7 +2504,7 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
@@ -2518,7 +2518,7 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			Support 1
 			HalloweenBoss [$SIGSEGV] // HalloweenBoss spawner. Spawns a boss
 			{
@@ -2549,7 +2549,7 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			Support 1
 			BotNPC [$SIGSEGV] // BotNPC spawner. Spawns an npc bot entity
 			{
@@ -2568,7 +2568,7 @@ WaveSchedule
 				MoveSpeed 1000 // Some custom or regular key/variable
 			}
 		}
-		
+
 		WaveSpawn
 		{
 			Name "wave01a"
@@ -2578,8 +2578,8 @@ WaveSchedule
 			SpawnCount 1
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
-			HideIcon 1 [$SIGSEGV] // Hides icons from the wave bar. Should use a ClassIcon different from visible ones 
+			TotalCurrency 200
+			HideIcon 1 [$SIGSEGV] // Hides icons from the wave bar. Should use a ClassIcon different from visible ones
 			StartDisabled 1 [$SIGSEGV] // The wavespawn starts disabled, until activated by $ResumeWavespawn input of point_populator_interface entity. Bot slots are not reserved while disabled
 			TFBot
 			{
@@ -2602,7 +2602,7 @@ WaveSchedule
 				CustomEyeGlowColor "255 255 255" [$SIGSEGV] // Custom eye glow color
 			}
 		}
-		
+
 		WaveSpawn
 		{
 			Name "wave01a"
@@ -2612,7 +2612,7 @@ WaveSchedule
 			SpawnCount 2
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			RandomChoice
 			{
 				NextSpawnerClone 3 [$SIGSEGV] // Clones spawner below this many times. Key below must be a spawner (Default: 1)
@@ -2640,7 +2640,7 @@ WaveSchedule
 				Target wave_start_relay
 				Action Trigger
 			}
-		DoneOutput					
+		DoneOutput
 			{
 				Target wave_finished_relay
 				Action trigger
@@ -2654,7 +2654,7 @@ WaveSchedule
 			SpawnCount 2
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0.25
-			TotalCurrency 200	
+			TotalCurrency 200
 			Squad
 			{
 				TFBot
@@ -2712,7 +2712,7 @@ WaveSchedule
 			}
 		}
 	}
-	
+
 }
 
 // CUSTOM ATTRIBUTES
@@ -2729,7 +2729,7 @@ WaveSchedule
 // Melee weapon attacks all enemies in range
 // "melee cleave attack" 1
 
-// Special mode for revolver: each hit reduces damage, up to x times. Likely does not work 
+// Special mode for revolver: each hit reduces damage, up to x times. Likely does not work
 // "extra damage on hit penalty" 1
 
 // "extra damage on hit" 1
@@ -3018,7 +3018,7 @@ WaveSchedule
 // Model scale for attached items
 // "attachment scale" 1.5
 
-// For how long should the projectile home in 
+// For how long should the projectile home in
 // "mod projectile heat aim time" 1.75
 
 // Projectile gravity in hu/s^2
@@ -3053,7 +3053,7 @@ WaveSchedule
 
 // Weapon cannot be upgraded
 // "cannot be upgraded" 1
- 
+
 // Projectile cannot be deflected
 // "projectile no deflect" 1
 
@@ -3095,14 +3095,14 @@ WaveSchedule
 // "brick"
 // "repel"
 // "breadmonster"
-// "spellfireball" 
-// "spelllightningorb" 
-// "spellkartorb" 
-// "spellbats" 
+// "spellfireball"
+// "spelllightningorb"
+// "spellkartorb"
+// "spellbats"
 // "spellmirv" - Pumpkin bombs, only works if the owner has spellbook equipped
-// "spelltransposeteleport" 
-// "spellmeteorshower" 
-// "spellspawnboss" 
+// "spelltransposeteleport"
+// "spellmeteorshower"
+// "spellspawnboss"
 // "spellspawnhorde" - Summon skeletons, only works if the owner has spellbook equipped
 // "override projectile type extra" "mechanicalarmorb"
 
@@ -3208,7 +3208,7 @@ WaveSchedule
 // Bots killed by the weapon drop red money
 // "collect currency on kill" 1
 
-// Force applied to enemy players when touching them. 260 is the minimum amount to knock players up  
+// Force applied to enemy players when touching them. 260 is the minimum amount to knock players up
 // "stomp player force" 270
 
 // Damage applied to enemies when touching them
@@ -3353,7 +3353,7 @@ WaveSchedule
 // Returns fraction of damage dealt as health
 // "damage returns as health" 0.5
 
-// Cannot resupply from cabinets 
+// Cannot resupply from cabinets
 // "no resupply" 1
 
 // No view flinch from taking damage
@@ -3599,7 +3599,7 @@ WaveSchedule
 // Bomb cannot be upgraded
 // "cannot upgrade bomb" "1"
 
-// Custom carried by player sentry toolbox model 
+// Custom carried by player sentry toolbox model
 // "sentry toolbox model" "models/weapons/c_models/c_toolbox/c_toolbox.mdl"
 
 // Custom carried by player dispenser toolbox model
@@ -3718,7 +3718,7 @@ WaveSchedule
 // 1 - explode
 // 2 - explode, the damage belongs to the attacker
 // 3 - explode only if destroyed by same team
-// 
+//
 // "projectile explode on destroy" 1
 
 // Projectiles detonate after delay in seconds
@@ -3835,7 +3835,7 @@ WaveSchedule
 // Determines how long the grappling hook can pull
 // "grappling hook pull time" 0.5
 
-// Charging speed multiplier. Charging speed cannot be lower than 300 hu. (0.401 with no move speed multipliers) 
+// Charging speed multiplier. Charging speed cannot be lower than 300 hu. (0.401 with no move speed multipliers)
 // "mult charging move speed" 0.5
 
 // Overrides convars only for the user. Various movement related convars and tf_* convars can be changed this way. Convars can be delimeted by ; : |
