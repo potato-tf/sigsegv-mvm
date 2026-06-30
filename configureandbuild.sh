@@ -186,8 +186,13 @@ build_lua()
         mv lua-* lua
     fi
     cd lua
+
+	log "Building Lua (x86)"
+    make clean
     make CC=g++ MYCFLAGS='-m32' MYLDFLAGS='-m32'
     mv src/liblua.a ../liblua.a
+
+	log "Building Lua (x64)"
     make clean
     make CC=g++ MYCFLAGS='-fPIC'
     mv src/liblua.a ../libluax64.a
