@@ -20,10 +20,10 @@ class CPathTrack : public CPointEntity
 {
 public:
 	CPathTrack *GetNext() { return ft_GetNext(this); }
-	
+
 	DECL_DATAMAP(int, m_eOrientationType);
 	DECL_DATAMAP(CBaseEntityOutput, m_OnPass);
-	
+
 private:
 	static MemberFuncThunk<CPathTrack *, CPathTrack *> ft_GetNext;
 };
@@ -40,6 +40,9 @@ public:
 
 class CItem : public CBaseAnimating
 {
+public:
+	void ComeToRest() { ft_ComeToRest(this); }
+
 #ifdef SE_IS_TF2
 	DECL_DATAMAP(float,                m_flNextResetCheckTime);
 #endif
@@ -47,6 +50,8 @@ class CItem : public CBaseAnimating
 	DECL_DATAMAP(Vector,               m_vOriginalSpawnOrigin);
 	DECL_DATAMAP(QAngle,               m_vOriginalSpawnAngles);
 	DECL_DATAMAP(IPhysicsConstraint *, m_pConstraint);
+private:
+	static MemberFuncThunk<CItem *, void> ft_ComeToRest;
 };
 
 class CBaseProp : public CBaseAnimating {};
@@ -77,7 +82,7 @@ public:
 		MOVE_TO        = 2,
 		WAIT           = 3,
 	};
-	
+
 	DECL_DATAMAP(int,      m_task);
 	DECL_DATAMAP(string_t, m_taskEntityName);
 	DECL_DATAMAP(float,    m_taskValue);
@@ -187,6 +192,8 @@ private:
 	static MemberFuncThunk<CTriggerCamera *, void> ft_Disable;
 };
 
+bool IsTakingTriggerHurtDamageAtPoint(const Vector& vec);
+
 class CFuncRotating : public CBaseEntity
 {
 public:
@@ -228,7 +235,7 @@ public:
 	DECL_DATAMAP (string_t, m_vehicleScript);
 	DECL_DATAMAP (CHandle<CBasePlayer>, m_hPhysicsAttacker);
 	DECL_DATAMAP (float, m_flLastPhysicsInfluenceTime);
-	
+
 };
 
 class CPropVehicleDriveable : public CPropVehicle
@@ -242,7 +249,7 @@ public:
 	DECL_DATAMAP (float, m_nSpeed);
 	DECL_DATAMAP (float, m_bLocked);
 
-	
+
 };
 
 class CMathCounter : public CLogicalEntity
@@ -254,7 +261,7 @@ class CSprite : public CBaseEntity
 {
 public:
 	static CSprite *SpriteCreate(const char *name, const Vector &origin, bool animate) { return ft_SpriteCreate(name, origin, animate); }
-	
+
 private:
 	static StaticFuncThunk<CSprite *, const char *, const Vector &, bool> ft_SpriteCreate;
 };
@@ -284,9 +291,9 @@ class CBeam : public CBaseEntity
 {
 public:
 	void EntsInit(CBaseEntity *start, CBaseEntity *end) { ft_EntsInit(this, start, end); }
-	
+
 	static CBeam *BeamCreate(const char *name, float width) { return ft_BeamCreate(name, width); }
-	
+
 	DECL_SENDPROP(float, m_fWidth);
 	DECL_SENDPROP(float, m_fEndWidth);
 	DECL_SENDPROP(float, m_fSpeed);
@@ -346,7 +353,7 @@ public:
 // - TODO: stuff related to "revive_player_stopped"
 
 // CTFReviveMarker::AddMarkerHealth
-// - 
+// -
 
 
 #endif

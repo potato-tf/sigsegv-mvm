@@ -14,6 +14,8 @@ IMPL_DATAMAP(bool,                 CEnvEntityMaker,   m_bPostSpawnUseAngles);
 
 MemberFuncThunk<CPathTrack *, CPathTrack *> CPathTrack::ft_GetNext("CPathTrack::GetNext");
 
+
+MemberFuncThunk<CItem *, void> CItem::ft_ComeToRest("CItem::ComeToRest");
 #ifdef SE_IS_TF2
 IMPL_DATAMAP(float,                CItem, m_flNextResetCheckTime);
 #endif
@@ -58,7 +60,7 @@ IMPL_DATAMAP_ONCASE(CLogicCase, m_OnCase16, m_OnCase[15]);
 const size_t CLogicCase::_adj_m_nCase = offsetof(CLogicCase, m_nCase);
 size_t CLogicCase::_offset_m_nCase = -offsetof(CLogicCase, m_nCase);
 CProp_DataMap CLogicCase::s_prop_m_nCase("CLogicCase", "m_nCase[0]", &CLogicCase::_offset_m_nCase);
-	
+
 IMPL_DATAMAP(CBaseEntityOutput, CLogicCase, m_OnDefault);
 
 
@@ -80,6 +82,9 @@ IMPL_DATAMAP (CHandle<CBaseEntity>, CTriggerCamera, m_hTarget);
 
 MemberFuncThunk<CTriggerCamera *, void> CTriggerCamera::ft_Enable("CTriggerCamera::Enable");
 MemberFuncThunk<CTriggerCamera *, void> CTriggerCamera::ft_Disable("CTriggerCamera::Disable");
+
+static StaticFuncThunk<bool, const Vector&> ft_IsTakingTriggerHurtDamageAtPoint("IsTakingTriggerHurtDamageAtPoint");
+bool IsTakingTriggerHurtDamageAtPoint(const Vector& vec) { return ft_IsTakingTriggerHurtDamageAtPoint(vec); }
 
 IMPL_DATAMAP (bool, CFuncRotating, m_bReversed);
 IMPL_DATAMAP (float, CFuncRotating, m_flMaxSpeed);

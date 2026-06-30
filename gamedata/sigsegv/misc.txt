@@ -23,26 +23,26 @@
 			engine "doi"
 			engine "pkvii"
 		}
-		
+
 		"sigsegv"
 		{
 			"addrs"
 			{
-				
-				
+
+
 				"CalcDistanceToLineSegment"
 				{
 					type "sym"
 					sym  "_Z25CalcDistanceToLineSegmentRK6VectorS1_S1_Pf"
 				}
-				
+
 				"CreateEntityByName"
 				{
 					type   "func ebpprologue unistr"
 					sym    "_Z18CreateEntityByNamePKci"
 					unistr "CreateEntityByName( %s, %d ) - CreateEdict failed."
 				}
-				
+
 				"TranslateWeaponEntForClass"
 				{
 					type   "func ebpprologue uniref"
@@ -54,7 +54,7 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules18PushAllPlayersAwayERK6VectorffiP10CUtlVectorIP9CTFPlayer10CUtlMemoryIS5_iEE"
 				}
-				
+
 				"CFuncNavCost::IsApplicableTo"
 				{
 					type   "func ebpprologue unistr"
@@ -63,7 +63,7 @@
 					// alt: "mission_spy"
 					// alt: "mission_sentry_buster"
 				}
-				
+
 				"CBulletPenetrateEnum::EnumEntity"
 				{
 					type   "func knownvtidx"
@@ -71,7 +71,7 @@
 					vtable ".?AVCBulletPenetrateEnum@@"
 					idx    "0x00"
 				}
-				
+
 				"CAttributeManager::AttribHookValue<int>"
 				{
 					type "pattern"
@@ -85,7 +85,7 @@
 					type "pattern"
 					sym  "_ZN17CAttributeManager15AttribHookValueIfEET_S1_PKcPK11CBaseEntityP10CUtlVectorIPS4_10CUtlMemoryIS8_iEEb"
 					seg  "text"
-					
+
 					seek "558bec83ec288b0d8cc26a105333db895dd8895ddc8b4108895dec895df05685c0743e6894106f1068b8106f106890806c1068481e92106a7768c8106f10535353538d4dd85150"
 					mask "ffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffff00000000ff00000000ff00000000ff00000000ffffff00000000ffffffffffffffffff"
 				}
@@ -94,7 +94,7 @@
 					type "sym"
 					sym  "_ZN17CAttributeManager26ApplyAttributeFloatWrapperEfP11CBaseEntity8string_tP10CUtlVectorIS1_10CUtlMemoryIS1_iEE"
 				}
-				
+
 				"CBaseServer::BroadcastMessage1"
 				{
 					type "sym"
@@ -107,7 +107,7 @@
 					sym  "_ZN11CBaseServer16BroadcastMessageER11INetMessageR16IRecipientFilter"
 					lib  "engine"
 				}
-				
+
 				"SVC_UserMessage::WriteToBuffer"
 				{
 					type  "fixed"
@@ -124,25 +124,25 @@
 					build "3283568"
 					lib   "engine"
 				}
-				
+
 				"CMannVsMachineStats::SendUpgradesToPlayer"
 				{
 					type "sym"
 					sym  "_ZN19CMannVsMachineStats20SendUpgradesToPlayerEP9CTFPlayerP10CUtlVectorI12CUpgradeInfo10CUtlMemoryIS3_iEE"
 				}
-				
+
 				"EvaluateConditional"
 				{
 					type "sym"
 					sym  "_Z19EvaluateConditionalPKc"
 				}
-				
+
 				"UTIL_GetListenServerHost"
 				{
 					type "sym"
 					sym  "_Z24UTIL_GetListenServerHostv"
 				}
-				
+
 				"[engine] CUtlBuffer::EnsureCapacity"
 				{
 					type  "fixed"
@@ -167,7 +167,7 @@
 					build "3283568"
 					lib   "engine"
 				}
-				
+
 				"CDemoPlayer::ReadPacket"
 				{
 					type   "func ebpprologue unistr"
@@ -207,7 +207,7 @@
 					idx    "0x0d"
 					lib    "engine"
 				}
-				
+
 				"CTFGameRules::PlayerKilled"
 				{
 					type "sym"
@@ -228,7 +228,7 @@
 					type "sym"
 					sym  "_ZNK12CTFGameRules13IsUsingSpellsEv"
 				}
-				
+
 				"KeyValues::LoadFromFile"
 				{
 					type "sym"
@@ -249,8 +249,8 @@
 					type "sym"
 					sym  "_ZN9KeyValues14LoadFromBufferEPKcR10CUtlBufferP15IBaseFileSystemS1_"
 				}
-				
-				
+
+
 				"CUserMessages::LookupUserMessage"
 				{
 					type "sym"
@@ -261,20 +261,20 @@
 					type "sym"
 					sym  "_ZN13CUserMessages8RegisterEPKci"
 				}
-				
+
 				"clear_debug_overlays"
 				{
 					type "sym"
 					sym  "_ZL20clear_debug_overlaysRK8CCommand"
 				}
-				
+
 				"ConColorMsg"
 				{
 					type "sym"
 					sym  "_Z11ConColorMsgRK5ColorPKcz"
 					lib  "tier0"
 				}
-				
+
 				"CTFGameRules::RadiusDamage"
 				{
 					type "sym"
@@ -290,21 +290,21 @@
 					type "sym"
 					sym  "_ZN19CTFRadiusDamageInfo13ApplyToEntityEP11CBaseEntity"
 				}
-				
-				
-				
+
+
+
 				"CMultiplayRules::VoiceCommand"
 				{
 					type "sym"
 					sym  "_ZN15CMultiplayRules12VoiceCommandEP22CBaseMultiplayerPlayerii"
 				}
-				
+
 				"UTIL_EntitiesInSphere"
 				{
 					type "sym"
 					sym  "_Z21UTIL_EntitiesInSphereRK6VectorfP20CFlaggedEntitiesEnum"
 				}
-				
+
 				"DispatchParticleEffect [overload 1]"
 				{
 					type "sym"
@@ -345,7 +345,7 @@
 					type "sym"
 					sym  "_Z19StopParticleEffectsP11CBaseEntity"
 				}
-				
+
 				"IGameSystem::Add"
 				{
 					type  "pattern"
@@ -364,7 +364,7 @@
 				//	seek "558bec51568bf18d45fc50b908d58b108975fcc706387a6d10e8a29708006a0068b0de8f1068c4dd8f106a0056e8f271420083c41485c074118d45fc8975fc50b91cd58b10e8769708005e8be55dc3"
 				//	mask "ffffffffffffffffffffffff00000000ffffffffff00000000ff00000000ffffff00000000ff00000000ffffffff00000000ffffffffffff00ffffffffffffffff00000000ff00000000ffffffffff"
 				}
-				
+
 				"net_blocksize"
 				{
 					type "sym"
@@ -407,7 +407,7 @@
 					sym  "_ZN8CNetChan25GetMaxRoutablePayloadSizeEv"
 					lib  "engine"
 				}
-				
+
 				"WeaponID_IsSniperRifle"
 				{
 					type "sym"
@@ -418,19 +418,19 @@
 					type "sym"
 					sym  "_Z27WeaponID_IsSniperRifleOrBowi"
 				}
-				
+
 				"CTFGameRules::ApplyOnDamageAliveModifyRules"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules29ApplyOnDamageAliveModifyRulesERK15CTakeDamageInfoP11CBaseEntityRNS_20DamageModifyExtras_tE"
 				}
-				
+
 				"NextBotTraversableTraceFilter::ShouldHitEntity"
 				{
 					type "sym"
 					sym  "_ZN29NextBotTraversableTraceFilter15ShouldHitEntityEP13IHandleEntityi"
 				}
-				
+
 				"GetItemSchema"
 				{
 					type "sym"
@@ -456,7 +456,7 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules20IsUpgradeTierEnabledEP9CTFPlayerii"
 				}
-				
+
 				"CMannVsMachineStats::GetUpgradeSpending"
 				{
 					type "sym"
@@ -477,27 +477,27 @@
 					type "sym"
 					sym  "_ZN19CMannVsMachineStats20ResetUpgradeSpendingEP9CTFPlayer"
 				}
-				
+
 				"CGameRules::GetViewVectors"
 				{
 					type "sym"
 					sym  "_ZNK10CGameRules14GetViewVectorsEv"
 				}
-				
-				
-				
+
+
+
 				"CTraceFilterSimple::ShouldHitEntity"
 				{
 					type "sym"
 					sym  "_ZN18CTraceFilterSimple15ShouldHitEntityEP13IHandleEntityi"
 				}
-				
+
 				"SendProxy_UInt8ToInt32"
 				{
 					type "sym"
 					sym  "_Z22SendProxy_UInt8ToInt32PK8SendPropPKvS3_P8DVariantii"
 				}
-				
+
 				"CTFGameRules::PlayerReadyStatus_UpdatePlayerState"
 				{
 					type "sym"
@@ -508,27 +508,27 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules40PlayerReadyStatus_HaveMinPlayersToEnableEv"
 				}
-				
+
 				"CTFGameRules::ClientDisconnected"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules18ClientDisconnectedEP7edict_t"
 				}
-				
+
 //				"CTeamplayRoundBasedRules::GetAllPlayersLobbyInfo"
 //				{
 //					type "sym"
 //					sym  "_ZN24CTeamplayRoundBasedRules22GetAllPlayersLobbyInfoER10CUtlVectorI17LobbyPlayerInfo_t10CUtlMemoryIS1_iEEb"
 //				}
-				
+
 				"CMannVsMachineStats::RoundEvent_WaveEnd"
 				{
 					type "sym"
 					sym  "_ZN19CMannVsMachineStats18RoundEvent_WaveEndEb"
 				}
-				
-				
-				
+
+
+
 //				"CRConClient::SendCmd"
 //				{
 //					type "pattern"
@@ -538,7 +538,7 @@
 //					mask "ffffffffffffffffffffffffffffff00000000ffffff00ffffffffffffffffffff00000000ffffff00ffffffff"
 //					lib  "engine"
 //				}
-				
+
 				"CRConClient::SendResponse"
 				{
 					type "pattern"
@@ -557,35 +557,35 @@
 					mask "ffffffffffffffffffffffffffffffffff00ffffff00000000ff00ff00000000ffff00000000ffffff"
 					lib  "engine"
 				}
-				
+
 				"CServerRemoteAccess::SendVProfData"
 				{
 					type "sym"
 					sym  "_ZN19CServerRemoteAccess13SendVProfDataEjbPvi"
 					lib  "engine"
 				}
-				
+
 				"WriteRemoteVProfData"
 				{
 					type "sym"
 					sym  "_Z20WriteRemoteVProfDatav"
 					lib  "engine"
 				}
-				
+
 				"CVProfRecorder::Record_WriteTimings_R"
 				{
 					type "sym"
 					sym  "_ZN14CVProfRecorder21Record_WriteTimings_REPK10CVProfNode"
 					lib  "engine"
 				}
-				
+
 				"CVProfNode::MarkFrame"
 				{
 					type "sym"
 					sym  "_ZN10CVProfNode9MarkFrameEv"
 					lib  "tier0"
 				}
-				
+
 				"VProfRecord_Snapshot"
 				{
 					type "pattern"
@@ -595,7 +595,7 @@
 					mask "ff00000000ffffffffffff00000000ff00000000ffffffffffffff00000000ffffffffffffffff00000000ff00000000ff"
 					lib  "engine"
 				}
-				
+
 				"VProfRecord_StartOrStop"
 				{
 					type "pattern"
@@ -604,40 +604,40 @@
 					seek "803d04913c100074288b0d60052f10ff810c10000083b90c10000001750c81c118100000ff1544062f10c60504913c1000803d05913c100074218b0d60052f10ff890c100000750c81c118100000ff1540062f10c60505913c1000c3"
 					mask "ffff00000000ffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffff00000000ffff00000000ffffff00000000ffffffffff00000000ffffffffffffffffffffffffffffffff00000000ffff00000000ffff"
 					lib  "engine"
-					
+
 					// WARNING:
 					// the windows pattern is actually for VProfExport_StartOrStop
-					
+
 					// also, this is broken after the Feb 2017 toolchain update
 					// (why the hell is VProfRecord_StartOrStop in two noncontiguous chunks in the win build? WHY?)
 				}
-				
+
 				"CTFGameMovement::ProcessMovement"
 				{
 					type "sym"
 					sym  "_ZN15CTFGameMovement15ProcessMovementEP11CBasePlayerP9CMoveData"
 				}
-				
+
 				"CUtlConstStringBase<char>::Set"
 				{
 					type "sym"
 					sym  "_ZN19CUtlConstStringBaseIcE3SetEPKc"
 				}
-				
+
 //				"GlobalAttrModifier_TFHalloweenAttribHookMunger"
 //				{
 //					type   "func ebpprologue unistr"
 //					sym    "_ZL46GlobalAttrModifier_TFHalloweenAttribHookMungerPKcP19CUtlConstStringBaseIcE"
 //					unistr "%s__halloween"
 //				}
-				
+
 //				"GlobalAttrModifier_MvMAttribHookMunger"
 //				{
 //					type   "func ebpprologue unistr"
 //					sym    "_ZL38GlobalAttrModifier_MvMAttribHookMungerPKcP19CUtlConstStringBaseIcE"
 //					unistr "%s__mvm"
 //				}
-				
+
 				"V_vsnprintfRet"
 				{
 					type "pattern"
@@ -646,26 +646,26 @@
 					seek "558bec568b750c57ff75148b7d08ff75105657e8003601008b551883c41085d2741385c078083bc67d0433c9eb05b901000000880a85c078043bc67c07c64437ff008bc65f5e5dc3"
 					mask "ffffffffffffffffffffffffffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 				}
-				
+
 				"CRecipientFilter::RemoveRecipientsByPVS"
 				{
 					type "sym"
 					sym  "_ZN16CRecipientFilter21RemoveRecipientsByPVSERK6Vector"
 				}
-				
+
 				"SV_ReplicateConVarChange"
 				{
 					type "sym"
 					sym  "_Z24SV_ReplicateConVarChangePK6ConVarPKc"
 					lib  "engine"
 				}
-				
+
 				"CTraceFilterDeflection::ShouldHitEntity"
 				{
 					type "sym"
 					sym  "_ZN22CTraceFilterDeflection15ShouldHitEntityEP13IHandleEntityi"
 				}
-				
+
 				"CLagCompensationManager::StartLagCompensation"
 				{
 					type "sym"
@@ -676,68 +676,68 @@
 					type "sym"
 					sym  "_ZN23CLagCompensationManager21FinishLagCompensationEP11CBasePlayer"
 				}
-				
+
 				"Physics_RunThinkFunctions"
 				{
 					type "sym"
 					sym  "_Z25Physics_RunThinkFunctionsb"
 				}
-				
+
 				"Physics_SimulateEntity"
 				{
 					type "sym"
 					sym  "_Z22Physics_SimulateEntityP11CBaseEntity"
 				}
-				
+
 				"CTFGameRules::CalcDominationAndRevenge"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules24CalcDominationAndRevengeEP9CTFPlayerP11CBaseEntityS1_bPi"
 				}
-				
+
 				"CNetChan::SendNetMsg"
 				{
 					type "sym"
 					sym  "_ZN8CNetChan10SendNetMsgER11INetMessagebb"
 					lib  "engine"
 				}
-				
+
 				"FindHullIntersection"
 				{
 					type "sym"
 					sym  "_Z20FindHullIntersectionRK6VectorR10CGameTraceS1_S1_P11CBaseEntity"
 				}
-				
+
 				"CGameRules::ShouldCollide"
 				{
 					type "sym"
 					sym  "_ZN10CGameRules13ShouldCollideEii"
 				}
-				
+
 				"PassServerEntityFilter"
 				{
 					type "sym"
 					sym  "_Z22PassServerEntityFilterPK13IHandleEntityS1_"
 				}
-				
+
 				"StandardFilterRules"
 				{
 					type "sym"
 					sym  "_Z19StandardFilterRulesP13IHandleEntityi"
 				}
-				
+
 				"IsSpaceToSpawnHere"
 				{
 					type "sym"
 					sym  "_Z18IsSpaceToSpawnHereRK6Vector"
 				}
-				
+
 				"TeleportNearVictim"
 				{
 					type "sym"
 					sym  "_Z18TeleportNearVictimP6CTFBotP9CTFPlayeri"
 				}
-				
+
 				"CPackedStore::OpenFile"
 				{
 					type "sym"
@@ -746,7 +746,7 @@
 					// it's in dedicated_srv.so on ServerLinux
 					// but in filesystem_stdio.* elsewhere
 				}
-				
+
 				"CBaseFileSystem::FileExists"
 				{
 					type "sym"
@@ -755,56 +755,56 @@
 					// it's in dedicated_srv.so on ServerLinux
 					// but in filesystem_stdio.* elsewhere
 				}
-				
+
 				"CBaseFileSystem::LoadKeyValues"
 				{
 					type "sym"
 					sym  "_ZN15CBaseFileSystem13LoadKeyValuesER9KeyValuesN11IFileSystem22KeyValuesPreloadType_tEPKcS5_"
 					lib  "dedicated"
 				}
-				
+
 				"CTFGameRules::SetNextMvMPopfile"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules17SetNextMvMPopfileEPKc"
 				}
-				
+
 				"CTFGameMovement::CheckStuck"
 				{
 					type "sym"
 					sym  "_ZN15CTFGameMovement10CheckStuckEv"
 				}
-				
+
 				"SetDebugBits"
 				{
 					type "sym"
 					sym  "_Z12SetDebugBitsP11CBasePlayerPKci"
 				}
-				
+
 				"GetNextCommandEntity"
 				{
 					type "sym"
 					sym  "_Z20GetNextCommandEntityP11CBasePlayerPKcP11CBaseEntity"
 				}
-				
+
 				"DrawAllDebugOverlays"
 				{
 					type "sym"
 					sym  "_Z20DrawAllDebugOverlaysv"
 				}
-				
+
 				"CTFGameRules::FPlayerCanTakeDamage"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules20FPlayerCanTakeDamageEP11CBasePlayerP11CBaseEntityRK15CTakeDamageInfo"
 				}
-				
+
 				"CTFGameRules::GetCurrentMatchGroup"
 				{
 					type "sym"
 					sym  "_ZNK12CTFGameRules20GetCurrentMatchGroupEv"
 				}
-				
+
 				"MapEntity_ParseAllEntities"
 				{
 					type "sym"
@@ -820,13 +820,13 @@
 					type "sym"
 					sym  "_Z20MapEntity_ParseTokenPKcPc"
 				}
-				
+
 				"CTFGameRules::DropHalloweenSoulPack"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules21DropHalloweenSoulPackEiRK6VectorP11CBaseEntityi"
 				}
-				
+
 				"SVC_CmdKeyValues::Process"
 				{
 					type   "func knownvtidx"
@@ -842,7 +842,7 @@
 					unistr "CL_TakeSnapshotAndSwap"
 					lib    "engine"
 				}
-				
+
 				"CVideoMode_Common::TakeSnapshotTGA"
 				{
 					type   "func ebpprologue nonunistr knownvtidx"
@@ -857,8 +857,8 @@
 					type "sym"
 					sym  "_ZNK12CTFGameRules19IsPVEModeControlledEP11CBaseEntity"
 				}
-				
-				
+
+
 				"SendProxy_LengthTable"
 				{
 					type "pattern"
@@ -873,7 +873,7 @@
 					sym  "_Z15Con_ColorPrintfRK5ColorPKcz"
 					lib  "engine"
 				}
-				
+
 				"AllocPooledString"
 				{
 					type "sym"
@@ -894,13 +894,13 @@
 					type "sym"
 					sym  "_Z16GameStringSystemv"
 				}
-				
+
 				"CEventQueue::AddEvent [EventQueuePrioritizedEvent_t *]"
 				{
 					type "sym"
 					sym  "_ZN11CEventQueue8AddEventEP28EventQueuePrioritizedEvent_t"
 				}
-				
+
 				"CEventQueue::ServiceEvents"
 				{
 					type "sym"
@@ -912,25 +912,25 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules19BetweenRounds_StartEv"
 				}
-				
+
 				"tf_mvm_popfile"
 				{
 					type "sym"
 					sym  "_ZL14tf_mvm_popfileRK8CCommand"
 				}
-				
+
 				"CTeamplayRoundBasedRules::State_Enter"
 				{
 					type "sym"
 					sym  "_ZN24CTeamplayRoundBasedRules11State_EnterE22gamerules_roundstate_t"
 				}
-				
+
 				"CTeamplayRoundBasedRules::State_Leave"
 				{
 					type "sym"
 					sym  "_ZN24CTeamplayRoundBasedRules11State_LeaveEv"
 				}
-				
+
 				"GetWeaponId"
 				{
 					type "sym"
@@ -941,7 +941,7 @@
 					type "sym"
 					sym  "_Z15WeaponIdToAliasi"
 				}
-				
+
 				"CTFGameRules::ApplyOnDamageModifyRules"
 				{
 					type "sym"
@@ -952,7 +952,7 @@
 					type "sym"
 					sym  "_ZN15CTakeDamageInfoC1EP11CBaseEntityS1_S1_RK6VectorS4_fiiPS2_"
 				}
-				
+
 				"CTraceFilterSimple::CTraceFilterSimple [C1]"
 				{
 					type "sym"
@@ -963,66 +963,71 @@
 					type "sym"
 					sym  "_Z18PointInRespawnRoomPK11CBaseEntityRK6Vectorb"
 				}
+				"IsTakingTriggerHurtDamageAtPoint"
+				{
+					type "sym"
+					sym  "_Z32IsTakingTriggerHurtDamageAtPointRK6Vector"
+				}
 				"CheckValveSignature"
 				{
 					type "sym"
 					sym  "_Z19CheckValveSignaturePKvjS0_j"
 				}
-				
+
 				"CTeamplayRoundBasedRules::GetMinTimeWhenPlayerMaySpawn"
 				{
 					type "sym"
 					sym  "_ZN24CTeamplayRoundBasedRules28GetMinTimeWhenPlayerMaySpawnEP11CBasePlayer"
 				}
-				
+
 				"CTeamplayRoundBasedRules::GetNextRespawnWave"
 				{
 					type "sym"
 					sym  "_ZN24CTeamplayRoundBasedRules18GetNextRespawnWaveEiP11CBasePlayer"
 				}
-				
+
 				"CMultiPlayerAnimState::OnNewModel"
 				{
 					type "sym"
 					sym  "_ZN21CMultiPlayerAnimState10OnNewModelEv"
 				}
-				
+
 				"CTFGameRules::GetTeamAssignmentOverride"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules25GetTeamAssignmentOverrideEP9CTFPlayerib"
 				}
-				
+
 				"CStudioHdr::GetNumPoseParameters"
 				{
 					type "sym"
 					sym  "_ZNK10CStudioHdr20GetNumPoseParametersEv"
 				}
-				
+
 				"CStudioHdr::pPoseParameter"
 				{
 					type "sym"
 					sym  "_ZN10CStudioHdr14pPoseParameterEi"
 				}
-				
+
 				"CTFGameRules::ClientCommandKeyValues"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules22ClientCommandKeyValuesEP7edict_tP9KeyValues"
 				}
-				
+
 				"CPlayerMove::StartCommand"
 				{
 					type "sym"
 					sym  "_ZN11CPlayerMove12StartCommandEP11CBasePlayerP8CUserCmd"
 				}
-				
+
 				"CTFGameRules::DistributeCurrencyAmount"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules24DistributeCurrencyAmountEiP9CTFPlayerbbb"
 				}
-				
+
 				"Con_NPrintf"
 				{
 					type "sym"
@@ -1041,40 +1046,40 @@
 					sym  "_ZN14CVEngineServer12Con_NXPrintfEPK12con_nprint_sPKcz"
 					lib  "engine"
 				}
-				
+
 				"CTeamplayRoundBasedRules::State_Transition"
 				{
 					type "sym"
 					sym  "_ZN24CTeamplayRoundBasedRules16State_TransitionE22gamerules_roundstate_t"
 				}
-				
+
 				"UTIL_GetHolidayForString"
 				{
 					type "sym"
 					sym  "_Z24UTIL_GetHolidayForStringPKc"
 				}
-				
+
 				"UTIL_IsHolidayActive"
 				{
 					type "sym"
 					sym  "_Z20UTIL_IsHolidayActivei"
 				}
-				
-				
-				
+
+
+
 				"Con_DebugLog"
 				{
 					type "sym"
 					sym  "_Z12Con_DebugLogPKcz"
 					lib  "engine"
 				}
-				
+
 				"CanScatterGunKnockBack"
 				{
 					type "sym"
 					sym  "_Z22CanScatterGunKnockBackP13CTFWeaponBaseff"
 				}
-				
+
 				"CheckMedicResist"
 				{
 					type "sym regex"
@@ -1085,27 +1090,27 @@
 					type "sym"
 					sym  "_ZNK7CTFItem9GetItemIDEv"
 				}
-				
+
 				"CTFGameRules::FlagsMayBeCapped"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules16FlagsMayBeCappedEv"
 				}
-				
-				
-				
+
+
+
 				"CTFGameRules::SetWinningTeam"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules14SetWinningTeamEiibbbb"
 				}
-				
+
 				"CTFGameRules::FireGameEvent"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules13FireGameEventEP10IGameEvent"
 				}
-				
+
 				"CSteamID::Render [static]"
 				{
 					type "sym"
@@ -1116,7 +1121,7 @@
 					type "sym"
 					sym  "_ZNK8CSteamID6RenderEv"
 				}
-				
+
 				"CTFItemDefinition::GetLoadoutSlot"
 				{
 					type "sym"
@@ -1143,7 +1148,7 @@
 					sym  "_Z17DataTable_WarningPKcz"
 					lib  "engine"
 				}
-				
+
 				"CopyStringAttributeValueToCharPointerOutput"
 				{
 					type "sym"
@@ -1154,7 +1159,7 @@
 					type "sym"
 					sym  "_ZN14CServerGameDLL14ServerActivateEP7edict_tii"
 				}
-				
+
 				"CMapListManager::RefreshList"
 				{
 					type "sym"
@@ -1179,7 +1184,7 @@
 					sym  "_ZNK15CMapListManager10GetMapNameEi"
 					lib  "engine"
 				}
-				
+
 				"Cbuf_Execute"
 				{
 					type "sym"
@@ -1191,17 +1196,17 @@
 					type "sym"
 					sym  "_Z22PrecachePointTemplatesv"
 				}
-				
-				
-				
+
+
+
 				"CEventQueue::AddEvent"
 				{
 					type "sym"
 					sym  "_ZN11CEventQueue8AddEventEPKcS1_9variant_tfP11CBaseEntityS4_i"
 				}
-				
-				
-				
+
+
+
 				"TE_TFParticleEffect"
 				{
 					type "sym"
@@ -1217,7 +1222,7 @@
 					type "sym"
 					sym  "_Z19TE_TFParticleEffectR16IRecipientFilterfPKc6VectorS3_6QAngleP11CBaseEntity"
 				}
-				
+
 				"DoTeleporterOverride"
 				{
 					type "sym"
@@ -1228,7 +1233,7 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules15OnPlayerSpawnedEP9CTFPlayer"
 				}
-				
+
 				"CBaseIssue::CBaseIssue"
 				{
 					type "sym"
@@ -1244,8 +1249,8 @@
 					type "sym"
 					sym  "_Z18MessageWriteStringPKc"
 				}
-				
-				
+
+
 				"CPlayerInventory::GetInventoryItemByItemID"
 				{
 					type "sym"
@@ -1261,7 +1266,7 @@
 					type "sym"
 					sym  "_ZN18CSchemaFieldHandleI19CEconItemDefinitionEC2EPKc"
 				}
-				
+
 				"CTraceFilterIgnoreFriendlyCombatItems::ShouldHitEntity"
 				{
 					type "sym"
@@ -1272,7 +1277,7 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules15ClientConnectedEP7edict_tPKcS3_Pci"
 				}
-				
+
 				"PrecacheParticleSystem"
 				{
 					type "sym"
@@ -1298,13 +1303,13 @@
 					type "sym"
 					sym  "_Z19ReadEncryptedKVFileP11IFileSystemPKcPKhb"
 				}
-			
+
 				"CTFGameMovement::CheckJumpButton"
 				{
 					type "sym"
 					sym  "_ZN15CTFGameMovement15CheckJumpButtonEv"
 				}
-				
+
 				"TE_TFExplosion"
 				{
 					type "sym"
@@ -1320,7 +1325,7 @@
 					type "sym"
 					sym  "_Z12UTIL_SetSizeP11CBaseEntityRK6VectorS3_"
 				}
-				
+
 				"TE_DispatchEffect"
 				{
 					type "sym"
@@ -1351,7 +1356,7 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules38PlayerReadyStatus_ShouldStartCountdownEv"
 				}
-				
+
 				"DispatchEffect"
 				{
 					type "sym"
@@ -1368,7 +1373,7 @@
 					type "sym"
 					sym  "_ZN12CTFBotVision33UpdatePotentiallyVisibleNPCVectorEv"
 				}
-				
+
 				"CTFGameRules::ShouldRespawnQuickly"
 				{
 					type "sym"
@@ -1399,14 +1404,14 @@
 					type "sym"
 					sym  "_Z18TF_IsHolidayActivei"
 				}
-				
+
 				"ApplyUpgrade_Default"
 				{
 					type "sym"
 					sym  "_ZL20ApplyUpgrade_DefaultRK22CMannVsMachineUpgradesP9CTFPlayerP13CEconItemViewib"
 				}
-				
-				
+
+
 				"GetUpgradeStepData"
 				{
 					type "sym"
@@ -1417,19 +1422,19 @@
 					type "sym"
 					sym  "_ZNK25CVGUILocalizationProvider20ConvertLoccharToANSIEPKwPci"
 				}
-				
+
 				"CItemGeneration::SpawnItem [defIndex]"
 				{
 					type "sym"
 					sym  "_ZN15CItemGeneration9SpawnItemEiRK6VectorRK6QAngleiiPKc"
 				}
-				
+
 				"PropDynamic_CollidesWithGrenades"
 				{
 					type "sym"
 					sym  "_Z32PropDynamic_CollidesWithGrenadesP11CBaseEntity"
 				}
-				
+
 				"CBaseClient::SendNetMsg"
 				{
 					type "sym"
@@ -1446,14 +1451,14 @@
 					type "sym"
 					sym  "_ZN19CMannVsMachineStats23NotifyTargetPlayerEventEP9CTFPlayerj19eMannVsMachineEventi"
 				}
-				
+
 				"static_attrib_t::BInitFromKV_SingleLine"
 				{
 					type "sym"
 					sym  "_ZN15static_attrib_t22BInitFromKV_SingleLineEPKcP9KeyValuesP10CUtlVectorI10CUtlString10CUtlMemoryIS5_iEEb"
 				}
-				
-				
+
+
 				"CTraceFilterObject::ShouldHitEntity"
 				{
 					type "sym"
@@ -1512,7 +1517,7 @@
 					lib  "engine"
 					sym  "_ZN19CClientFrameManager18DeleteClientFramesEi"
 				}
-				
+
 				"CServerGameEnts::CheckTransmit"
 				{
 					type "sym"
@@ -1524,7 +1529,7 @@
 					lib  "engine"
 					sym  "_Z19SendTable_CalcDeltaPK9SendTablePKviS3_iPiii"
 				}
-				
+
 				"CAttributeManager::GetGlobalCacheVersion"
 				{
 					type "sym"
@@ -1550,7 +1555,7 @@
 					type "sym"
 					sym  "_ZN17CAttributeManager19ApplyAttributeFloatEfP11CBaseEntity8string_tP10CUtlVectorIS1_10CUtlMemoryIS1_iEE"
 				}
-				
+
 				"SV_PackEntity"
 				{
 					type "sym"
@@ -1575,7 +1580,7 @@
 					lib  "engine"
 					sym  "_Z14_Host_RunFramef"
 				}
-				
+
 				"FX_FireBullets"
 				{
 					type "sym"
@@ -1591,7 +1596,7 @@
 					type "sym"
 					sym  "_Z31FindAttribute_UnsafeBitwiseCastIjf17CTFItemDefinitionEbPKT1_PK28CEconItemAttributeDefinitionPT0_"
 				}
-				
+
 				"INextBotComponent::GetBot"
 				{
 					type "sym"
@@ -1607,7 +1612,7 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules20GetKillingWeaponNameERK15CTakeDamageInfoP9CTFPlayerPi"
 				}
-				
+
 				"CHLTVServer::IsTVRelay"
 				{
 					type "sym"
@@ -1624,7 +1629,7 @@
 					type "sym"
 					sym  "_ZN17CTFGCServerSystem14SetHibernationEb"
 				}
-				
+
 				"CAttributeManager::OnAttributeValuesChanged"
 				{
 					type "sym"
@@ -1645,13 +1650,13 @@
 					type "sym"
 					sym  "_Z14TE_MetalSparksR16IRecipientFilterfPK6VectorS3_"
 				}
-				
+
 				"CTFGameRules::CleanUpMap"
 				{
 					type "sym"
 					sym  "_ZN12CTFGameRules10CleanUpMapEv"
 				}
-				
+
 				"CBaseEntityOutput::FireOutput"
 				{
 					type "sym"
@@ -1663,7 +1668,7 @@
 					lib  "engine"
 					sym  "_Z8CRC_FilePjPKc"
 				}
-				
+
 				"UTIL_PlayerDecalTrace"
 				{
 					type "sym"
@@ -1784,7 +1789,7 @@
 					type "sym"
 					sym  "_ZN15CAnimationLayer18StudioFrameAdvanceEfP14CBaseAnimating"
 				}
-				
+
 				"AllocChangeFrameList"
 				{
 					type "sym"
@@ -1879,7 +1884,7 @@
 					lib  "engine"
 					sym  "_ZN19CNetworkStringTable17UpdateMirrorTableEi"
 				}
-				
+
 				"SendProxy_SendHealersDataTable"
 				{
 					type "sym"
@@ -1890,7 +1895,7 @@
 					type "sym"
 					sym  "_ZL27SendProxy_SendPredictableIdPK8SendPropPKvS3_P20CSendProxyRecipientsi_0"
 				}
-				
+
 				"CTFBotSquad::Leave"
 				{
 					type "sym"
@@ -1926,7 +1931,7 @@
 					type "sym"
 					sym  "_Z8Host_SayP7edict_tRK8CCommandb"
 				}
-				
+
 				"CEyeballBossApproachTarget::Update"
 				{
 					type "sym"
@@ -1961,7 +1966,7 @@
 					lib  "engine"
 					sym  "_ZN11CHLTVServer8ShutdownEv"
 				}
-				
+
 				"CTFGameRules::BetweenRounds_Think"
 				{
 					type "sym"
@@ -1972,22 +1977,22 @@
 					type "sym"
 					sym  "_ZNK28CSchemaAttributeType_Default34BConvertStringToEconAttributeValueEPK28CEconItemAttributeDefinitionPKcP22attribute_data_union_tb"
 				}
-				
-				
-				
+
+
+
 				"SpawnHierarchicalList"
 				{
 					type "sym"
 					sym  "_Z21SpawnHierarchicalListiP19HierarchicalSpawn_tb"
 				}
-				
-				
+
+
 				"CCollisionProperty::SetSolidFlags"
 				{
 					type "sym"
 					sym  "_ZN18CCollisionProperty13SetSolidFlagsEi"
 				}
-				
+
 				"CGlobalEntityList::FindEntityByName"
 				{
 					type "sym"
@@ -2003,7 +2008,7 @@
 					type "sym"
 					sym  "_Z10TE_TFBloodR16IRecipientFilterfRK6VectorS3_i"
 				}
-				
+
 				"CEngineSoundServer::PrecacheSound"
 				{
 					lib "engine"
@@ -2025,7 +2030,7 @@
 					type "sym"
 					sym  "_ZN21CHeadlessHatmanAttack12AttackTargetEP15CHeadlessHatmanP20CBaseCombatCharacterf"
 				}
-				
+
 				"ParseKeyvalue"
 				{
 					type "sym"
@@ -2071,7 +2076,7 @@
 					type "sym"
 					sym  "_ZN15CTFGameMovement15PlayerSolidMaskEb"
 				}
-				
+
 				"CMannVsMachineChangeChallengeIssue::ExecuteCommand"
 				{
 					type "sym"
@@ -2093,12 +2098,12 @@
 					type "sym"
 					sym  "_Z20UTIL_PlayerBySteamIDRK8CSteamID"
 				}
-				 
+
 				"CCollisionProperty::SetCollisionBounds"
 				{
 					type "sym"
 					sym  "_ZN18CCollisionProperty18SetCollisionBoundsERK6VectorS2_"
-				}  
+				}
 				"UTIL_StringToVector"
 				{
 					type "sym"
@@ -2109,7 +2114,7 @@
 					type "sym"
 					sym  "_ZN18CCollisionProperty8SetSolidE11SolidType_t"
 				}
-				
+
 				"CGameStringPool::LevelShutdownPostEntity"
 				{
 					type "sym"
@@ -2145,13 +2150,13 @@
 					type "sym"
 					sym  "_Z17StopScriptedSceneP9CBaseFlex7CHandleI11CBaseEntityE"
 				}
-				
+
 				"CPhysicsHook::FindOrAddVehicleScript"
 				{
 					type "sym"
 					sym  "_ZN12CPhysicsHook22FindOrAddVehicleScriptEPKcP15vehicleparams_tP15vehiclesounds_t"
 				}
-				
+
 				"CAttributeList::NotifyManagerOfAttributeValueChanges"
 				{
 					type "sym"
@@ -2187,7 +2192,7 @@
 					type "sym"
 					sym  "_ZN11CEventQueue8AddEventEP11CBaseEntityPKc9variant_tfS1_S1_i"
 				}
-				
+
 				"CM_EntityString"
 				{
 					type "sym"
@@ -2216,14 +2221,14 @@
 					lib "soundemittersystem"
 					sym  "_ZN23CSoundEmitterSystemBase27InitSoundInternalParametersEPKcP9KeyValuesR24CSoundParametersInternal"
 				}
-				
-				
+
+
 				"CEventAction::CEventAction [C2]"
 				{
 					type "sym"
 					sym  "_ZN12CEventActionC2EPKc"
 				}
-				
+
 				"CQuestItemTracker::FireGameEvent"
 				{
 					type "sym"
@@ -2260,7 +2265,7 @@
 					type "sym"
 					sym  "_ZN15CTFGameMovement14GetAirSpeedCapEv"
 				}
-				
+
 				"CAttributeManager::ProvideTo"
 				{
 					type "sym"
@@ -2271,7 +2276,7 @@
 					type "sym"
 					sym  "_ZN17CAttributeManager15StopProvidingToEP11CBaseEntity"
 				}
-				
+
 				"CServerGameClients::GetPlayerLimits"
 				{
 					type "sym"
@@ -2295,7 +2300,7 @@
 					lib "engine"
 					sym  "_Z17SV_ActivateServerv"
 				}
-				
+
 				"SetupMaxPlayers"
 				{
 					type "sym"
@@ -2417,8 +2422,8 @@
 					type "sym"
 					sym  "_ZN12CTFGameStats28Event_PlayerEarnedKillStreakEP9CTFPlayer"
 				}
-				
-				
+
+
 				"CServerGameClients::ClientActive"
 				{
 					type "sym"
@@ -2429,14 +2434,14 @@
 					type "sym"
 					sym  "_Z12ClientActiveP7edict_tb"
 				}
-				
-				
+
+
 				"CVoiceGameMgr::ClientConnected"
 				{
 					type "sym"
 					sym  "_ZN13CVoiceGameMgr15ClientConnectedEP7edict_t"
 				}
-				
+
 				"CHLTVDirector::BuildActivePlayerList"
 				{
 					type "sym"
@@ -2510,7 +2515,7 @@
 					type "sym"
 					sym  "_ZN13CVoiceGameMgr11UpdateMasksEv"
 				}
-				
+
 				"CTFGameRules::RoundCleanupShouldIgnore"
 				{
 					type "sym"
@@ -2622,7 +2627,7 @@
 					type "sym"
 					sym  "_ZN15CMultiplayRules35HaveAllPlayersSpeakConceptIfAllowedEiiPKc"
 				}
-				
+
 				"CBaseServer::GetClassBaseline"
 				{
 					type "sym"
@@ -2675,7 +2680,7 @@
 					type "sym"
 					sym  "_ZN15CTFGameMovement17GrapplingHookMoveEv"
 				}
-				
+
 				"CTFGameRules::CanPlayerUseRespec"
 				{
 					type "sym"
@@ -2780,7 +2785,7 @@
 					type "sym"
 					sym  "_ZNK22CServerNetworkProperty7AreaNumEv"
 				}
-				
+
 				"CCollisionProperty::GetEntityHandle"
 				{
 					type "sym"
@@ -3341,7 +3346,7 @@
 					type "sym"
 					sym  "_ZN16CDeltaBitsReader17ReadNextPropIndexEv"
 				}
-				
+
 				"CGlobalEntityList::FindEntityByClassname"
 				{
 					type "pattern"
@@ -3366,7 +3371,7 @@
 					type "sym"
 					sym  "_ZN11CBaseServer9GetClientEi"
 				}
-				
+
 			}
 			"addrs_group"
 			{
@@ -3375,23 +3380,23 @@
 					type "sym"
 					lib  "server"
 				}
-				
-				
+
+
 				"UTIL_GetCommandClient"              "_Z21UTIL_GetCommandClientv"
 				"UTIL_GetCommandClientIndex"         "_Z26UTIL_GetCommandClientIndexv"
 				"UTIL_IsCommandIssuedByServerAdmin"  "_Z33UTIL_IsCommandIssuedByServerAdminv"
 				"UTIL_PrecacheOther"                 "_Z18UTIL_PrecacheOtherPKcS0_"
 				"UTIL_Remove [IServerNetworkable *]" "_Z11UTIL_RemoveP18IServerNetworkable"
 				"UTIL_Remove [CBaseEntity *]"        "_Z11UTIL_RemoveP11CBaseEntity"
-				
+
 				"CTFTeamManager::GetTeam"     "_ZN14CTFTeamManager7GetTeamEi"
 				"CTFTeamManager::IsValidTeam" "_ZN14CTFTeamManager11IsValidTeamEi"
 
 				"CGameRules::DefaultFOV"   "_ZN10CGameRules10DefaultFOVEv"
-				
+
 				"CTeamplayRules::SetStalemate"   "_ZN14CTeamplayRules12SetStalemateEibb"
 				"CTeamplayRules::SetWinningTeam" "_ZN14CTeamplayRules14SetWinningTeamEiibbbb"
-				
+
 				"CTFGameRules::CTFGameRules [C1]" "_ZN12CTFGameRulesC1Ev"
 				"CTFGameRules::GetAssister" "_ZN12CTFGameRules11GetAssisterEP11CBasePlayerS1_P11CBaseEntity"
 				"CTFGameRules::GetBonusRoundTime" "_ZN12CTFGameRules17GetBonusRoundTimeEb"
@@ -3416,27 +3421,27 @@
 				"CAttributeList::DestroyAllAttributes"   "_ZN14CAttributeList20DestroyAllAttributesEv"
 
 				"CAttributeManager::IsProvidingTo" "_ZNK17CAttributeManager13IsProvidingToEP11CBaseEntity"
-				
+
 				"CPlayerInventory::DumpInventoryToConsole" "_ZN16CPlayerInventory22DumpInventoryToConsoleEb"
 				"CPlayerInventory::GetMaxItemCount"        "_ZNK16CPlayerInventory15GetMaxItemCountEv"
-				
+
 				"CTFInventoryManager::GetInventoryForPlayer" "_ZN19CTFInventoryManager21GetInventoryForPlayerERK8CSteamID"
-				
+
 				"GetLoadoutPositionName"   "_Z22GetLoadoutPositionName19loadout_positions_t"
 				"GetLoadoutPositionByName" "_Z24GetLoadoutPositionByNamePKc"
-				
+
 				"InventoryManager"   "_Z16InventoryManagerv"
 				"TFInventoryManager" "_Z18TFInventoryManagerv"
 
 				"CGameMovement::FullNoClipMove" "_ZN13CGameMovement14FullNoClipMoveEff"
 				"CGameMovement::ResetGetPointContentsCache" "_ZN13CGameMovement26ResetGetPointContentsCacheEv"
 				"CGameMovement::PlayerMove" "_ZN13CGameMovement10PlayerMoveEv"
-				
+
 				"CLagCompensationManager::BacktrackPlayer" "_ZN23CLagCompensationManager15BacktrackPlayerEP11CBasePlayerf"
 
 				"SelectWeightedSequence" "_Z22SelectWeightedSequenceP10CStudioHdrii"
 				"CTraceFilterIgnorePlayers::ShouldHitEntity" "_ZN25CTraceFilterIgnorePlayers15ShouldHitEntityEP13IHandleEntityi"
-				
+
 				"TE_PhysicsProp" "_Z14TE_PhysicsPropR16IRecipientFilterfiiRK6VectorRK6QAngleS3_ii"
 				"TE_BreakModel" "_Z13TE_BreakModelR16IRecipientFilterfRK6VectorRK6QAngleS3_S3_iiifi"
 				"TE_BeamLaser" "_Z12TE_BeamLaserR16IRecipientFilterfiiiiiifffifiiiii"
@@ -3469,17 +3474,17 @@
 				"ClientData_Update" "_Z17ClientData_UpdateP11CBasePlayer"
 
 				"GetCurrentSkyCamera" "_Z19GetCurrentSkyCamerav"
-				
+
 				"VScriptServerInit" "_Z17VScriptServerInitv"
 				"VScriptRunScript" "_Z16VScriptRunScriptPKcP9HSCRIPT__b"
 				"CServerGameDLL::GetServerBrowserMapOverride" "_ZN14CServerGameDLL27GetServerBrowserMapOverrideEv"
-				
+
 				"CTeam::GetName"       "_ZNK5CTeam7GetNameEv"
 				"CTeam::GetNumPlayers" "_ZNK5CTeam13GetNumPlayersEv"
 				"CTeam::GetPlayer"     "_ZNK5CTeam9GetPlayerEi"
 				"CTeam::GetTeamNumber" "_ZNK5CTeam13GetTeamNumberEv"
 			}
-			
+
 			"addrs_group"
 			{
 				"[common]"
@@ -3487,7 +3492,7 @@
 					type "sym regex"
 					lib  "server"
 				}
-				
+
 				// Those functions are not worth using in detours over the original functions as of 24.04.2024
 				// "CBaseTrigger::StartTouch [clone]" "_ZN12CBaseTrigger10StartTouchEP11CBaseEntity\\.part\\..*"
 				// "UTIL_PlayerByIndex [clone]" "_Z18UTIL_PlayerByIndexi\\.part\\..*"
@@ -3529,7 +3534,7 @@
 				"CTFRadiusDamageInfo::ApplyToEntity [clone]" "_ZN19CTFRadiusDamageInfo13ApplyToEntityEP11CBaseEntity\\.part\\..*"
 				"CFuncNavCost::IsApplicableTo [clone]" "_ZNK12CFuncNavCost14IsApplicableToEP20CBaseCombatCharacter\\.part\\..*"
 				"CEconItemSchema::GetItemDefinitionByName [clone]" "_ZN15CEconItemSchema23GetItemDefinitionByNameEPKc\\.part\\..*"
-				
+
 				"CBasePlayer::GetInVehicle [clone]" "_ZN11CBasePlayer12GetInVehicleEP14IServerVehiclei\\.part\\..*"
 				"CTFGameMovement::ToggleParachute [clone]" "_ZN15CTFGameMovement15ToggleParachuteEv\\.part\\..*"
 			}
@@ -3540,7 +3545,7 @@
 					type "sym"
 					lib  "engine"
 				}
-				
+
 				"Int_CompareDeltas"	"_Z17Int_CompareDeltasPK8SendPropP7bf_readS3_"
 				"Float_CompareDeltas"	"_Z19Float_CompareDeltasPK8SendPropP7bf_readS3_"
 				"VectorXY_CompareDeltas"	"_Z22VectorXY_CompareDeltasPK8SendPropP7bf_readS3_"
@@ -3557,11 +3562,11 @@
 				"CGameClient::SetupPackInfo" "_ZN11CGameClient13SetupPackInfoEP14CFrameSnapshot"
 				"CGameClient::SetupPrevPackInfo" "_ZN11CGameClient17SetupPrevPackInfoEv"
 				"CGameClient::GetSendFrame" "_ZN11CGameClient12GetSendFrameEv"
-				
+
 				"CParallelProcessor<CGameClient *>::Run" "_ZN18CParallelProcessorIP11CGameClient21CFuncJobItemProcessorIS1_EE3RunEPS1_jiP11IThreadPool"
 
 				"CBaseServer::FillServerInfo" "_ZN11CBaseServer14FillServerInfoER14SVC_ServerInfo"
-				
+
 				"CGameServer::SendClientMessages" "_ZN11CGameServer18SendClientMessagesEb"
 				"CGameServer::RemoveClientFromGame" "_ZN11CGameServer20RemoveClientFromGameEP11CBaseClient"
 
@@ -3581,7 +3586,7 @@
 				"SV_DetermineUpdateType" "_ZL22SV_DetermineUpdateTypeR16CEntityWriteInfo"
 
 				"InvalidateSharedEdictChangeInfo" "_Z32InvalidateSharedEdictChangeInfosv"
-				
+
 			}
 			"addrs_group"
 			{
@@ -3594,7 +3599,7 @@
 
 				"Host_ShowIPCCallCount [clone]" "_Z21Host_ShowIPCCallCountv\\.part\\..*"
 				"CHLTVDemoRecorder::StopRecording [clone]" "_ZN17CHLTVDemoRecorder13StopRecordingEv\\.part\\..*"
-				
+
 			}
 		}
 	}
@@ -3637,9 +3642,9 @@
 					type "sym"
 					sym  "_ZN6CCSBot23FindMostDangerousThreatEv"
 				}
-				
+
 			}
-			
+
 		}
 	}
 

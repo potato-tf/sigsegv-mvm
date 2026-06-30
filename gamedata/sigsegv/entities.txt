@@ -35,7 +35,7 @@
 					addr  "0x18c830"
 					build "3277805"
 				}
-				
+
 				"CTFWeaponBase::DeflectProjectiles"
 				{
 					type   "func ebpprologue unistr"
@@ -50,14 +50,14 @@
 					addr  "0x59e1e0"
 					build "3277805"
 				}
-				
+
 				"CTFKnife::PrimaryAttack"
 				{
 					type   "func ebpprologue unistr"
 					sym    "_ZN8CTFKnife13PrimaryAttackEv"
 					unistr "DisguiseOnKill"
 				}
-				
+
 				"CCurrencyPack::ComeToRest"
 				{
 					type      "func datamap vthunk"
@@ -96,7 +96,7 @@
 					addr  "0x19ac90"
 					build "3283568"
 				}
-				
+
 				"CTFFlameEntity::FlameThink"
 				{
 					type    "func ebpprologue vprof"
@@ -105,13 +105,13 @@
 					v_group "%s Collision"
 				}
 
-				
+
 				"CTFFlameThrower::SetWeaponState"
 				{
 					type "sym"
 					sym  "_ZN15CTFFlameThrower14SetWeaponStateEi"
 				}
-				
+
 				"CBaseAnimating::GetBoneTransform"
 				{
 					type "pattern"
@@ -120,7 +120,7 @@
 					seek "558bec568bf180be4103000000757483be6c040000007510e83341020085c074078bcee8c81b00008b866c04000085c07451833800744c578b7d0885ff78438b003bb89c000000"
 					mask "ffffffffffffffff0000ffffffff00ffff0000ffffffffffff00000000ffffffffffffff00000000ffff0000ffffffffff00ffffffff00ffffffffffffff00ffffffff0000ffff"
 				}
-				
+
 				"CBaseEntity::GetDataDescMap"
 				{
 					type   "func knownvtidx"
@@ -128,7 +128,7 @@
 					vtable ".?AVCBaseEntity@@"
 					idx    "0x0b"
 				}
-				
+
 				"CBaseAnimating::DrawServerHitboxes"
 				{
 					type "pattern"
@@ -137,14 +137,14 @@
 					seek "558bec83ec44578bf980bf41030000000f859301000083bf6c040000007510e84c4c020085c074078bcfe8e1260000"
 					mask "ffffffffffffffffffffff0000ffffffffff00000000ffff0000ffffffffffff00000000ffffffffffffff00000000"
 				}
-				
-				
+
+
 				"CBaseTrigger::PassesTriggerFilters"
 				{
 					type "sym regex"
 					sym  ".*CBaseTrigger.*PassesTriggerFilters.*"
 				}
-				
+
 				"CBaseMultiplayerPlayer::SpeakConceptIfAllowed"
 				{
 					type  "sym"
@@ -152,14 +152,14 @@
 					sym64 "_ZN22CBaseMultiplayerPlayer21SpeakConceptIfAllowedEiPKcPcmP16IRecipientFilter"
 				}
 
-				
+
 				"CQuestItemTracker::FireGameEvent_NonVirtual"
 				{
 					type "sym"
 					sym  "_ZThn20_N17CQuestItemTracker13FireGameEventEP10IGameEvent"
 					sym64 "_ZThn32_N17CQuestItemTracker13FireGameEventEP10IGameEvent"
 				}
-				
+
 				"findFileInDirCaseInsensitive"
 				{
 					type "sym"
@@ -167,7 +167,7 @@
 					sym  "_Z28findFileInDirCaseInsensitivePKcPcj"
 					sym64  "_Z28findFileInDirCaseInsensitivePKcPcm"
 				}
-				
+
 				"_SpewMessage [internal]"
 				{
 					type "sym"
@@ -183,7 +183,7 @@
 					type "sym"
 					lib  "server"
 				}
-				
+
 				"~CBaseEntity [D2]" "_ZN11CBaseEntityD2Ev"
 				"CBaseEntity::AddTimedOverlay" "_ZN11CBaseEntity15AddTimedOverlayEPKci"
 				"CBaseEntity::SetOwnerEntity" "_ZN11CBaseEntity14SetOwnerEntityEPS_"
@@ -282,7 +282,7 @@
 				"CBaseEntity::GetTouchTrace" "_ZN11CBaseEntity13GetTouchTraceEv"
 				"CBaseEntity::GetServerClass" "_ZN11CBaseEntity14GetServerClassEv"
 				"CBaseEntity::CBaseEntity" "_ZN11CBaseEntityC2Eb"
-				"CBaseEntity::GetBaseAnimating" "_ZN11CBaseEntity16GetBaseAnimatingEv" 
+				"CBaseEntity::GetBaseAnimating" "_ZN11CBaseEntity16GetBaseAnimatingEv"
 				"CBaseEntity::GetDataObject" "_ZN11CBaseEntity13GetDataObjectEi"
 				"CBaseEntity::TakeHealth" "_ZN11CBaseEntity10TakeHealthEfi"
 				"CBaseEntity::PassesDamageFilter" "_ZN11CBaseEntity18PassesDamageFilterERK15CTakeDamageInfo"
@@ -353,70 +353,70 @@
 				"CBaseAnimating::InvalidateBoneCache" "_ZN14CBaseAnimating19InvalidateBoneCacheEv"
 
 				"CBaseCombatCharacter::GetBossType" "_ZNK20CBaseCombatCharacter11GetBossTypeEv"
-				"CBaseCombatCharacter::GetLastKnownArea" "_ZNK20CBaseCombatCharacter16GetLastKnownAreaEv" 
-				"CBaseCombatCharacter::Weapon_GetSlot" "_ZNK20CBaseCombatCharacter14Weapon_GetSlotEi" 
-				"CBaseCombatCharacter::Weapon_CanSwitchTo" "_ZN20CBaseCombatCharacter18Weapon_CanSwitchToEP17CBaseCombatWeapon" 
-				"CBaseCombatCharacter::Weapon_Switch" "_ZN20CBaseCombatCharacter13Weapon_SwitchEP17CBaseCombatWeaponi" 
-				"CBaseCombatCharacter::AddGlowEffect" "_ZN20CBaseCombatCharacter13AddGlowEffectEv" 
-				"CBaseCombatCharacter::RemoveGlowEffect" "_ZN20CBaseCombatCharacter16RemoveGlowEffectEv" 
-				"CBaseCombatCharacter::IsGlowEffectActive" "_ZN20CBaseCombatCharacter18IsGlowEffectActiveEv" 
-				"CBaseCombatCharacter::IsAbleToSee [CBaseEntity *]" "_ZN20CBaseCombatCharacter11IsAbleToSeeEPK11CBaseEntityNS_20FieldOfViewCheckTypeE" 
-				"CBaseCombatCharacter::IsAbleToSee [CBaseCombatCharacter *]" "_ZN20CBaseCombatCharacter11IsAbleToSeeEPS_NS_20FieldOfViewCheckTypeE" 
-				"CBaseCombatCharacter::SetBloodColor" "_ZN20CBaseCombatCharacter13SetBloodColorEi" 
-				"CBaseCombatCharacter::GiveAmmo" "_ZN20CBaseCombatCharacter8GiveAmmoEiib" 
-				"CBaseCombatCharacter::GetAmmoCount" "_ZNK20CBaseCombatCharacter12GetAmmoCountEi" 
-				"CBaseCombatCharacter::OnTakeDamage" "_ZN20CBaseCombatCharacter12OnTakeDamageERK15CTakeDamageInfo" 
-				"CBaseCombatCharacter::UpdateLastKnownArea" "_ZN20CBaseCombatCharacter19UpdateLastKnownAreaEv" 
-				"CBaseCombatCharacter::Weapon_Detach" "_ZN20CBaseCombatCharacter13Weapon_DetachEP17CBaseCombatWeapon" 
-				"CBaseCombatCharacter::SwitchToNextBestWeapon" "_ZN20CBaseCombatCharacter22SwitchToNextBestWeaponEP17CBaseCombatWeapon" 
-				"CBaseCombatCharacter::CalculatePhysicsStressDamage" "_ZN20CBaseCombatCharacter28CalculatePhysicsStressDamageEP23vphysics_objectstress_tP14IPhysicsObject" 
-				"CBaseCombatCharacter::ClearLastKnownArea" "_ZN20CBaseCombatCharacter18ClearLastKnownAreaEv" 
-				"CBaseCombatCharacter::Event_Killed" "_ZN20CBaseCombatCharacter12Event_KilledERK15CTakeDamageInfo" 
-				"CBaseCombatCharacter::Weapon_Equip" "_ZN20CBaseCombatCharacter12Weapon_EquipEP17CBaseCombatWeapon" 
-				"CBaseCombatCharacter::ShouldGib" "_ZN20CBaseCombatCharacter9ShouldGibERK15CTakeDamageInfo" 
-				"CBaseCombatCharacter::FInViewCone" "_ZN20CBaseCombatCharacter11FInViewConeERK6Vector" 
-				"CBaseCombatCharacter::CalcDamageForceVector" "_ZN20CBaseCombatCharacter21CalcDamageForceVectorERK15CTakeDamageInfo" 
-				"CBaseCombatCharacter::BecomeRagdoll" "_ZN20CBaseCombatCharacter13BecomeRagdollERK15CTakeDamageInfoRK6Vector" 
-				"CBaseCombatCharacter::RemoveAmmo" "_ZN20CBaseCombatCharacter10RemoveAmmoEii" 
-				
+				"CBaseCombatCharacter::GetLastKnownArea" "_ZNK20CBaseCombatCharacter16GetLastKnownAreaEv"
+				"CBaseCombatCharacter::Weapon_GetSlot" "_ZNK20CBaseCombatCharacter14Weapon_GetSlotEi"
+				"CBaseCombatCharacter::Weapon_CanSwitchTo" "_ZN20CBaseCombatCharacter18Weapon_CanSwitchToEP17CBaseCombatWeapon"
+				"CBaseCombatCharacter::Weapon_Switch" "_ZN20CBaseCombatCharacter13Weapon_SwitchEP17CBaseCombatWeaponi"
+				"CBaseCombatCharacter::AddGlowEffect" "_ZN20CBaseCombatCharacter13AddGlowEffectEv"
+				"CBaseCombatCharacter::RemoveGlowEffect" "_ZN20CBaseCombatCharacter16RemoveGlowEffectEv"
+				"CBaseCombatCharacter::IsGlowEffectActive" "_ZN20CBaseCombatCharacter18IsGlowEffectActiveEv"
+				"CBaseCombatCharacter::IsAbleToSee [CBaseEntity *]" "_ZN20CBaseCombatCharacter11IsAbleToSeeEPK11CBaseEntityNS_20FieldOfViewCheckTypeE"
+				"CBaseCombatCharacter::IsAbleToSee [CBaseCombatCharacter *]" "_ZN20CBaseCombatCharacter11IsAbleToSeeEPS_NS_20FieldOfViewCheckTypeE"
+				"CBaseCombatCharacter::SetBloodColor" "_ZN20CBaseCombatCharacter13SetBloodColorEi"
+				"CBaseCombatCharacter::GiveAmmo" "_ZN20CBaseCombatCharacter8GiveAmmoEiib"
+				"CBaseCombatCharacter::GetAmmoCount" "_ZNK20CBaseCombatCharacter12GetAmmoCountEi"
+				"CBaseCombatCharacter::OnTakeDamage" "_ZN20CBaseCombatCharacter12OnTakeDamageERK15CTakeDamageInfo"
+				"CBaseCombatCharacter::UpdateLastKnownArea" "_ZN20CBaseCombatCharacter19UpdateLastKnownAreaEv"
+				"CBaseCombatCharacter::Weapon_Detach" "_ZN20CBaseCombatCharacter13Weapon_DetachEP17CBaseCombatWeapon"
+				"CBaseCombatCharacter::SwitchToNextBestWeapon" "_ZN20CBaseCombatCharacter22SwitchToNextBestWeaponEP17CBaseCombatWeapon"
+				"CBaseCombatCharacter::CalculatePhysicsStressDamage" "_ZN20CBaseCombatCharacter28CalculatePhysicsStressDamageEP23vphysics_objectstress_tP14IPhysicsObject"
+				"CBaseCombatCharacter::ClearLastKnownArea" "_ZN20CBaseCombatCharacter18ClearLastKnownAreaEv"
+				"CBaseCombatCharacter::Event_Killed" "_ZN20CBaseCombatCharacter12Event_KilledERK15CTakeDamageInfo"
+				"CBaseCombatCharacter::Weapon_Equip" "_ZN20CBaseCombatCharacter12Weapon_EquipEP17CBaseCombatWeapon"
+				"CBaseCombatCharacter::ShouldGib" "_ZN20CBaseCombatCharacter9ShouldGibERK15CTakeDamageInfo"
+				"CBaseCombatCharacter::FInViewCone" "_ZN20CBaseCombatCharacter11FInViewConeERK6Vector"
+				"CBaseCombatCharacter::CalcDamageForceVector" "_ZN20CBaseCombatCharacter21CalcDamageForceVectorERK15CTakeDamageInfo"
+				"CBaseCombatCharacter::BecomeRagdoll" "_ZN20CBaseCombatCharacter13BecomeRagdollERK15CTakeDamageInfoRK6Vector"
+				"CBaseCombatCharacter::RemoveAmmo" "_ZN20CBaseCombatCharacter10RemoveAmmoEii"
+
 				"CAI_BaseNPC::GetActivityName" "_ZN11CAI_BaseNPC15GetActivityNameEi"
 				"CAI_BaseNPC::GetActivityID" "_ZN11CAI_BaseNPC13GetActivityIDEPKc"
 
 				"CTFTeam::GetNumObjects" "_ZN7CTFTeam13GetNumObjectsEi"
 				"CTFTeam::GetObject"     "_ZN7CTFTeam9GetObjectEi"
 
-				"CBasePlayer::IsBot" "_ZNK11CBasePlayer5IsBotEv" 
-				"CBasePlayer::CommitSuicide" "_ZN11CBasePlayer13CommitSuicideEbb" 
-				"CBasePlayer::GetSteamID" "_ZN11CBasePlayer10GetSteamIDEP8CSteamID" 
-				"CBasePlayer::Weapon_ShootPosition" "_ZN11CBasePlayer20Weapon_ShootPositionEv" 
-				"CBasePlayer::PlayStepSound" "_ZN11CBasePlayer13PlayStepSoundER6VectorP13surfacedata_tfb" 
-				"CBasePlayer::SetPlayerName" "_ZN11CBasePlayer13SetPlayerNameEPKc" 
-				"CBasePlayer::GetPlayerMaxSpeed" "_ZN11CBasePlayer17GetPlayerMaxSpeedEv" 
-				"CBasePlayer::GetViewModel" "_ZN11CBasePlayer12GetViewModelEib" 
-				"CBasePlayer::DisableButtons" "_ZN11CBasePlayer14DisableButtonsEi" 
-				"CBasePlayer::EnableButtons" "_ZN11CBasePlayer13EnableButtonsEi" 
-				"CBasePlayer::ForceButtons" "_ZN11CBasePlayer12ForceButtonsEi" 
+				"CBasePlayer::IsBot" "_ZNK11CBasePlayer5IsBotEv"
+				"CBasePlayer::CommitSuicide" "_ZN11CBasePlayer13CommitSuicideEbb"
+				"CBasePlayer::GetSteamID" "_ZN11CBasePlayer10GetSteamIDEP8CSteamID"
+				"CBasePlayer::Weapon_ShootPosition" "_ZN11CBasePlayer20Weapon_ShootPositionEv"
+				"CBasePlayer::PlayStepSound" "_ZN11CBasePlayer13PlayStepSoundER6VectorP13surfacedata_tfb"
+				"CBasePlayer::SetPlayerName" "_ZN11CBasePlayer13SetPlayerNameEPKc"
+				"CBasePlayer::GetPlayerMaxSpeed" "_ZN11CBasePlayer17GetPlayerMaxSpeedEv"
+				"CBasePlayer::GetViewModel" "_ZN11CBasePlayer12GetViewModelEib"
+				"CBasePlayer::DisableButtons" "_ZN11CBasePlayer14DisableButtonsEi"
+				"CBasePlayer::EnableButtons" "_ZN11CBasePlayer13EnableButtonsEi"
+				"CBasePlayer::ForceButtons" "_ZN11CBasePlayer12ForceButtonsEi"
 				"CBasePlayer::UnforceButtons" "_ZN11CBasePlayer14UnforceButtonsEi"
-				"CBasePlayer::RemoveWearable" "_ZN11CBasePlayer14RemoveWearableEP13CEconWearable" 
-				"CBasePlayer::SnapEyeAngles" "_ZN11CBasePlayer13SnapEyeAnglesERK6QAngle" 
-				"CBasePlayer::ChangeTeam [int, bool, bool, bool]" "_ZN11CBasePlayer10ChangeTeamEibbb" 
-				"CBasePlayer::IsFakeClient" "_ZNK11CBasePlayer12IsFakeClientEv" 
-				"CBasePlayer::IsBotOfType" "_ZNK11CBasePlayer11IsBotOfTypeEi" 
-				"CBasePlayer::PhysicsSimulate" "_ZN11CBasePlayer15PhysicsSimulateEv" 
-				"CBasePlayer::FindUseEntity" "_ZN11CBasePlayer13FindUseEntityEv" 
-				"CBasePlayer::GetInVehicle" "_ZN11CBasePlayer12GetInVehicleEP14IServerVehiclei" 
-				"CBasePlayer::LeaveVehicle" "_ZN11CBasePlayer12LeaveVehicleERK6VectorRK6QAngle" 
-				"CBasePlayer::EyeAngles" "_ZN11CBasePlayer9EyeAnglesEv" 
-				"CBasePlayer::ItemPostFrame" "_ZN11CBasePlayer13ItemPostFrameEv" 
-				"CBasePlayer::UpdatePlayerSound" "_ZN11CBasePlayer17UpdatePlayerSoundEv" 
-				"CBasePlayer::PlayerRunCommand" "_ZN11CBasePlayer16PlayerRunCommandEP8CUserCmdP11IMoveHelper" 
-				"CBasePlayer::Touch" "_ZN11CBasePlayer5TouchEP11CBaseEntity" 
-				"CBasePlayer::ClientCommand" "_ZN11CBasePlayer13ClientCommandERK8CCommand" 
-				"CBasePlayer::ForceRespawn" "_ZN11CBasePlayer12ForceRespawnEv" 
-				"CBasePlayer::CreateViewModel" "_ZN11CBasePlayer15CreateViewModelEi" 
-				"CBasePlayer::EquipWearable" "_ZN11CBasePlayer13EquipWearableEP13CEconWearable" 
-				"CBasePlayer::Weapon_Equip" "_ZN9CTFPlayer12Weapon_EquipEP17CBaseCombatWeapon" 
-				"CBasePlayer::ShowViewPortPanel" "_ZN11CBasePlayer17ShowViewPortPanelEPKcbP9KeyValues" 
+				"CBasePlayer::RemoveWearable" "_ZN11CBasePlayer14RemoveWearableEP13CEconWearable"
+				"CBasePlayer::SnapEyeAngles" "_ZN11CBasePlayer13SnapEyeAnglesERK6QAngle"
+				"CBasePlayer::ChangeTeam [int, bool, bool, bool]" "_ZN11CBasePlayer10ChangeTeamEibbb"
+				"CBasePlayer::IsFakeClient" "_ZNK11CBasePlayer12IsFakeClientEv"
+				"CBasePlayer::IsBotOfType" "_ZNK11CBasePlayer11IsBotOfTypeEi"
+				"CBasePlayer::PhysicsSimulate" "_ZN11CBasePlayer15PhysicsSimulateEv"
+				"CBasePlayer::FindUseEntity" "_ZN11CBasePlayer13FindUseEntityEv"
+				"CBasePlayer::GetInVehicle" "_ZN11CBasePlayer12GetInVehicleEP14IServerVehiclei"
+				"CBasePlayer::LeaveVehicle" "_ZN11CBasePlayer12LeaveVehicleERK6VectorRK6QAngle"
+				"CBasePlayer::EyeAngles" "_ZN11CBasePlayer9EyeAnglesEv"
+				"CBasePlayer::ItemPostFrame" "_ZN11CBasePlayer13ItemPostFrameEv"
+				"CBasePlayer::UpdatePlayerSound" "_ZN11CBasePlayer17UpdatePlayerSoundEv"
+				"CBasePlayer::PlayerRunCommand" "_ZN11CBasePlayer16PlayerRunCommandEP8CUserCmdP11IMoveHelper"
+				"CBasePlayer::Touch" "_ZN11CBasePlayer5TouchEP11CBaseEntity"
+				"CBasePlayer::ClientCommand" "_ZN11CBasePlayer13ClientCommandERK8CCommand"
+				"CBasePlayer::ForceRespawn" "_ZN11CBasePlayer12ForceRespawnEv"
+				"CBasePlayer::CreateViewModel" "_ZN11CBasePlayer15CreateViewModelEi"
+				"CBasePlayer::EquipWearable" "_ZN11CBasePlayer13EquipWearableEP13CEconWearable"
+				"CBasePlayer::Weapon_Equip" "_ZN9CTFPlayer12Weapon_EquipEP17CBaseCombatWeapon"
+				"CBasePlayer::ShowViewPortPanel" "_ZN11CBasePlayer17ShowViewPortPanelEPKcbP9KeyValues"
 				"CBasePlayer::IsPlayer" "_ZNK11CBasePlayer8IsPlayerEv"
 				"CBasePlayer::SetModel" "_ZN11CBasePlayer8SetModelEPKc"
 				"CBasePlayer::SetVCollisionState" "_ZN11CBasePlayer18SetVCollisionStateERK6VectorS2_i"
@@ -433,7 +433,7 @@
 				"CEyeballBoss::GetVisionInterface" "_ZNK12CEyeballBoss18GetVisionInterfaceEv"
 
 				"NextBotCombatCharacter::Spawn" "_ZN22NextBotCombatCharacter5SpawnEv"
-				
+
 				"CZombie::CZombie"      "_ZN7CZombieC2Ev"
 				"CZombie::Spawn"      "_ZN7CZombie5SpawnEv"
 				"CZombie::SpawnAtPos" "_ZN7CZombie10SpawnAtPosERK6VectorfiP11CBaseEntityNS_14SkeletonType_tE"
@@ -443,7 +443,7 @@
 				"CZombie::GetIntentionInterface" "_ZNK7CZombie21GetIntentionInterfaceEv"
 
 				"IZombieAutoList::m_IZombieAutoListAutoList" "_ZN15IZombieAutoList25m_IZombieAutoListAutoListE"
-				
+
 				"CBotNPCArcher::CBotNPCArcher" "_ZN13CBotNPCArcherC2Ev"
 				"CBotNPCArcher::GetIntentionInterface" "_ZNK13CBotNPCArcher21GetIntentionInterfaceEv"
 				"CBotNPCArcher::D1Thunk" "_ZThn2188_N13CBotNPCArcherD1Ev"
@@ -452,7 +452,7 @@
 				"CEconWearable::RemoveFrom" "_ZN13CEconWearable10RemoveFromEP11CBaseEntity"
 				"CEconWearable::UnEquip"    "_ZN13CEconWearable7UnEquipEP11CBasePlayer"
 				"CEconWearable::GetSkin"    "_ZN13CEconWearable7GetSkinEv"
-				
+
 				"IHasGenericMeter::ShouldUpdateMeter"     "_ZNK16IHasGenericMeter17ShouldUpdateMeterEv"
 				"IHasGenericMeter::GetMeterMultiplier"    "_ZNK16IHasGenericMeter18GetMeterMultiplierEv"
 				"IHasGenericMeter::OnResourceMeterFilled" "_ZN16IHasGenericMeter21OnResourceMeterFilledEv"
@@ -494,7 +494,7 @@
 				"CBaseCombatWeapon::Holster" "_ZN17CBaseCombatWeapon7HolsterEPS_"
 				"CBaseCombatWeapon::Deploy" "_ZN17CBaseCombatWeapon7DeployEPS_"
 				"CBaseCombatWeapon::OnActiveStateChanged" "_ZN17CBaseCombatWeapon20OnActiveStateChangedEi"
-				
+
 
 				"CTFWeaponBase::ShouldRemoveInvisibilityOnPrimaryAttack" "_ZNK13CTFWeaponBase39ShouldRemoveInvisibilityOnPrimaryAttackEv"
 				"CTFWeaponBase::UpdateOnRemove"                          "_ZN13CTFWeaponBase14UpdateOnRemoveEv"
@@ -545,7 +545,7 @@
 				"CTFWeaponBase::CanHolster" "_ZNK13CTFWeaponBase10CanHolsterEv"
 				"CTFWeaponBase::GetSkin" "_ZN13CTFWeaponBase7GetSkinEv"
 				"CTFWeaponBase::WeaponReset" "_ZN13CTFWeaponBase11WeaponResetEv"
-				
+
 
 				"CTFWeaponBaseGun::DoFireEffects"        "_ZN16CTFWeaponBaseGun13DoFireEffectsEv"
 				"CTFWeaponBaseGun::FireProjectile"       "_ZN16CTFWeaponBaseGun14FireProjectileEP9CTFPlayer"
@@ -582,9 +582,9 @@
 				"CWeaponMedigun::PrimaryAttack" "_ZN14CWeaponMedigun13PrimaryAttackEv"
 
 				"CTFWeaponFlameBall::FireProjectile" "_ZN18CTFWeaponFlameBall14FireProjectileEP9CTFPlayer"
-				
+
 				"CFlagDetectionZone::EntityIsFlagCarrier" "_ZN18CFlagDetectionZone19EntityIsFlagCarrierEP11CBaseEntity"
-				
+
 				"CBaseProjectile::CanCollideWithTeammates" "_ZNK15CBaseProjectile23CanCollideWithTeammatesEv"
 
 				"CBaseObject::FindBuildPointOnPlayer" "_ZN11CBaseObject22FindBuildPointOnPlayerEP9CTFPlayerP11CBasePlayerRfR6Vector"
@@ -592,7 +592,7 @@
 				"CBaseObject::FindNearestBuildPoint" "_ZN11CBaseObject21FindNearestBuildPointEP11CBaseEntityP11CBasePlayerRfR6Vectorb"
 				"CBaseObject::MustBeBuiltOnAttachmentPoint" "_ZNK11CBaseObject28MustBeBuiltOnAttachmentPointEv"
 				"CBaseObject::IsHostileUpgrade" "_ZN11CBaseObject16IsHostileUpgradeEv"
-				
+
 
 				"CObjectSapper::GetSapperModelName" "_ZN13CObjectSapper18GetSapperModelNameE13SapperModel_tPKc"
 				"CObjectSapper::GetSapperSoundName" "_ZN13CObjectSapper18GetSapperSoundNameEv"
@@ -602,8 +602,8 @@
 				"CTFBaseRocket::GetRadius" "_ZN13CTFBaseRocket9GetRadiusEv"
 				"CTFBaseRocket::Destroy" "_ZN13CTFBaseRocket7DestroyEbb"
 				"CTFBaseRocket::Create" "_ZN13CTFBaseRocket6CreateEP11CBaseEntityPKcRK6VectorRK6QAngleS1_"
-				
-				
+
+
 				"CTFProjectile_Flare::Explode_Air" "_ZN19CTFProjectile_Flare11Explode_AirEP10CGameTraceib"
 				"CTFProjectile_Flare::GetDamageType" "_ZN19CTFProjectile_Flare13GetDamageTypeEv"
 
@@ -628,7 +628,7 @@
 				"CTFWeaponBaseGrenadeProj::Destroy" "_ZN24CTFWeaponBaseGrenadeProj7DestroyEbb"
 
 				"CTeamRoundTimer::InputSetTime" "_ZN15CTeamRoundTimer12InputSetTimeER11inputdata_t"
-				
+
 				"CTFCompoundBow::Reload" "_ZN14CTFCompoundBow6ReloadEv"
 
 				"CTFPipebombLauncher::Deploy" "_ZN19CTFPipebombLauncher6DeployEv"
@@ -644,10 +644,10 @@
 				"CBeam::EntsInit" "_ZN5CBeam8EntsInitEP11CBaseEntityS1_"
 
 				"CSprite::SpriteCreate" "_ZN7CSprite12SpriteCreateEPKcRK6Vectorb"
-				
+
 				"CPointPush::PushThink" "_ZN10CPointPush9PushThinkEv"
 
-				
+
 				"CAmmoPack::Precache" "_ZN9CAmmoPack8PrecacheEv"
 				"CBaseFilter::InputTestActivator" "_ZN11CBaseFilter18InputTestActivatorER11inputdata_t"
 				"CBaseFilter::PassesDamageFilter" "_ZN11CBaseFilter18PassesDamageFilterERK15CTakeDamageInfo"
@@ -824,9 +824,10 @@
 				"CObjectTeleporter::TeleporterThink" "_ZN17CObjectTeleporter15TeleporterThinkEv"
 				"CObjectTeleporter::TeleporterTouch" "_ZN17CObjectTeleporter15TeleporterTouchEP11CBaseEntity"
 				"CPathTrack::GetNext" "_ZN10CPathTrack7GetNextEv"
+				"CItem::ComeToRest" "_ZN5CItem10ComeToRestEv"
 				"CPointPopulatorInterface::InputChangeBotAttributes" "_ZN24CPointPopulatorInterface24InputChangeBotAttributesER11inputdata_t"
 				"CPointTeleport::Activate" "_ZN14CPointTeleport8ActivateEv"
-				"CPopulationManager::IsValidPopfile" "_ZN18CPopulationManager14IsValidPopfileE10CUtlString" 
+				"CPopulationManager::IsValidPopfile" "_ZN18CPopulationManager14IsValidPopfileE10CUtlString"
 				"CPropVehicleDriveable::CanExitVehicle" "_ZN21CPropVehicleDriveable14CanExitVehicleEP11CBaseEntity"
 				"CPropVehicleDriveable::DriveVehicle" "_ZN21CPropVehicleDriveable12DriveVehicleEfP8CUserCmdii"
 				"CPropVehicleDriveable::PassengerShouldReceiveDamage" "_ZN21CPropVehicleDriveable28PassengerShouldReceiveDamageER15CTakeDamageInfo"
