@@ -22,6 +22,9 @@ MSVC/Report*.csv
 *.sublime-project
 *.sublime-workspace
 
+.idea/
+
 libs/lua/
+libs/udis86/
 sigsegv-mvm.kdev4
 libs/*.a
