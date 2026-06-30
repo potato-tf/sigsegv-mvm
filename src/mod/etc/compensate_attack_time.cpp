@@ -41,8 +41,9 @@ namespace Mod::Etc::Compensate_Attack_time
 	public:
 		CMod() : IMod("Etc:Compensate_Attack_time")
 		{
-			MOD_ADD_DETOUR_MEMBER(CTFWeaponBaseGun_PrimaryAttack, "CTFWeaponBaseGun::PrimaryAttack");
-			MOD_ADD_DETOUR_MEMBER(CObjectSentrygun_Attack, "CObjectSentrygun::Attack");
+			// We want these to run last so we can ensure get the final value for m_flNextPrimaryAttack.
+			MOD_ADD_DETOUR_MEMBER_PRIORITY(CTFWeaponBaseGun_PrimaryAttack, "CTFWeaponBaseGun::PrimaryAttack", LOWEST);
+			MOD_ADD_DETOUR_MEMBER_PRIORITY(CObjectSentrygun_Attack, "CObjectSentrygun::Attack", LOWEST);
 		}
 	};
 	CMod s_Mod;
