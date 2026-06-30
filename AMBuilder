@@ -9,7 +9,7 @@ sourceFiles = []
 
 sourceFiles += [
   'src/sm/MemoryUtils.cpp',
-  
+
   'src/se2007/meshutils.cpp',
 ]
 
@@ -28,14 +28,14 @@ sourceFiles += [
   'src/mod.cpp',
   'src/prop.cpp',
 # 'src/sizeof.cpp',
-  
+
 # 'src/disasm/disasm.cpp',
-  
+
   'src/addr/addr.cpp',
   'src/addr/misc.cpp',
   'src/addr/prescan.cpp',
   'src/addr/standard.cpp',
-  
+
   'src/mem/alloc.cpp',
   'src/mem/detour.cpp',
   'src/mem/func_copy.cpp',
@@ -44,7 +44,7 @@ sourceFiles += [
   'src/mem/patch.cpp',
   'src/mem/scan.cpp',
   'src/mem/virtual_hook.cpp',
-  
+
   'src/util/admin.cpp',
   'src/util/backtrace.cpp',
   'src/util/debugoverlay_extra.cpp',
@@ -53,27 +53,27 @@ sourceFiles += [
   'src/util/misc.cpp',
   'src/util/rtti.cpp',
   'src/util/translation.cpp',
-  
+
   'src/stub/__merge.cpp',
-  
+
   'src/link/debugoverlay.cpp',
   'src/link/link.cpp',
   'src/link/nextbot1.cpp',
   'src/link/nextbot2.cpp',
-  
+
   'src/re/path.cpp',
-  
+
 #  'src/entity/trigger_gravity_improved.cpp',
 ]
 
 sourceFiles += [
-  
+
   'src/mod/common/commands.cpp',
   'src/mod/common/extraentitydata.cpp',
 
   'src/mod/etc/sendprop_override.cpp',
   'src/mod/etc/sendprop_override_extension.cpp',
-  
+
   'src/mod/perf/attributes_optimize.cpp',
   'src/mod/perf/css_bot_vision_optimize.cpp',
   'src/mod/perf/filesystem_optimize.cpp',
@@ -105,16 +105,16 @@ if not Extension.optimize_mods_only:
 
 if not Extension.optimize_mods_only:
   sourceFiles += [
-    
+
     'src/mod/ai/npc_nextbot/npc_nextbot.cpp',
     'src/mod/ai/npc_nextbot/npc_nextbot_unlag.cpp',
     'src/mod/ai/npc_nextbot/npc_nextbot_actions.cpp',
     'src/mod/ai/npc_nextbot/npc_nextbot_body.cpp',
     'src/mod/ai/npc_nextbot/npc_nextbot_locomotion.cpp',
     'src/mod/ai/npc_nextbot/npc_nextbot_vision.cpp',
-    
+
     'src/mod/item/item_common.cpp',
-    
+
     'src/mod/bot/interrupt_action.cpp',
     'src/mod/bot/guard_action.cpp',
 
@@ -125,16 +125,17 @@ if not Extension.optimize_mods_only:
     'src/mod/attr/custom_attributes.cpp',
 
     'src/mod/bot/bot_player_slot_reorder.cpp',
-    
+
     'src/mod/cond/enhanced_cmds.cpp',
     'src/mod/cond/reprogrammed.cpp',
 
     'src/mod/common/text_hud.cpp',
     'src/mod/common/weapon_shoot.cpp',
-    
+
     'src/mod/demo/stringtable_limit.cpp',
-    
+
     'src/mod/etc/allow_civilian_class.cpp',
+    'src/mod/etc/compensate_attack_time.cpp',
     'src/mod/etc/crash_fixes.cpp',
     'src/mod/etc/crayairblast_convar_nocheat.cpp',
 #   'src/mod/etc/debug_mission_change_crash.cpp',
@@ -171,16 +172,16 @@ if not Extension.optimize_mods_only:
     'src/mod/etc/unintended_class_weapon_improvements.cpp',
     'src/mod/etc/extra_player_slots.cpp',
     'src/mod/etc/entity_limit_manager.cpp',
-    
-    
+
+
   #  'src/mod/prof/attr_munge.cpp',
     'src/mod/prof/frame_prof.cpp',
-    
+
     'src/mod/sniper/charge_uncap.cpp',
     'src/mod/sniper/head_uncap.cpp',
-    
+
     'src/mod/tank/gunslinger_combo.cpp',
-    
+
     'src/mod/util/add_item.cpp',
     'src/mod/util/client_cmds.cpp',
     'src/mod/util/confilter.cpp',
@@ -200,7 +201,7 @@ if not Extension.optimize_mods_only:
   # 'src/mod/util/serialize_spew.cpp',
   #  'src/mod/util/vprof_remote.cpp',
   ]
-    
+
   if 'mods_mvm' not in Extension.exclude:
     sourceFiles += [
     'src/util/firehose_base.cpp',
@@ -221,7 +222,7 @@ if not Extension.optimize_mods_only:
     'src/mod/ai/rocketjump.cpp',
     'src/mod/ai/wrapassassin_altfire.cpp',
     'src/mod/ai/improved_targeting.cpp',
-    
+
     #  'src/mod/ai/mvm_defender_bots.cpp',
     #  'src/mod/ai/mvm_defender_bots/actions/attack_tank.cpp',
     #  'src/mod/ai/mvm_defender_bots/actions/collect_money.cpp',
@@ -242,10 +243,10 @@ if not Extension.optimize_mods_only:
     #  'src/mod/ai/mvm_defender_bots/trackers/flags.cpp',
     #  'src/mod/ai/mvm_defender_bots/trackers/gates.cpp',
     #  'src/mod/ai/mvm_defender_bots/trackers/tanks.cpp',
-    
+
     'src/mod/anim/player_updatemodel_animstate_fix.cpp',
     'src/mod/anim/estimateabsvelocity_moveparent_fix.cpp',
-    
+
     'src/mod/bot/demo_elevation_fix.cpp',
     'src/mod/bot/isspacetospawnhere_scale.cpp',
     'src/mod/bot/kart_locomotion.cpp',
@@ -255,9 +256,9 @@ if not Extension.optimize_mods_only:
     'src/mod/bot/runfast.cpp',
     'src/mod/bot/spy_medicheal.cpp',
     'src/mod/bot/spy_selectrandomreachableenemy.cpp',
-    
+
     'src/mod/canteen/share_recall_canteen.cpp',
-    
+
     'src/mod/credits/better_radius_collection.cpp',
   #  'src/mod/credits/magnet_disable.cpp',
     'src/mod/credits/spawn_autocollect.cpp',
@@ -322,13 +323,13 @@ if not Extension.optimize_mods_only:
     'src/mod/pop/extattr/ignoretargets.cpp',
     'src/mod/pop/extattr/parse.cpp',
     'src/mod/pop/extattr/targetstickies.cpp',
-    
+
     'src/mod/sound/responses_suppress_giant_sentrybuster.cpp',
     'src/mod/sound/responses_suppress_medicbot_shield.cpp',
     'src/mod/sound/responses_unused_credits.cpp',
     'src/mod/sound/responses_unused_sapper.cpp',
     'src/mod/sound/tele_activate.cpp',
-    
+
     'src/mod/robot/building_stomp.cpp',
     'src/mod/robot/no_canteens.cpp',
     'src/mod/robot/spawn_protection_fix.cpp',
@@ -536,7 +537,7 @@ for sdk_name in Extension.sdks:
     #   argv    = [ 'touch', autogenDir + '/autogen.h' ],
     # )
     # binary.compiler.sourcedeps += autogen
-    
+
     # PCH for GCC only (breaks Clang autogen.h dependency detection)
     #if 'gcc' in binary.compiler.version.vendor_name:
     #  project.sources = [ 'src/common.h' ] + project.sources
