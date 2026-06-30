@@ -16,18 +16,18 @@ static constexpr uint8_t s_Buf_CTeamControlPointMaster_m_ControlPoints[] = {
 struct CExtract_CTeamControlPointMaster_m_ControlPoints : public IExtract<uint32_t>
 {
 	using T = uint32_t;
-	
+
 	CExtract_CTeamControlPointMaster_m_ControlPoints() : IExtract<T>(sizeof(s_Buf_CTeamControlPointMaster_m_ControlPoints)) {}
-	
+
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
 		buf.CopyFrom(s_Buf_CTeamControlPointMaster_m_ControlPoints);
-		
+
 		mask.SetRange(0x0b + 3, 4, 0x00);
-		
+
 		return true;
 	}
-	
+
 	virtual const char *GetFuncName() const override   { return "CTeamControlPointMaster::PointLastContestedAt"; }
 	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
 	virtual uint32_t GetFuncOffMax() const override    { return 0x0000; }
@@ -115,8 +115,8 @@ IMPL_DATAMAP   (bool,           CFilterTFBotHasTag, m_bRequireAllTags);
 IMPL_DATAMAP   (bool,           CFilterTFBotHasTag, m_bNegated);
 
 
-IMPL_REL_BEFORE(bool, CCurrencyPack, m_bTouched,     m_bPulled, 0);      // 20151007a
-IMPL_REL_BEFORE(bool, CCurrencyPack, m_bPulled,      m_bDistributed, 0); // 20151007a
+IMPL_REL_BEFORE(bool, CCurrencyPack, m_bTouched,     m_bClaimed, 0);      // 20151007a
+IMPL_REL_BEFORE(bool, CCurrencyPack, m_bClaimed,      m_bDistributed, 0); // 20151007a
 IMPL_SENDPROP  (bool, CCurrencyPack, m_bDistributed, CCurrencyPack);
 IMPL_REL_BEFORE(int,  CCurrencyPack, m_nAmount, m_bTouched, 0, CountdownTimer, int, uint32);
 

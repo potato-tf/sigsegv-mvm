@@ -10,8 +10,8 @@ namespace Mod::Debug::Credit_Magnet
 	// show all members for each currency pack
 	// show pull info for each currency pack (lines connecting to players pulling on it)
 	// draw vector arrows for impulse being applied
-	
-	
+
+
 	/* correct as of 20160819a */
 	constexpr ptrdiff_t OFF_CCURRENCYPACK = 0x4f8;
 	struct CCurrencyPackPartial
@@ -21,36 +21,36 @@ namespace Mod::Debug::Credit_Magnet
 		int m_iBlink;
 		CountdownTimer m_ctUnknown;
 		bool m_bTouched;
-		bool m_bPulled;
+		bool m_bClaimed;
 		bool m_bDistributed;
 	};
-	
-	
+
+
 	struct pulledcurrencypacks_t
 	{
 		CHandle<CCurrencyPack> hPack;
 		float flTime;
 	};
-	
-	
+
+
 	class CMod : public IMod, public IFrameUpdatePostEntityThinkListener
 	{
 	public:
 		CMod() : IMod("Debug:Credit_Magnet") {}
-		
+
 		virtual bool ShouldReceiveCallbacks() const override { return this->IsEnabled(); }
-		
+
 		virtual void FrameUpdatePostEntityThink() override
 		{
 			static long frame = 0;
 			if (++frame % 2 == 0) return;
-			
+
 			for (int i = 0; i < ICurrencyPackAutoList::AutoList().Count(); ++i) {
 				auto pack = rtti_cast<CCurrencyPack *>(ICurrencyPackAutoList::AutoList()[i]);
 				if (pack == nullptr) continue;
-				
+
 				auto partial = reinterpret_cast<CCurrencyPackPartial *>((uintptr_t)pack + OFF_CCURRENCYPACK);
-				
+
 				NDebugOverlay::EntityText(ENTINDEX(pack), 0, CFmtStrN<256>("$%d", partial->m_nAmount),
 					0.030f, 0xff, 0xff, 0xff, 0xff);
 				// TODO: wave
@@ -59,22 +59,22 @@ namespace Mod::Debug::Credit_Magnet
 				// TODO: countdown timer
 				NDebugOverlay::EntityText(ENTINDEX(pack), 2, CFmtStrN<256>("Touched: %s", (partial->m_bTouched ? "YES" : "NO")),
 					0.030f, 0xff, 0xff, 0xff, 0xff);
-				NDebugOverlay::EntityText(ENTINDEX(pack), 3, CFmtStrN<256>("Pulled: %s", (partial->m_bPulled ? "YES" : "NO")),
+				NDebugOverlay::EntityText(ENTINDEX(pack), 3, CFmtStrN<256>("Pulled: %s", (partial->m_bClaimed ? "YES" : "NO")),
 					0.030f, 0xff, 0xff, 0xff, 0xff);
 				NDebugOverlay::EntityText(ENTINDEX(pack), 4, CFmtStrN<256>("Distributed: %s", (partial->m_bDistributed ? "YES" : "NO")),
 					0.030f, 0xff, 0xff, 0xff, 0xff);
 			}
-			
+
 		//	ForEachTFPlayer([](CTFPlayer *player){
-		//		
+		//
 		//	});
-			
-			// 
+
+			//
 		}
 	};
 	CMod s_Mod;
-	
-	
+
+
 	ConVar cvar_enable("sig_debug_credit_magnet", "0", FCVAR_NOTIFY,
 		"Debug: investigate how credit pack magnet pull works",
 		[](IConVar *pConVar, const char *pOldValue, float flOldValue){
