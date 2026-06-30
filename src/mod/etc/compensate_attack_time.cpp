@@ -22,7 +22,8 @@ namespace Mod::Etc::Compensate_Attack_time
 
 	DETOUR_DECL_MEMBER(void, CObjectSentrygun_Attack)
 	{
-		// Note that this does not raise the maximum fire rate on sentries.
+		// This pretty much doesn't matter for sentries since they only update at most every third tick interval.
+		//  It will make a difference with sentry_rapid_fire though.
 		auto sentry = reinterpret_cast<CObjectSentrygun *>(this);
 
 		float current_attack = sentry->m_flNextAttack;
