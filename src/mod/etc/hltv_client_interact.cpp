@@ -45,7 +45,7 @@ namespace Mod::Etc::HLTV_Client_Interact
 
     class TimerConnect : public ITimedEvent {
         virtual ResultType OnTimer(ITimer *pTimer, void *pData) {
-            
+
             IGameEvent *event = gameeventmanager->CreateEvent("hltv_chat");
             if (event == nullptr) return Pl_Stop;
             event->SetString("text", "You can chat with players on the map\n");
@@ -57,11 +57,11 @@ namespace Mod::Etc::HLTV_Client_Interact
         virtual void OnTimerEnd(ITimer *pTimer, void *pData) {}
     } timer_connect;
 
-    DETOUR_DECL_MEMBER(IClient *, CHLTVServer_ConnectClient, netadr_t &adr, int protocol, int challenge, int clientChallenge, int authProtocol, 
+    DETOUR_DECL_MEMBER(IClient *, CHLTVServer_ConnectClient, netadr_t &adr, int protocol, int challenge, int clientChallenge, int authProtocol,
 									 const char *name, const char *password, const char *hashedCDkey, int cdKeyLen)
 	{
         auto client = DETOUR_MEMBER_CALL(adr, protocol, challenge, clientChallenge, authProtocol, name, password, hashedCDkey, cdKeyLen);
-        
+
         return client;
     }
 
@@ -100,8 +100,14 @@ namespace Mod::Etc::HLTV_Client_Interact
 		}
 	};
 	CMod s_Mod;
-    
+
     ModCommand sig_tvspectators("sig_tvspectators", [](CCommandPlayer *player, const CCommand& args){
+		if (hltv == nullptr)
+		{
+			std::string str = TranslateText(player, "STV not enabled");
+        	ModCommandResponse("%s", str.c_str());
+			return;
+		}
 		std::string str = TranslateText(player, "sig_tvspectators");
         str += "\n";
         for (int i = 0; i < hltv->GetClientCount(); i++) {

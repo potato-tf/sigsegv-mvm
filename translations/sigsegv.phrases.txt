@@ -47,27 +47,32 @@
 		"en"		"Set sv_allowupload 1 and reconnect to download custom icons"
 		"pl"		"Ustaw sv_allowupload 1 i połącz się ponownie by pobrać brakujące ikony"
 	}
-	
+
 	"Source TV spectator disconnected"
 	{
 		"#format"	"{1:s}"
 		"en"		"Source TV spectator {1} disconnected"
 		"pl"		"Widz Source TV {1} się rozłączył"
 	}
-	
+
 	"Source TV spectator joined"
 	{
 		"#format"	"{1:s}"
 		"en"		"Source TV spectator {1} joined"
 		"pl"		"Widz Source TV {1} się połączył"
 	}
-	
+
 	"sig_tvspectators"
 	{
 		"en"		"Spectators:"
 		"pl"		"Widzowie:"
 	}
-	
+
+	"STV not enabled"
+	{
+		"en"		"SourceTV is not enabled on this server."
+	}
+
 	"Tier is closed"
 	{
 		"#format"	"{1:d}"
@@ -115,7 +120,7 @@
 		"en"		"This server uses custom upgrades. Make sure you have enabled downloads in options (Download all files or Don't download sound files)"
 		"pl"		"Ten serwer używa własnych ulepszeń. Pobieranie powinno być włączone w opcjach (Pobierz wszystkie pliki lub Nie pobieraj dźwięków)"
 	}
-	
+
 	"Player upgrades"
 	{
 		"en"		"Player Upgrades"
@@ -144,49 +149,49 @@
         "ua" "За класом"
         "zho" "職業"
 	}
-	
+
 	"Undo upgrades"
 	{
 		"en"		"Undo upgrades"
 		"pl"		"Cofnij ulepszenia"
 	}
-	
+
 	"No extra loadout items currently available"
 	{
 		"en"		"No extra loadout items currently available"
 		"pl"		"Nie masz żadnych dodatkowych przedmiotów"
 	}
-	
+
 	"No extra loadout items available"
 	{
 		"en"		"No extra loadout items available"
 		"pl"		"Dodatkowe przedmioty nie są dostępne"
 	}
-	
+
 	"Buy"
 	{
 		"en"		"Buy"
 		"pl"		"Kup"
 	}
-	
+
 	"Equip"
 	{
 		"en"		"Equip"
 		"pl"		"Wyposaż"
 	}
-	
+
 	"Unequip"
 	{
 		"en"		"Unequip"
 		"pl"		"Zdejmij"
 	}
-	
+
 	"Sell"
 	{
 		"en"		"Sell"
 		"pl"		"Sprzedaj"
 	}
-	
+
 	"Refund upgrades"
 	{
 		"bg" "Възстановяване на подобрения"
@@ -215,7 +220,7 @@
 		"ua" "Повернення грошей"
 		"zho" "取消升級"
 	}
-	
+
 	"Upgrades"
 	{
         "bg" "Подобрения"
@@ -244,7 +249,7 @@
         "ua" "Покращення"
         "zho" "升級數"
 	}
-	
+
 	"Item upgrades"
 	{
 		"#format"	"{1:s}"
@@ -273,7 +278,7 @@
         "ua" "{1}: Оберіть покращення"
         "zho" "{1}: 選擇一項要使用的升級"
 	}
-	
+
 	"Extended upgrades menu"
 	{
         "bg" "Избиране на артикул за подобряване"
@@ -301,183 +306,183 @@
         "ua" "Оберіть предмет для покращення"
         "zho" "選擇一項要升級的物品"
 	}
-	
+
 	"Mission description"
 	{
 		"en"		"Mission Description"
 		"pl"		"Opis Misji"
 	}
-	
+
 	"Mission info menu"
 	{
 		"en"		"Mission info menu"
 		"pl"		"Informacje o misji"
 	}
-	
+
 	"Item whitelist"
 	{
 		"en"		"Item Whitelist"
 		"pl"		"Dozwolone Przedmioty"
 	}
-	
+
 	"Whitelisted items"
 	{
 		"en"		"Whitelisted Items"
 		"pl"		"Dozwolone Przedmioty"
 	}
-	
+
 	"Item blacklist"
 	{
 		"en"		"Item Blacklist"
 		"pl"		"Zabronione Przedmioty"
 	}
-	
+
 	"Blacklisted items"
 	{
 		"en"		"Blacklisted Items"
 		"pl"		"Zabronione Przedmioty"
 	}
-	
+
 	"Item replacement"
 	{
 		"en"		"Item Replacement"
 		"pl"		"Zamienione Przedmioty"
 	}
-	
+
 	"Description"
 	{
 		"en"		"Description"
 		"pl"		"Opis"
 	}
-	
+
 	"Disallowed upgrades"
 	{
 		"en"		"Disallowed Upgrades"
 		"pl"		"Zabronione Ulepszenia"
 	}
-	
+
 	"Item attributes"
 	{
 		"en"		"Item Attributes"
 		"pl"		"Właściwości Przedmiotów"
 	}
-	
+
 	"Item attributes format"
 	{
 		"#format"	"{1:s}"
 		"en"		"{1} Attributes"
 		"pl"		"{1}: Właściwości"
 	}
-	
+
 	"Player attributes"
 	{
 		"en"		"Player Attributes"
 		"pl"		"Właściwości Klasy"
 	}
-	
+
 	"Character attributes:"
 	{
 		"en"		"Character Attributes:"
 		"pl"		"Właściwości Klasy:"
 	}
-	
+
 	"The Upgrade Station is disabled!"
 	{
 		"en"		"The Upgrade Station is disabled!"
 		"pl"		"Stacja ulepszeń jest wyłączona!"
 	}
-	
+
 	"This weapon is not upgradeable"
 	{
 		"en"		"This weapon is not upgradeable"
 		"pl"		"Ta broń nie może być ulepszona"
 	}
-	
+
 	"You need metal to build a sentry gun"
 	{
 		"#format"	"{1:d}"
 		"en"		"You need {1} metal to build a sentry gun"
 		"pl"		"Potrzebujesz {1} metalu by zbudować działko"
 	}
-	
+
 	"You need metal to build a dispenser"
 	{
 		"#format"	"{1:d}"
 		"en"		"You need {1} metal to build a dispenser"
 		"pl"		"Potrzebujesz {1} metalu by zbudować zasobnik"
 	}
-	
+
 	"Explode on ignite is not allowed on this server"
 	{
 		"en"		"Explode on ignite is not allowed on this server"
 		"pl"		"Wybuch po podpaleniu nie jest dozwolony na tym serwerze"
 	}
-	
+
 	"Projectile shield is not allowed on this server"
 	{
 		"en"		"Projectile shield is not allowed on this server"
 		"pl"		"Tarcza przeciw pociskom nie jest dozwolona na tym serwerze"
 	}
-	
+
 	"Burn time bonus upgrade is broken. Buy another upgrade"
 	{
 		"en"		"Burn time bonus upgrade is broken. Buy another upgrade"
 		"pl"		"Ulepszenie czasu podpalenia nie działa. Kup coś innego"
 	}
-	
+
 	"3rd sentry fire rate bonus upgrade is broken. Buy another upgrade"
 	{
 		"en"		"3rd sentry fire rate bonus upgrade is broken. Buy another upgrade"
 		"pl"		"Trzecie ulepszenie szybkostrzelności działka nie działa. Kup coś innego"
 	}
-	
+
 	"The Upgrade Station is disabled for this mission!"
 	{
 		"en"		"The Upgrade Station is disabled for this mission!"
 		"pl"		"Stacja ulepszeń jest wyłączona w tej misji!"
 	}
-	
+
 	"Only class is allowed in this mission"
 	{
 		"#format"	"{1:s}"
 		"en"		"Only {1} class is allowed in this mission"
 		"pl"		"Tylko {1} jest dozwolony w tej misji"
 	}
-	
+
 	"Exceeded the class limit in this mission"
 	{
 		"#format"	"{1:s}"
 		"en"		"Exceeded the {1} class limit in this mission"
 		"pl"		"Przekroczono limit klasy: {1} w tej misji"
 	}
-	
+
 	"is not allowed in this mission"
 	{
 		"#format"	"{1:s}"
 		"en"		"{1} is not allowed in this mission"
 		"pl"		"{1} nie jest dozwolony w tej misji"
 	}
-	
+
 	"upgrade is not allowed in this mission"
 	{
 		"#format"	"{1:s}"
 		"en"		"{1} upgrade is not allowed in this mission"
 		"pl"		"Ulepszenie {1} nie jest dozwolone w tej misji"
 	}
-	
+
 	"You cannot buy upgrades for this weapon in this mission"
 	{
 		"#format"	"{1:s},{2:s},{3:s},{4:s}"
 		"en"		"You cannot buy {1}{2} upgrades for this weapon in this mission\n{3}{4}"
 		"pl"		"Nie możesz kupić {1}ulepszeń {2} dla tej broni w tej misji\n{3}{4}"
 	}
-	
+
 	"more "
 	{
 		"en"		"more "
 		"pl"		"więcej "
 	}
-	
+
 	" blocks this upgrade"
 	{
 		"en"		" blocks this upgrade"
@@ -488,19 +493,19 @@
 		"en"		"It is possible that a parsing error had occured. Check console for details"
 		"pl"		"Możliwe że zdarzył się błąd podczas wczytywania. Sprawdź konsolę po więcej informacji"
 	}
-	
+
 	"All class attributes"
 	{
 		"en"		"All class attributes"
 		"pl"		"Właściwości wszystkich klas"
 	}
-	
+
 	"Forced items"
 	{
 		"en"		"Forced Items"
 		"pl"		"Wymuszone przedmioty"
 	}
-	
+
 	"(selected)"
 	{
 		"en"		"(selected)"
@@ -513,7 +518,7 @@
 		"en"		"Forced Items ({1})"
 		"pl"		"Wymuszone przedmioty ({1})"
 	}
-	
+
 	"Extra loadout items"
 	{
 		"en"		"Extra Loadout Items"
@@ -541,7 +546,7 @@
         "ua" "Набір"
         "zho" "裝備欄"
 	}
-	
+
 	"Extra loadout items class"
 	{
 		"#format"	"{1:s}"
@@ -570,56 +575,56 @@
         "ua" "Набір ({1})"
         "zho" "裝備欄 ({1})"
 	}
-	
+
 	"Sniper bots can headshot"
 	{
 		"en"		"Sniper bots can headshot"
 		"pl"		"Roboty snajperzy mogą krytycznie strzelać w głowę"
 	}
-	
+
 	"No laser on Sniper bots"
 	{
 		"en"		"No laser on Sniper bots"
 		"pl"		"Brak laserów na robotach snajperach"
 	}
-	
+
 	"Upgrade refunding disabled"
 	{
 		"en"		"Upgrade refunding disabled"
 		"pl"		"Zwracanie ulepszeń niedozwolone"
 	}
-	
+
 	"Collect credits upgrade refund"
 	{
 		"#format"	"{1:d},{2:d}"
 		"en"		"Collect {1} credits to earn an upgrade refund, up to {2} times"
 		"pl"		"Zbierz {1} kretyów by zyskać zwrot ulepszeń, maksymalnie {2} razy"
 	}
-	
+
 	"Pyro bots can airblast grenades and arrows"
 	{
 		"en"		"Pyro bots can airblast grenades and arrows"
 		"pl"		"Roboty pyro mogą odrzucić granaty i strzały"
 	}
-	
+
 	"Sandman balls can stun enemy targets"
 	{
 		"en"		"Sandman balls can stun enemy targets"
 		"pl"		"Piłki piaskuna mogą ogłuszać wrogów"
 	}
-	
+
 	"No reanimators"
 	{
 		"en"		"No reanimators"
 		"pl"		"Brak reanimatorów"
 	}
-	
+
 	"No custom mission information available"
 	{
 		"en"		"No custom mission information available"
 		"pl"		"Brak specjalnych informacji o misji"
 	}
-	
+
 	"Inspecting player"
 	{
 		"#format"	"{1:s}"
@@ -1704,7 +1709,7 @@
 		"ua" "МММФФ"
 		"zho" "MMMPH"
 	}
-	
+
 	"Rage"
 	{
 		"bg" "Ярост"
