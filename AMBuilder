@@ -283,6 +283,7 @@ if not Extension.optimize_mods_only:
     'src/mod/mvm/gamemode_converter.cpp',
     'src/mod/mvm/gib_improvements.cpp',
     'src/mod/mvm/go_back_in_time.cpp',
+    'src/mod/mvm/hide_match_status.cpp',
     'src/mod/mvm/human_death_yells.cpp',
     'src/mod/mvm/jointeam_blue_allow.cpp',
     'src/mod/mvm/medigunshield_damage.cpp',

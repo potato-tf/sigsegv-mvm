@@ -428,6 +428,7 @@
 				"CBasePlayer::Event_Killed" "_ZN11CBasePlayer12Event_KilledERK15CTakeDamageInfo"
 				"CBasePlayer::Spawn" "_ZN11CBasePlayer5SpawnEv"
 				"CBasePlayer::Activate" "_ZN11CBasePlayer8ActivateEv"
+				"CBasePlayer::StartObserverMode" "_ZN11CBasePlayer17StartObserverModeEi"
 
 				"CEyeballBoss::GetLocomotionInterface" "_ZNK12CEyeballBoss22GetLocomotionInterfaceEv"
 				"CEyeballBoss::GetVisionInterface" "_ZNK12CEyeballBoss18GetVisionInterfaceEv"
