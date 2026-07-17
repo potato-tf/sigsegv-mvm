@@ -12,104 +12,6 @@
 
 namespace Mod::Etc::Heat_Seeking_Rockets
 {
-#if 1 && 0
-	class CTFProjectile_Flare : public CTFProjectile_Rocket
-	{
-	public:
-		
-		
-	private:
-		// 288 float m_flGravity
-		// ...
-		// 4ac CHandle<T> m_hLauncher
-		// ...
-		// 4e4 float m_flHeatSeekTime
-		// ...
-	};
-	
-	
-	float CTFProjectile_Flare::GetHeatSeekPower() const
-	{
-		float flAttr = 0.0f;
-		CALL_ATTRIB_HOOK_FLOAT_ON_OTHER(this->m_hLauncher, flAttr, mod_projectile_heat_seek_power);
-		return flAttr;
-	}
-	
-	void CTFProjectile_Flare::Spawn()
-	{
-		if (this->GetHeatSeekPower() != 0.0f) {
-			this->SetMoveType(MOVETYPE_CUSTOM, MOVECOLLIDE_DEFAULT);
-			this->m_flGravity = 0.3f;
-		} else {
-			this->SetMoveType(MOVETYPE_FLYGRAVITY, MOVECOLLIDE_FLY_CUSTOM);
-			this->m_flGravity = 0.3f;
-		}
-	}
-	
-	void CTFProjectile_Flare::PerformCustomPhysics(Vector *pNewPosition, Vector *pNewVelocity, QAngle *pNewAngles, QAngle *pNewAngVelocity)
-	{
-		if (gpGlobals->curtime > this->m_flHeatSeekTime) {
-			CTFPlayer *target_player = nullptr;
-			float target_distsqr     = FLT_MAX;
-			
-			ForEachTFPlayer([&](CTFPlayer *player){
-				if (!player->m_Shared.InCond(TF_COND_BURNING)) return;
-				if (player->InSameTeam(this))                  return;
-				
-				// ???: player->m_Shared.GetDisguiseTeam()
-				// ???: this->GetTeamNumber()
-				// ???: player->m_Shared.IsStealthed()
-				
-				if (player->GetTeamNumber() == TEAM_SPECTATOR) return;
-				if (!player->IsAlive())                        return;
-				
-				 // TODO: use projectile's WSC
-				Vector delta = player->WorldSpaceCenter() - this->GetAbsOrigin();
-				
-				if (DotProduct(delta.Normalized(), pNewVelocity->Normalized()) < -0.25f) return;
-				
-				 // TODO: use projectile's WSC
-				float distsqr = this->GetAbsOrigin().DistToSqr(player->WorldSpaceCenter());
-				if (distsqr < target_distsqr) {
-					trace_t tr;
-				 	// TODO: use projectile's WSC
-					UTIL_TraceLine(player->WorldSpaceCenter(), this->GetAbsOrigin(), MASK_SOLID_BRUSHONLY, player, COLLISION_GROUP_NONE, &tr);
-					
-					if (!tr.DidHit() || tr.m_pEnt == this) {
-						target_player  = player;
-						target_distsqr = distsqr;
-					}
-				}
-			});
-			
-			float power = this->GetHeatSeekPower();
-			
-			QAngle angToTarget = *pNewAngles;
-			if (target_player != nullptr) {
-				// TODO: use projectile's WSC
-				VectorAngles(target_player->WorldSpaceCenter() - this->GetAbsOrigin, angToTarget);
-			}
-			
-			if (angToTarget != *pNewAngles) {
-				pNewAngVelocity->x = Clamp(Approach(AngleDiff(angToTarget.x, pNewAngles->x) * 4.0f, pNewAngVelocity->x, power), -360.0f, 360.0f);
-				pNewAngVelocity->y = Clamp(Approach(AngleDiff(angToTarget.y, pNewAngles->y) * 4.0f, pNewAngVelocity->y, power), -360.0f, 360.0f);
-				pNewAngVelocity->z = Clamp(Approach(AngleDiff(angToTarget.z, pNewAngles->z) * 4.0f, pNewAngVelocity->z, power), -360.0f, 360.0f);
-			}
-			
-			this->m_flHeatSeekTime = gpGlobals->curtime + 0.25f;
-		}
-		
-		*pNewAngles += (*pNewAngVelocity * gpGlobals->frametime);
-		
-		Vector vecOrientation;
-		AngleVectors(*pNewAngles, &vecOrientation);
-		
-		*pNewVelocity = vecOrientation * this->GetProjectileSpeed();
-		
-		*pNewPosition += (*pNewVelocity * gpGlobals->frametime);
-	}
-#endif
-
 	CBaseEntity *disallow_movetype = nullptr;
 	int disallow_movetype_tick = 0;
 	CBaseObject *newRocketOwner = nullptr;
@@ -130,19 +32,21 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 		if (launcher == nullptr && newRocketOwner != nullptr && newRocketOwner->GetBuilder() != nullptr) {
 			launcher = newRocketOwner->GetBuilder();
 		}
-		if (launcher != nullptr && original == nullptr) {
+		if (launcher != nullptr && original == nullptr) 
+		{
 			auto weapon = static_cast<CTFWeaponBaseGun *>(launcher->MyCombatWeaponPointer());
 			CBaseEntity *provider = weapon != nullptr ? weapon : launcher;
-			if (provider != nullptr && (weapon == nullptr || weapon->GetOwnerEntity() != nullptr && weapon->GetOwnerEntity()->IsPlayer())) {
 
+			if (provider != nullptr && (weapon == nullptr || weapon->GetOwnerEntity() != nullptr && weapon->GetOwnerEntity()->IsPlayer())) 
+			{
 				HomingRockets &homing = *(GetExtraProjectileData(proj)->homing = new HomingRockets());
 
 				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER(provider, homing.turn_power, mod_projectile_heat_seek_power);
 				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER(provider, homing.acceleration, projectile_acceleration);
 				CALL_ATTRIB_HOOK_FLOAT_ON_OTHER(provider, homing.gravity, projectile_gravity);
 				CALL_ATTRIB_HOOK_INT_ON_OTHER(provider, homing.return_to_sender, return_to_sender);
-				if (homing.turn_power != 0.0f || homing.acceleration != 0.0f || homing.gravity != 0.0f || homing.return_to_sender != 0) {
-
+				if (homing.turn_power != 0.0f || homing.acceleration != 0.0f || homing.gravity != 0.0f || homing.return_to_sender != 0) \
+				{
 					proj->SetMoveType(MOVETYPE_CUSTOM, proj->GetMoveCollide());
 					if (proj->VPhysicsGetObject() != nullptr) {
 						proj->VPhysicsDestroyObject();
@@ -192,11 +96,18 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 						homing.speed = -homing.speed;
 					}
 				}
-				else
+				else 
+				{
 					homing.enable = false;
+
+					if(proj->GetMoveType() == MOVETYPE_CUSTOM)
+					{	// Not the best, but works
+						// should honestly add a fix for the noclip projectiles attribute
+						proj->SetMoveType(MOVETYPE_FLYGRAVITY, proj->GetMoveCollide());
+					}
+				}
 			}
 		}
-		
 	}
 
 	DETOUR_DECL_MEMBER(void, CBaseEntity_SetMoveType, MoveType_t val, MoveCollide_t collide)
@@ -206,43 +117,10 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 		}
 
 		DETOUR_MEMBER_CALL(val, collide);
-
-		//if (setmovetype_energyring) {
-		//	reinterpret_cast<CTFProjectile_EnergyRing>(this)->SetMoveType(MOVETYPE_CUSTOM);
-		//	setmovetype_energyring = false;
-		//}
-
 	}
-	
-	/*DETOUR_DECL_MEMBER(void, CTFProjectile_Rocket_Spawn)
+
+	inline bool PerformCustomPhysics(CBaseEntity *ent, Vector *pNewPosition, Vector *pNewVelocity, QAngle *pNewAngles, QAngle *pNewAngVelocity) 
 	{
-		DETOUR_MEMBER_CALL();
-		if (setmovetype_rocket) {
-			reinterpret_cast<CTFProjectile_Rocket_Spawn>(this)->SetMoveType(MOVETYPE_CUSTOM);
-			setmovetype_energyring = false;
-		}
-
-	}*/
-
-	/*DETOUR_DECL_MEMBER(void, CTFProjectile_Rocket_Spawn)
-	{
-		DETOUR_MEMBER_CALL();
-		
-		auto ent = reinterpret_cast<CTFProjectile_Rocket *>(this);
-		if (ent->GetLauncher() != nullptr) {
-			float power = 0.0f;
-			CALL_ATTRIB_HOOK_FLOAT_ON_OTHER(ent->GetLauncher(), power, mod_projectile_heat_seek_power);
-			if (power != 0.0f) {
-				ent->SetMoveType(MOVETYPE_CUSTOM);
-			}
-		}
-	}*/
-	inline bool PerformCustomPhysics(CBaseEntity *ent, Vector *pNewPosition, Vector *pNewVelocity, QAngle *pNewAngles, QAngle *pNewAngVelocity) {
-		
-		//if (strncmp(ent->GetClassname(), "tf_projectile", strlen("tf_projectile")) != 0){
-		//	return false;
-		//}
-
 		//Assume all "tf_projectile" entities are projectiles, for better performance
 		auto proj = static_cast<CBaseProjectile *>(ent);
 		float seek = 0.0f;
@@ -251,8 +129,9 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 		}
 
 		auto extra = GetExtraProjectileData(proj, false);
-		if (extra == nullptr || extra->homing == nullptr)
+		if (extra == nullptr || extra->homing == nullptr) {
 			return false;
+		}
 
 		HomingRockets &homing = *extra->homing;
 
@@ -263,7 +142,8 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 		float time = (float)(ent->m_flSimulationTime) - (float)(ent->m_flAnimTime);
 
 		float speed_calculated = homing.speed + homing.acceleration * Clamp(time - homing.acceleration_start, 0.0f, homing.acceleration_time);
-		if (speed_calculated < 0.0f && homing.return_to_sender && !homing.returning) {
+		if (speed_calculated < 0.0f && homing.return_to_sender && !homing.returning) 
+		{
 			homing.returning = true;
 			homing.speed = 0;
 			homing.acceleration = -homing.acceleration;
@@ -273,7 +153,8 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 		// Faster projectiles update faster
 		float interval = (3000.0f / speed_calculated) * 0.014f;
 		
-		if (!homing.returning && homing.turn_power != 0.0f && time >= homing.aim_start_time && time < homing.aim_time && gpGlobals->tickcount % (int)ceil(interval / gpGlobals->interval_per_tick) == 0) {
+		if (!homing.returning && homing.turn_power != 0.0f && time >= homing.aim_start_time && time < homing.aim_time && gpGlobals->tickcount % (int)ceil(interval / gpGlobals->interval_per_tick) == 0) 
+		{
 			Vector target_vec = vec3_origin;
 
 			if (homing.follow_crosshair) {
@@ -289,12 +170,12 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 					target_vec = result.endpos;
 				}
 			}
-			else {
-			//	float target_distsqr     = FLT_MAX;
-				
+			else 
+			{
 				float target_dotproduct  = FLT_MIN;
 				CTFPlayer *target_player = nullptr;
-				ForEachTFPlayer([&](CTFPlayer *player){
+				ForEachTFPlayer([&](CTFPlayer *player)
+				{
 					if (!player->IsAlive())                               return;
 					if (player->GetTeamNumber() == TEAM_SPECTATOR)        return;
 					if (player->GetTeamNumber() == proj->GetTeamNumber()) return;
@@ -316,12 +197,9 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 
 					float mindotproduct = homing.min_dot_product;
 					float dotproduct = DotProduct(delta.Normalized(), pNewVelocity->Normalized());
-					if (dotproduct < mindotproduct) return;
+					if (dotproduct < mindotproduct) 
+						return;
 					
-					
-
-				//	float distsqr = proj->WorldSpaceCenter().DistToSqr(player->WorldSpaceCenter());
-				//	if (distsqr < target_distsqr) {
 					if (dotproduct > target_dotproduct) {
 						bool noclip = proj->GetMoveType() == MOVETYPE_NOCLIP;
 						trace_t tr;
@@ -349,12 +227,12 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 
 				homing.homed_in = true;
 				homing.homed_in_angle = angToTarget;
-				
 			}
 			else {
 				homing.homed_in = false;
 			}
 		}
+
 		if (homing.homed_in) {
 			float ticksPerSecond = 1.0f / gpGlobals->frametime;
 			pNewAngVelocity->x = (ApproachAngle(homing.homed_in_angle.x, pNewAngles->x, homing.turn_power * gpGlobals->frametime) - pNewAngles->x) * ticksPerSecond;
@@ -373,9 +251,6 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 		AngleVectors(*pNewAngles, &vecOrientation);
 		*pNewVelocity = vecOrientation * (speed_calculated) + Vector(0,0,-homing.gravity * (time));
 		
-	//	if (homing.gravity != 0) {
-	//		VectorAngles(*pNewVelocity, *pNewAngles);
-	//	}
 		*pNewPosition += (*pNewVelocity * gpGlobals->frametime);
 		return true;
 	}
@@ -406,7 +281,6 @@ namespace Mod::Etc::Heat_Seeking_Rockets
 			MOD_ADD_DETOUR_MEMBER(CBaseEntity_PerformCustomPhysics, "CBaseEntity::PerformCustomPhysics");
 			MOD_ADD_DETOUR_MEMBER(CTFProjectile_Flare_PerformCustomPhysics, "CTFProjectile_Flare::PerformCustomPhysics");
 			MOD_ADD_DETOUR_STATIC(CTFBaseRocket_Create, "CTFBaseRocket::Create");
-			
 		}
 	};
 	CMod s_Mod;
