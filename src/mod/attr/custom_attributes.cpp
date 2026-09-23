@@ -5460,7 +5460,7 @@ namespace Mod::Attr::Custom_Attributes
 	{
 		auto minigun = reinterpret_cast<CTFMinigun *>(this);
 		if (minigun->GetItem() != nullptr) {
-			GET_STRING_ATTRIBUTE(minigun, custom_wind_down_sound, str);
+			GET_STRING_ATTRIBUTE(minigun, custom_wind_up_sound, str);
 			if (str != nullptr) {
 				PrecacheSound(str);
 				minigun->EmitSound(str);
