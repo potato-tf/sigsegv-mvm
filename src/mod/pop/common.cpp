@@ -921,7 +921,7 @@ void Parse_ForceItem(KeyValues *kv, ForceItems &force_items, bool noremove)
             }
         }
         FOR_EACH_SUBKEY(subkey, subkey2) {
-            Msg("Class %d\n", classname);
+            DevMsg("Class %d\n", classname);
             if (subkey2->GetFirstSubKey() != nullptr) {
                 CEconItemDefinition *item_def = GetItemSchema()->GetItemDefinitionByName(subkey2->GetName());
                 if (item_def != nullptr) {
