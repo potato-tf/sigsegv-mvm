@@ -627,7 +627,10 @@ public:
 	CFrameSnapshot();
 	~CFrameSnapshot();
 
+// 10-5-2026: m_ListIndex was removed from TF2
+#ifndef SE_IS_TF2
     CInterlockedInt			m_ListIndex;	// Index info CFrameSnapshotManager::m_FrameSnapshots.
+#endif
 
     // Associated frame. 
     int						m_nTickCount; // = sv.tickcount

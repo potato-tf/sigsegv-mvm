@@ -1970,15 +1970,6 @@
         "hidden"	"1"
         "effect_type"	"positive"
     }
-    "4512"
-    {
-        "name"	"add cond when active"
-        "attribute_class"	"add_cond_when_active"
-        "description_string"	""
-        "description_format"	"value_is_additive"
-        "hidden"	"1"
-        "effect_type"	"positive"
-    }
     "4513"
     {
         "name"	"mult step height"
