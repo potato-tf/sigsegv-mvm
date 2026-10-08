@@ -139,7 +139,7 @@ rem create batch scripts
     echo echo --------------------------------
     echo echo Installing Sigsegv-MvM extension
     echo echo --------------------------------
-    echo wsl -d ubuntu -u gameserver cd /var/tf2server; curl -LJ https://github.com/rafradek/sigsegv-mvm/releases/latest/download/package-linux.zip -o package-linux.zip; unzip -d ../tf2server/tf package-linux.zip;
+    echo wsl -d ubuntu -u gameserver cd /var/tf2server; curl -LJ https://github.com/potato-tf/sigsegv-mvm/releases/latest/download/package-linux.zip -o package-linux.zip; unzip -d ../tf2server/tf package-linux.zip;
 
     @REM echo echo.
     @REM echo echo ----------------------
@@ -166,7 +166,7 @@ rem create batch scripts
     echo echo !ESC![96m
     echo echo 1. Grab the latest rafmod build from the latest GitHub action.
     echo echo.
-    echo echo   a. !ESC![97mhttps://github.com/rafradek/sigsegv-mvm/actions!ESC![96m
+    echo echo   a. !ESC![97mhttps://github.com/potato-tf/sigsegv-mvm/actions!ESC![96m
     echo echo   b. Click on the most recent run and click !ESC![97mbuild-and-package!ESC![96m
     echo echo   c. Click on !ESC![97mUpload package-linux!ESC![96m and click the !ESC![97mArtifact download URL:!ESC![96m link
     echo echo   d. Unzip the !ESC![97mpackage-linux.zip!ESC![96m file, unzip the other one inside too
