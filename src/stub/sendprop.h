@@ -627,7 +627,9 @@ public:
 	CFrameSnapshot();
 	~CFrameSnapshot();
 
+#ifndef SE_IS_TF2
     CInterlockedInt			m_ListIndex;	// Index info CFrameSnapshotManager::m_FrameSnapshots.
+#endif
 
     // Associated frame. 
     int						m_nTickCount; // = sv.tickcount
