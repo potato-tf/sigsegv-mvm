@@ -36,7 +36,7 @@ log()
 dos2unix_files()
 {
     if ! command -v dos2unix >/dev/null 2>&1; then
-        log "dos2unix not found, falling back to sed"
+        # log "dos2unix not found, falling back to sed"
         local f
         for f in "$@"; do
             [ -f "$f" ] || continue
