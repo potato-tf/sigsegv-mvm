@@ -10292,7 +10292,13 @@ namespace Mod::Attr::Custom_Attributes
 			if (kv->LoadFromFile(filesystem, path)) {
 				DevMsg("Loaded attrs\n");
 				CUtlVector<CUtlString> err;
-				GetItemSchema()->BInitAttributes(kv, &err);
+				
+				if (!GetItemSchema()->BInitAttributes(kv, &err)) {
+					Msg("Failed to init custom attributes!\n");
+					for (int i = 0; i < err.Count(); i++) {
+						Msg("Custom attribute error: %s\n", err[i].String());
+					}
+				}
 			}
 			static bool attributeCallbackInstalled = false;
 			if (!attributeCallbackInstalled) {
