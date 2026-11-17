@@ -167,6 +167,9 @@ static bool UD86_insn_is_mov_r32_rtnval(struct ud *ud, Reg *dest_reg = nullptr)
 	case UD_R_ECX: reg = REG_CX; break;
 	case UD_R_EDX: reg = REG_DX; break;
 	case UD_R_EBX: reg = REG_BX; break;
+	case UD_R_EBP: reg = REG_BP; break;
+	case UD_R_ESI: reg = REG_SI; break;
+	case UD_R_EDI: reg = REG_DI; break;
 	default: return false;
 	}
 	
@@ -259,13 +262,30 @@ size_t CopyAndFixUpFuncBytes(size_t len_min, size_t len_max, const uint8_t *sour
 		// They typically determine end of function
 		if (stop_at_nop && (ud_insn_mnemonic(&ud) == UD_Inop || ud_insn_mnemonic(&ud) == UD_Iint3)) break;
 		
+        // 32-bit PIC loads the GOT with `call __x86.get_pc_thunk.reg; add reg, GOTPC`.
+        // The thunk returns the address of the next instruction. After these bytes are
+        // copied into the game binary, that return address is no longer the one the
+        // GOTPC immediate was computed against, so the first global access faults
+        // (CBaseEdict::GetChangeAccessor +0x18 on map load). Replace the call with
+        // `mov reg, <original next insn>` so the existing add still yields the extension GOT.
+        bool handled = false;
+#ifndef PLATFORM_64BITS
+        Reg thunk_reg;
+        if (UD86_insn_is_call_to_get_pc_thunk(&ud, &thunk_reg)) {
+            if (buffer != nullptr) {
+                uint32_t pc_value = (uint32_t)(ud_insn_off(&ud) + ud_insn_len(&ud));
+                MovRegImm32(buffer, thunk_reg, pc_value).Write();
+            }
+            handled = true;
+        }
+#endif
         // fixup jmp and call relative offsets
-        if (UD86_insn_fix_jmpcall_rel_imm32(&ud, len_decoded, source + len_actual, dest, buffer, len_min - len_actual - len_decoded, -len_actual - len_decoded)) {
+        if (!handled && UD86_insn_fix_jmpcall_rel_imm32(&ud, len_decoded, source + len_actual, dest, buffer, len_min - len_actual - len_decoded, -len_actual - len_decoded)) {
         }
         // fixup [rip+disp32] relative offsets
-        else if (UD86_insn_fix_disp32(&ud, source + len_actual, dest, buffer)){
+        else if (!handled && UD86_insn_fix_disp32(&ud, source + len_actual, dest, buffer)){
         }
-        else {
+        else if (!handled) {
             memcpy(buffer, (uint8_t *)ud_insn_off(&ud), len_decoded);
         }
 		len_min += len_decoded - orig_len_decoded;

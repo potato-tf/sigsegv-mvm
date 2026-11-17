@@ -160,6 +160,7 @@ public:
 	{
 		assert(dst == (dst & REG_MASK));
 		this->m_Buf[0] = (OPCODE_MOV_REG32_IMM32 + (dst & REG_MASK));
+		*reinterpret_cast<uint32_t *>(this->m_Buf + 1) = value;
 	}
 };
 
