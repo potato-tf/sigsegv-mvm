@@ -894,6 +894,7 @@ namespace Mod::Util::Download_Manager
 
 	CON_COMMAND_F(sig_util_download_manager_scan_all_missing, "Utility: scan all missing files in all population files", FCVAR_NOTIFY)
 	{
+		Msg("Scanning for missing files, this may take a while...\n");
 		char poppath[512];
 		snprintf(poppath, sizeof(poppath), "%s/%s/scripts/population", game_path, cvar_downloadpath.GetString());
 		DIR *dir;
@@ -947,12 +948,11 @@ namespace Mod::Util::Download_Manager
 		filesystem->AddSearchPath(origMapFile, "GAME");
 		Msg("Missing files (also printed in missingfiles.txt):\n");
 		CUtlBuffer buf(0,0, CUtlBuffer::TEXT_BUFFER);
-		size_t pathfullLength = strlen(game_path) + 1 + strlen(cvar_downloadpath.GetString()) + 1;
 		for (auto &entry : missing_files) {
-			if (!entry.second.ends_with(".phy") && entry.second.length() > pathfullLength) {
-				buf.PutString(entry.second.c_str() + pathfullLength);
+			if (!entry.second.ends_with(".phy")) {
+				buf.PutString(entry.second.c_str());
 				buf.PutChar('\n');
-				Msg("%s\n", entry.second.c_str() + pathfullLength);
+				Msg("%s\n", entry.second.c_str());
 			}
 		}
     	filesystem->WriteFile("missingfiles.txt", nullptr, buf);
