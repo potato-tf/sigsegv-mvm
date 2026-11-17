@@ -946,7 +946,6 @@ namespace Mod::Util::Download_Manager
 		}
 		filesystem->FindClose(mapHandle);
 		filesystem->AddSearchPath(origMapFile, "GAME");
-		Msg("Missing files (also printed in missingfiles.txt):\n");
 		CUtlBuffer buf(0,0, CUtlBuffer::TEXT_BUFFER);
 		for (auto &entry : missing_files) {
 			if (!entry.second.ends_with(".phy")) {
@@ -955,6 +954,7 @@ namespace Mod::Util::Download_Manager
 				Msg("%s\n", entry.second.c_str());
 			}
 		}
+		Msg("Done scanning for missing files (also printed in missingfiles.txt)\n");
     	filesystem->WriteFile("missingfiles.txt", nullptr, buf);
 	}
 
