@@ -60,6 +60,8 @@ struct LibSymbolTable
 	LibSymbolTable(uintptr_t lib_base) : lib_base(lib_base) {}
 
 	SymbolTable table;
+	// ELF local symbols can share names across translation units.
+	std::vector<std::pair<std::string, void *>> all_symbols;
 	uintptr_t lib_base;
 	uint32_t last_pos = 0;
 };
@@ -86,7 +88,7 @@ public: // IMemoryUtils
 	void *ResolveSymbol(void *handle, const char *symbol);
 public:
 	bool GetLibraryInfo(const void *libPtr, DynLibInfo &lib);
-	void ForEachSymbol(void *handle, const std::function<bool(const Symbol&)>& functor);
+	void ForEachSymbol(void *handle, const std::function<bool(const Symbol&)>& functor, bool include_duplicates = false);
 #if defined _LINUX
 	void ForEachSection(void *handle, const std::function<void(const ElfSHeader *, const char *)>& functor);
 #elif defined PLATFORM_WINDOWS

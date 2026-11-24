@@ -26,6 +26,7 @@ sourceFiles += [
   'src/gameconf.cpp',
   'src/library.cpp',
   'src/mod.cpp',
+  'src/mod/common/collect_players.cpp',
   'src/prop.cpp',
 # 'src/sizeof.cpp',
 

@@ -425,6 +425,12 @@ void CSigsegvGameConf::AddrEntry_Load_Common(IAddr *addr)
 {
 	const auto& kv = this->m_AddrEntry_State.m_KeyValues;
 	
+	#ifdef PLATFORM_64BITS
+	if (kv.find("lib64") != kv.end()) {
+		addr->SetLibrary(LibMgr::Lib_FromString(kv.at("lib64").c_str()));
+		return;
+	}
+#endif
 	if (kv.find("lib") != kv.end()) {
 		addr->SetLibrary(LibMgr::Lib_FromString(kv.at("lib").c_str()));
 	}

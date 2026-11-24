@@ -1140,7 +1140,10 @@
 				"CollectPlayers<CTFPlayer>"
 				{
 					type "sym"
-					sym  "_Z14CollectPlayersI9CTFPlayerEiP10CUtlVectorIPT_10CUtlMemoryIS3_iEEibb"
+					lib "sigsegv"
+					lib64 "server"
+					sym "SigsegvCollectTFPlayers"
+					sym64 "_Z14CollectPlayersI9CTFPlayerEiP10CUtlVectorIPT_10CUtlMemoryIS3_iEEibb"
 				}
 				"DataTable_Warning"
 				{

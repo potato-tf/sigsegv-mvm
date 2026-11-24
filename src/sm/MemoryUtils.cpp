@@ -185,6 +185,7 @@ void *MemoryUtils::ResolveSymbol(void *handle, const char *symbol)
 	/* Iterate symbol table starting from the position we were at last time */
 	for (uint32_t i = libtable->last_pos; i < symbol_count; i++)
 	{
+		libtable->last_pos = i + 1;
 		ElfSymbol &sym = symtab[i];
 		unsigned char sym_type = ELF_SYM_TYPE(sym.st_info);
 		const char *sym_name = strtab + sym.st_name;
@@ -197,10 +198,11 @@ void *MemoryUtils::ResolveSymbol(void *handle, const char *symbol)
 
 		/* Caching symbols as we go along */
 		table->emplace(sym_name, (void *)(dlmap->l_addr + sym.st_value));
+		libtable->all_symbols.emplace_back(sym_name, (void *)(dlmap->l_addr + sym.st_value));
 		if (strcmp(symbol, sym_name) == 0)
 		{
 			sym_addr = (void *)(dlmap->l_addr + sym.st_value);
-			libtable->last_pos = ++i;
+
 			break;
 		}
 	}
@@ -596,10 +598,10 @@ bool MemoryUtils::GetLibraryInfo(const void *libPtr, DynLibInfo &lib)
 	return true;
 }
 
-void MemoryUtils::ForEachSymbol(void *handle, const std::function<bool(const Symbol&)>& functor)
+void MemoryUtils::ForEachSymbol(void *handle, const std::function<bool(const Symbol&)>& functor, bool include_duplicates)
 {
 	/* do a bogus symbol lookup to force everything into the symbol table cache */
-	assert(ResolveSymbol(handle, "________________") == nullptr);
+	ResolveSymbol(handle, "________________");
 	
 	uintptr_t dlbase = 0;
 	SymbolTable *table = nullptr;
@@ -641,6 +643,14 @@ void MemoryUtils::ForEachSymbol(void *handle, const std::function<bool(const Sym
 	{
 		if (libtable.lib_base == dlbase)
 		{
+			#ifdef PLATFORM_LINUX
+			if (include_duplicates) {
+				for (const auto& symbol : libtable.all_symbols) {
+					if (!functor(Symbol{symbol.first, symbol.second})) break;
+				}
+				return;
+			}
+#endif
 			table = &libtable.table;
 			break;
 		}

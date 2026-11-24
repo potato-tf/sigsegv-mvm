@@ -140,14 +140,14 @@ public:
 	static std::tuple<bool, std::string, void *> FindSymRegex(Library lib, const char *pattern);
 	
 	template<typename FUNCTOR>
-	static void ForEachSym(Library lib, FUNCTOR&& functor)
+	static void ForEachSym(Library lib, FUNCTOR&& functor, bool include_duplicates = false)
 	{
 		if (!HaveLib(lib)) return;
 		
 		void *handle = s_LibHandles.at(lib);
 		assert(handle != nullptr);
 		
-		g_MemUtils.ForEachSymbol(handle, std::forward<FUNCTOR>(functor));
+		g_MemUtils.ForEachSymbol(handle, std::forward<FUNCTOR>(functor), include_duplicates);
 	}
 	
 	static Library WhichLibAtAddr(void *ptr);
