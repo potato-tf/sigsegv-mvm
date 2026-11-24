@@ -211,7 +211,8 @@ MemberFuncThunk<const CEconItemDefinition *, void, IEconItemAttributeIterator *>
 MemberFuncThunk<CAttributeManager *, float, float, CBaseEntity *, string_t, CUtlVector<CBaseEntity*> *> CAttributeManager::ft_ApplyAttributeFloatWrapper("CAttributeManager::ApplyAttributeFloatWrapper");
 MemberFuncThunk<CAttributeManager *, string_t, string_t, CBaseEntity *, string_t, CUtlVector<CBaseEntity*> *> CAttributeManager::ft_ApplyAttributeStringWrapper("CAttributeManager::ApplyAttributeStringWrapper");
 MemberFuncThunk<const CAttributeManager *, int> CAttributeManager::ft_GetGlobalCacheVersion("CAttributeManager::GetGlobalCacheVersion");
-MemberFuncThunk<CAttributeManager *, void>  CAttributeManager::ft_ClearCache("CAttributeManager::ClearCache [clone]");
+// Ordinary callers need the cdecl entry; its wrapper supplies EAX to the Linux x86 clone.
+MemberFuncThunk<CAttributeManager *, void>  CAttributeManager::ft_ClearCache("CAttributeManager::ClearCache");
 MemberFuncThunk<CAttributeManager *, void, CBaseEntity *> CAttributeManager::ft_AddProvider("CAttributeManager::AddProvider");
 MemberFuncThunk<CAttributeManager *, void, CBaseEntity *> CAttributeManager::ft_RemoveProvider("CAttributeManager::RemoveProvider");
 MemberFuncThunk<CAttributeManager *, bool, CBaseEntity *> CAttributeManager::ft_IsProvidingTo("CAttributeManager::IsProvidingTo");

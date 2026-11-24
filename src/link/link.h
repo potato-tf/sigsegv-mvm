@@ -78,14 +78,14 @@ private:
 	virtual bool ClientSide() override { return strnicmp(this->m_pszFuncName, "[client]", strlen("[client]")) == 0; }
 };
 
-template<typename RET, typename... PARAMS>
-class StaticFuncThunk
+template<typename RET, typename FUNC, typename... PARAMS>
+class TypedStaticFuncThunk
 {
 public:
 	using RetType = RET;
-	using FPtr = RET (*)(PARAMS...);
+	using FPtr = FUNC;
 	
-	StaticFuncThunk(const char *n_func) : link(n_func) {}
+	TypedStaticFuncThunk(const char *n_func) : link(n_func) {}
 	
 	inline RET operator()(PARAMS... args) const
 	{
@@ -98,6 +98,25 @@ public:
 private:
 	StaticFuncThunkBase link;
 };
+
+// Keep the calling convention in the pointer type: casting a register-argument
+// function to an ordinary pointer silently produces a stack-argument call.
+template<typename RET, typename... PARAMS>
+using StaticFuncThunk = TypedStaticFuncThunk<RET, RET (*)(PARAMS...), PARAMS...>;
+
+template<typename RET, typename... PARAMS>
+struct RegisterFuncPointer
+{
+#if defined _LINUX && !defined PLATFORM_64BITS
+	using Type = RET (__attribute__((regparm(3), sseregparm)) *)(PARAMS...);
+#else
+	using Type = RET (*)(PARAMS...);
+#endif
+};
+
+template<typename RET, typename... PARAMS>
+using RegisterStaticFuncThunk = TypedStaticFuncThunk<RET,
+	typename RegisterFuncPointer<RET, PARAMS...>::Type, PARAMS...>;
 
 //template<class C, typename RET, typename... PARAMS>
 class MemberFuncThunkBase : public ILinkage

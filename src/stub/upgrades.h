@@ -46,7 +46,7 @@ SIZE_CHECK(CMannVsMachineUpgradeManager, 0x60);
 SIZE_CHECK(CMannVsMachineUpgradeManager, 0x3c);
 #endif
 
-extern StaticFuncThunk<attrib_definition_index_t, const CMannVsMachineUpgrades&, CTFPlayer *, CEconItemView *, int, bool> ft_ApplyUpgrade_Default;
+extern RegisterStaticFuncThunk<attrib_definition_index_t, const CMannVsMachineUpgrades&, CTFPlayer *, CEconItemView *, int, bool> ft_ApplyUpgrade_Default;
 extern StaticFuncThunk<int, CTFPlayer *, int, int, int&, bool&> ft_GetUpgradeStepData;
 
 inline int GetUpgradeStepData( CTFPlayer *pPlayer, int nWeaponSlot, int nUpgradeIndex, int &nCurrentStep, bool &bOverCap )

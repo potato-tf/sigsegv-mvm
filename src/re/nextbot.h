@@ -347,7 +347,11 @@ template<class Actor> extern MemberFuncThunk<const Action<Actor> *, bool,       
 template<class Actor> extern MemberFuncThunk<      Action<Actor> *, Action<Actor> *, Actor *, Behavior<Actor> *, AR>                              ft_Action_ApplyResult;
 template<class Actor> extern MemberFuncThunk<      Action<Actor> *, void,             Actor *, Behavior<Actor> *, Action<Actor> *>                ft_Action_InvokeOnEnd;
 template<class Actor> extern MemberFuncThunk<      Action<Actor> *, AR,               Actor *, Behavior<Actor> *, Action<Actor> *>                ft_Action_InvokeOnResume;
+#if defined _LINUX && !defined PLATFORM_64BITS
+template<class Actor> extern RegisterStaticFuncThunk<char *,           char[256], const Action<Actor> *>                             ft_Action_BuildDecoratedName;
+#else
 template<class Actor> extern MemberFuncThunk<const Action<Actor> *, char *,           char[256], const Action<Actor> *>                             ft_Action_BuildDecoratedName;
+#endif
 //template<class Actor> extern MemberFuncThunk<const Action<Actor> *, char *>                                                                          ft_Action_DebugString;
 template<class Actor> extern MemberFuncThunk<const Action<Actor> *, void>                                                                            ft_Action_PrintStateToConsole;
 template<class Actor> extern MemberFuncThunk<const Action<Actor> *, void>                                                                            ft_Action_DeleteThis;
@@ -445,7 +449,11 @@ template<class Actor> bool Action<Actor>::IsAbleToBlockMovementOf(const INextBot
 template<class Actor> Action<Actor> *Action<Actor>::ApplyResult(Actor *actor, Behavior<Actor> *behavior, ActionResult<Actor> result)                        { return ft_Action_ApplyResult                        <Actor>(this, actor, behavior, result);  }
 template<class Actor> void Action<Actor>::InvokeOnEnd(Actor *actor, Behavior<Actor> *behavior, Action<Actor> *action)                                        {        ft_Action_InvokeOnEnd                        <Actor>(this, actor, behavior, action);  }
 template<class Actor> ActionResult<Actor> Action<Actor>::InvokeOnResume(Actor *actor, Behavior<Actor> *behavior, Action<Actor> *action)                     { return ft_Action_InvokeOnResume                     <Actor>(this, actor, behavior, action);  }
+#if defined _LINUX && !defined PLATFORM_64BITS
+template<class Actor> char *Action<Actor>::BuildDecoratedName(char buf[256], const Action<Actor> *action) const                                                { return ft_Action_BuildDecoratedName                 <Actor>(buf, action);              }
+#else
 template<class Actor> char *Action<Actor>::BuildDecoratedName(char buf[256], const Action<Actor> *action) const                                                { return ft_Action_BuildDecoratedName                 <Actor>(this, buf, action);              }
+#endif
 template<class Actor> const char *Action<Actor>::DebugString() const                                                                                          { return "Actor"; }
 template<class Actor> void Action<Actor>::PrintStateToConsole() const                                                                                           {        ft_Action_PrintStateToConsole                <Actor>(this);                           }
 template<class Actor> void Action<Actor>::DeleteThis()                                                                                                        {        ft_Action_DeleteThis                        <Actor>(this);                           }

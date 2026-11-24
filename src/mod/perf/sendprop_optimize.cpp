@@ -291,7 +291,7 @@ namespace Mod::Perf::SendProp_Optimize
         return (ServerClassCache *)pTable->m_pPrecalc->m_pDTITable;
     }
 
-    StaticFuncThunk<void, int , edict_t *, void *, CFrameSnapshot *> ft_SV_PackEntity("SV_PackEntity");
+    RegisterStaticFuncThunk<void, int , edict_t *, void *, CFrameSnapshot *> ft_SV_PackEntity("SV_PackEntity");
     StaticFuncThunk<IChangeFrameList*, int, int> ft_AllocChangeFrameList("AllocChangeFrameList");
     StaticFuncThunk<void, PackWork_t &> ft_PackWork_t_Process("PackWork_t::Process");
     StaticFuncThunk<bool, const SendTable *, const void *, bf_write *, int, CUtlMemory<CSendProxyRecipients> *, bool> ft_SendTable_Encode("SendTable_Encode");

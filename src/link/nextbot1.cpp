@@ -217,7 +217,11 @@ template<>  MemberFuncThunk<const Action<CBotNPCArcher> *, bool,             con
 template<>  MemberFuncThunk<      Action<CBotNPCArcher> *, Action<CBotNPCArcher> *, CBotNPCArcher *, Behavior<CBotNPCArcher> *, AR>                              ft_Action_ApplyResult<CBotNPCArcher>{                        "Action<CZombie>::ApplyResult"};
 template<>  MemberFuncThunk<      Action<CBotNPCArcher> *, void,             CBotNPCArcher *, Behavior<CBotNPCArcher> *, Action<CBotNPCArcher> *>                ft_Action_InvokeOnEnd<CBotNPCArcher>{                        "Action<CZombie>::InvokeOnEnd"};
 template<>  MemberFuncThunk<      Action<CBotNPCArcher> *, AR,               CBotNPCArcher *, Behavior<CBotNPCArcher> *, Action<CBotNPCArcher> *>                ft_Action_InvokeOnResume<CBotNPCArcher>{                     "Action<CZombie>::InvokeOnResume"};
+#if defined _LINUX && !defined PLATFORM_64BITS
+template<>  RegisterStaticFuncThunk<char *,           char[256], const Action<CBotNPCArcher> *>                             ft_Action_BuildDecoratedName<CBotNPCArcher>{                 "Action<CZombie>::BuildDecoratedName [clone]"};
+#else
 template<>  MemberFuncThunk<const Action<CBotNPCArcher> *, char *,           char[256], const Action<CBotNPCArcher> *>                             ft_Action_BuildDecoratedName<CBotNPCArcher>{                 "Action<CZombie>::BuildDecoratedName [clone]"};
+#endif
 //template<>  MemberFuncThunk<const Action<CBotNPCArcher> *, char *>                                                                          ft_Action_DebugString<CBotNPCArcher>{                        "Action<CZombie>::DebugString [clone]"};
 template<>  MemberFuncThunk<const Action<CBotNPCArcher> *, void>                                                                            ft_Action_PrintStateToConsole<CBotNPCArcher>{                "Action<CZombie>::PrintStateToConsole"};
 template<>  MemberFuncThunk<      Action<CBotNPCArcher> *, void>                                                                            ft_Action_DeleteThis<CBotNPCArcher>{                "Action<CZombie>::~Action [D2]"};
@@ -316,7 +320,11 @@ template<>  MemberFuncThunk<const Action<CTFBot> *, bool,             const INex
 template<>  MemberFuncThunk<      Action<CTFBot> *, Action<CTFBot> *, CTFBot *, Behavior<CTFBot> *, AR>                              ft_Action_ApplyResult<CTFBot>{                        "Action<CTFBot>::ApplyResult"};
 template<>  MemberFuncThunk<      Action<CTFBot> *, void,             CTFBot *, Behavior<CTFBot> *, Action<CTFBot> *>                ft_Action_InvokeOnEnd<CTFBot>{                        "Action<CTFBot>::InvokeOnEnd"};
 template<>  MemberFuncThunk<      Action<CTFBot> *, AR,               CTFBot *, Behavior<CTFBot> *, Action<CTFBot> *>                ft_Action_InvokeOnResume<CTFBot>{                     "Action<CTFBot>::InvokeOnResume"};
+#if defined _LINUX && !defined PLATFORM_64BITS
+template<>  RegisterStaticFuncThunk<char *,           char[256], const Action<CTFBot> *>                             ft_Action_BuildDecoratedName<CTFBot>{                 "Action<CTFBot>::BuildDecoratedName [clone]"};
+#else
 template<>  MemberFuncThunk<const Action<CTFBot> *, char *,           char[256], const Action<CTFBot> *>                             ft_Action_BuildDecoratedName<CTFBot>{                 "Action<CTFBot>::BuildDecoratedName [clone]"};
+#endif
 //template<>  MemberFuncThunk<const Action<CTFBot> *, char *>                                                                          ft_Action_DebugString<CTFBot>{                        "Action<CTFBot>::DebugString [clone]"};
 template<>  MemberFuncThunk<const Action<CTFBot> *, void>                                                                            ft_Action_PrintStateToConsole<CTFBot>{                "Action<CTFBot>::PrintStateToConsole"};
 template<>  MemberFuncThunk<      Action<CTFBot> *, void>                                                                            ft_Action_DeleteThis<CTFBot>{                         "Action<CTFBot>::~Action [D2]"};
