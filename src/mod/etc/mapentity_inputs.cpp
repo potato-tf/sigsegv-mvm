@@ -818,6 +818,7 @@ namespace Mod::Etc::Mapentity_Additions
             if (g_pPopulationManager == nullptr) return;
 
             CWave *wave = g_pPopulationManager->GetCurrentWave();
+            if (wave == nullptr) return;
             for (auto waveSpawn : wave->m_WaveSpawns) {
                 if (!NamesMatch(Value.String(), waveSpawn->m_name.Get())) continue;
 
@@ -828,6 +829,7 @@ namespace Mod::Etc::Mapentity_Additions
             if (g_pPopulationManager == nullptr) return;
 
             CWave *wave = g_pPopulationManager->GetCurrentWave();
+            if (wave == nullptr) return;
             for (auto waveSpawn : wave->m_WaveSpawns) {
                 if (!NamesMatch(Value.String(), waveSpawn->m_name.Get())) continue;
 
@@ -841,6 +843,7 @@ namespace Mod::Etc::Mapentity_Additions
             const char *name = szInputName + strlen("ReduceFromWavespawn$");
 
             CWave *wave = g_pPopulationManager->GetCurrentWave();
+            if (wave == nullptr) return;
             CTFObjectiveResource *res = TFObjectiveResource();
             for (auto waveSpawn : wave->m_WaveSpawns) {
                 if (!NamesMatch(name, waveSpawn->m_name.Get())) continue;
@@ -878,6 +881,7 @@ namespace Mod::Etc::Mapentity_Additions
             if (g_pPopulationManager == nullptr) return;
 
             CWave *wave = g_pPopulationManager->GetCurrentWave();
+            if (wave == nullptr) return;
             CTFObjectiveResource *res = TFObjectiveResource();
             for (auto waveSpawn : wave->m_WaveSpawns) {
                 if (!NamesMatch(Value.String(), waveSpawn->m_name.Get())) continue;
@@ -910,6 +914,7 @@ namespace Mod::Etc::Mapentity_Additions
             if (g_pPopulationManager == nullptr) return;
             
             CWave *wave = g_pPopulationManager->GetCurrentWave();
+            if (wave == nullptr) return;
             for (auto waveSpawn : wave->m_WaveSpawns) {
                 if (!FStrEq(waveSpawn->m_name.Get(), Value.String())) continue;
                 Mod::Pop::WaveSpawn_Extensions::RemoveWaveSpawnEntities(waveSpawn);
