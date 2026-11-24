@@ -4670,7 +4670,7 @@ namespace Util::Lua
         return false;
     }
 
-    DETOUR_DECL_STATIC_CALL_CONVENTION(__gcc_regcall, bool, PassServerEntityFilter, IHandleEntity *ent1, IHandleEntity *ent2)
+    DETOUR_DECL_STATIC(bool, PassServerEntityFilter, IHandleEntity *ent1, IHandleEntity *ent2)
 	{
         
         if (ent1 != ent2 && ent2 != nullptr)

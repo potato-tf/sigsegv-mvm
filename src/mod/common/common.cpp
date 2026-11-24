@@ -104,7 +104,7 @@ namespace Mod::Common::Common
 		return result;
 	}
 
-    DETOUR_DECL_STATIC_CALL_CONVENTION(__gcc_regcall, bool, PassServerEntityFilter, IHandleEntity *ent1, IHandleEntity *ent2)
+    DETOUR_DECL_STATIC(bool, PassServerEntityFilter, IHandleEntity *ent1, IHandleEntity *ent2)
 	{
         auto ret = DETOUR_STATIC_CALL(ent1, ent2);
         {

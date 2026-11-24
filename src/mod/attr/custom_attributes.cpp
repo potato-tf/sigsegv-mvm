@@ -3699,7 +3699,7 @@ namespace Mod::Attr::Custom_Attributes
 
 	void InspectAttributes(CTFPlayer *target, CTFPlayer *player, bool force, int slot = -2);
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, void, CUpgrades_PlayerPurchasingUpgrade, CTFPlayer *player, int itemslot, int upgradeslot, bool sell, bool free, bool refund)
+	DETOUR_DECL_MEMBER(void, CUpgrades_PlayerPurchasingUpgrade, CTFPlayer *player, int itemslot, int upgradeslot, bool sell, bool free, bool refund)
 	{
 		if (!refund) {
 			auto upgrade = reinterpret_cast<CUpgrades *>(this);
@@ -3754,7 +3754,7 @@ namespace Mod::Attr::Custom_Attributes
 		DETOUR_MEMBER_CALL(item_view);
 	}
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, unsigned short, CUpgrades_ApplyUpgradeToItem, CTFPlayer* player, CEconItemView *item, int upgrade, int cost, bool downgrade, bool fresh)
+	DETOUR_DECL_MEMBER(unsigned short, CUpgrades_ApplyUpgradeToItem, CTFPlayer* player, CEconItemView *item, int upgrade, int cost, bool downgrade, bool fresh)
 	{
 		if (rc_CTFPlayer_ReapplyItemUpgrades)
 		{
@@ -4065,7 +4065,7 @@ namespace Mod::Attr::Custom_Attributes
 		THINK_FUNC_SET(arrow, UpdateArrowTrail, gpGlobals->curtime+0.01f);
 	}
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, int, CTFRadiusDamageInfo_ApplyToEntity, CBaseEntity *ent)
+	DETOUR_DECL_MEMBER(int, CTFRadiusDamageInfo_ApplyToEntity, CBaseEntity *ent)
 	{
 		auto info = reinterpret_cast<CTFRadiusDamageInfo *>(this);
 		if (hit_entities_explosive_max != 0 && hit_entities_explosive >= hit_entities_explosive_max)
@@ -5539,11 +5539,19 @@ namespace Mod::Attr::Custom_Attributes
 		return ret;
 	}
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CTFPlayer_ItemsMatch, CEconItemView *pCurWeaponItem, CEconItemView *pNewWeaponItem, CTFWeaponBase *pWpnEntity)
+#if defined PLATFORM_64BITS
+	DETOUR_DECL_MEMBER(bool, CTFPlayer_ItemsMatch, CEconItemView *pCurWeaponItem, CEconItemView *pNewWeaponItem, CTFWeaponBase *pWpnEntity)
 	{
 		return CTFPlayer_ItemsMatch_Func(DETOUR_MEMBER_CALL(pCurWeaponItem, pNewWeaponItem, pWpnEntity), reinterpret_cast<CTFPlayer *>(this), pCurWeaponItem, pNewWeaponItem, pWpnEntity);
 	}
 
+#else
+	DETOUR_DECL_MEMBER(bool, CTFPlayer_ItemsMatch, TFPlayerClassData_t *classData, CEconItemView *pCurWeaponItem, CEconItemView *pNewWeaponItem, CTFWeaponBase *pWpnEntity)
+	{
+		return CTFPlayer_ItemsMatch_Func(DETOUR_MEMBER_CALL(classData, pCurWeaponItem, pNewWeaponItem, pWpnEntity), reinterpret_cast<CTFPlayer *>(this), pCurWeaponItem, pNewWeaponItem, pWpnEntity);
+	}
+
+#endif
 	THINK_FUNC_DECL(MinigunClearSounds)
 	{
 		auto minigun = reinterpret_cast<CTFMinigun *>(this);
@@ -6688,7 +6696,7 @@ namespace Mod::Attr::Custom_Attributes
         return ret;
     }
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall,void, CTFGameMovement_ToggleParachute)
+	DETOUR_DECL_MEMBER(void, CTFGameMovement_ToggleParachute)
     {
 		CTFPlayer *player = ToTFPlayer(reinterpret_cast<CGameMovement *>(this)->player);
 		//if ((player->GetFlags() & FL_ONGROUND) || (reinterpret_cast<CGameMovement *>(this)->GetMoveData()->m_nOldButtons & IN_JUMP)) return;
@@ -7156,7 +7164,7 @@ namespace Mod::Attr::Custom_Attributes
         return DETOUR_MEMBER_CALL(flagcheck);
     }
 	
-    DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CObjectTeleporter_PlayerCanBeTeleported, CTFPlayer *player)
+    DETOUR_DECL_MEMBER(bool, CObjectTeleporter_PlayerCanBeTeleported, CTFPlayer *player)
 	{
 		int alwaysAllowTeleport = 0;
 		CALL_ATTRIB_HOOK_INT_ON_OTHER(player, alwaysAllowTeleport, always_allow_teleport);
@@ -7280,7 +7288,7 @@ namespace Mod::Attr::Custom_Attributes
 
 	void ChangeBuildingProperties(CTFPlayer *player, CBaseObject *obj);
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, void, CTFPlayer_AddObject, CBaseObject *object)
+	DETOUR_DECL_MEMBER(void, CTFPlayer_AddObject, CBaseObject *object)
 	{
         DETOUR_MEMBER_CALL(object);
     }
@@ -8491,7 +8499,7 @@ namespace Mod::Attr::Custom_Attributes
 		}
 	}
 	
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CBaseObject_FindBuildPointOnPlayer, CTFPlayer *pTFPlayer, CBasePlayer *pBuilder, float &flNearestPoint, Vector &vecNearestBuildPoint)
+	DETOUR_DECL_MEMBER(bool, CBaseObject_FindBuildPointOnPlayer, CTFPlayer *pTFPlayer, CBasePlayer *pBuilder, float &flNearestPoint, Vector &vecNearestBuildPoint)
 	{
 		auto object = reinterpret_cast<CBaseObject *>(this);
 		

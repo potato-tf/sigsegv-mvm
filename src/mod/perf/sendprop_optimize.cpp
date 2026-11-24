@@ -1398,7 +1398,7 @@ namespace Mod::Perf::SendProp_Optimize
     }
 
 #ifdef SE_IS_TF2
-    DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, void, CTFPlayer_AddObject, CBaseObject *object)
+    DETOUR_DECL_MEMBER(void, CTFPlayer_AddObject, CBaseObject *object)
 	{
         DETOUR_MEMBER_CALL(object);
         reinterpret_cast<CTFPlayer *>(this)->NetworkStateChanged();

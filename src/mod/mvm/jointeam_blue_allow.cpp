@@ -1320,7 +1320,7 @@ constexpr uintptr_t s_CallOff_CollectPlayers_RadiusSpyScan = 0x2c;
 		return ret;
 	}
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CTFKnife_CanPerformBackstabAgainstTarget, CTFPlayer *target )
+	DETOUR_DECL_MEMBER(bool, CTFKnife_CanPerformBackstabAgainstTarget, CTFPlayer *target )
 	{
 		bool ret = DETOUR_MEMBER_CALL(target);
 
@@ -1628,8 +1628,9 @@ constexpr uintptr_t s_CallOff_CollectPlayers_RadiusSpyScan = 0x2c;
 		}
 	}
 
+#if defined PLATFORM_64BITS
 	// this argument optimized out, CTFPlayer becomes this
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CVoteController_IsValidVoter)
+	DETOUR_DECL_MEMBER(bool, CVoteController_IsValidVoter)
 	{
 		auto player = reinterpret_cast<CTFPlayer *>(this);
 		bool blueHuman = IsMvMBlueHuman(ToTFPlayer(player));
@@ -1644,6 +1645,23 @@ constexpr uintptr_t s_CallOff_CollectPlayers_RadiusSpyScan = 0x2c;
 		}
 		return ret;
 	}
+#else
+	// The complete ELF32 function retains both the controller and player arguments.
+	DETOUR_DECL_MEMBER(bool, CVoteController_IsValidVoter, CBasePlayer *player)
+	{
+		bool blueHuman = IsMvMBlueHuman(ToTFPlayer(player));
+		if (blueHuman) {
+			TFGameRules()->Set_m_bPlayingMannVsMachine(false);
+		}
+
+		bool ret = DETOUR_MEMBER_CALL(player);
+
+		if (blueHuman) {
+			TFGameRules()->Set_m_bPlayingMannVsMachine(true);
+		}
+		return ret;
+	}
+#endif
 
 	CBasePlayer *killed = nullptr;
 	bool team_change_back = false;

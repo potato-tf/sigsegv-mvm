@@ -8,6 +8,8 @@
 #include "util/trace.h"
 
 
+class ISteamNetworkingFakeUDPPort;
+
 namespace Mod::Util::JumboFrames
 {
 	constexpr int MAX_ROUTABLE_PAYLOAD = 65000;
@@ -517,6 +519,7 @@ namespace Mod::Util::JumboFrames
 		return DETOUR_STATIC_CALL(chan, sock, to, data, length, pVoicePayload, bUseCompression);
 	}
 	
+#ifdef PLATFORM_64BITS
 	DETOUR_DECL_STATIC(int, NET_SendLong, INetChannel *chan, int sock, SOCKET s, const char *buf, int len, const struct sockaddr *to, int tolen, int nMaxRoutableSize)
 	{
 		TRACE("[chan: %08x] [sock: %d] [len: %d] [nMaxRoutableSize: %d]",
@@ -527,7 +530,21 @@ namespace Mod::Util::JumboFrames
 		
 		return DETOUR_STATIC_CALL(chan, sock, s, buf, len, to, tolen, nMaxRoutableSize);
 	}
-	
+
+#else
+	DETOUR_DECL_STATIC(int, NET_SendLong, INetChannel *chan, int sock, SOCKET s, ISteamNetworkingFakeUDPPort *fakePort, const char *buf, int len, const struct sockaddr *to, int tolen, int nMaxRoutableSize)
+	{
+		TRACE("[chan: %08x] [sock: %d] [len: %d] [nMaxRoutableSize: %d]",
+			(uintptr_t)chan,
+			sock,
+			len,
+			nMaxRoutableSize);
+
+		return DETOUR_STATIC_CALL(chan, sock, s, fakePort, buf, len, to, tolen, nMaxRoutableSize);
+	}
+
+#endif
+#ifdef PLATFORM_64BITS
 	DETOUR_DECL_STATIC(int, NET_SendTo, bool verbose, SOCKET s, const char *buf, int len, const struct sockaddr *to, int tolen, int iGameDataLength)
 	{
 		TRACE("[len: %d] [iGameDataLength: %d]",
@@ -536,7 +553,18 @@ namespace Mod::Util::JumboFrames
 		
 		return DETOUR_STATIC_CALL(verbose, s, buf, len, to, tolen, iGameDataLength);
 	}
-	
+
+#else
+	DETOUR_DECL_STATIC(int, NET_SendTo, bool verbose, SOCKET s, ISteamNetworkingFakeUDPPort *fakePort, const char *buf, int len, const struct sockaddr *to, int tolen, int iGameDataLength)
+	{
+		TRACE("[len: %d] [iGameDataLength: %d]",
+			len,
+			iGameDataLength);
+
+		return DETOUR_STATIC_CALL(verbose, s, fakePort, buf, len, to, tolen, iGameDataLength);
+	}
+
+#endif
 	DETOUR_DECL_MEMBER(int, CNetChan_GetMaxRoutablePayloadSize)
 	{
 		static ConVarRef net_maxroutable("net_maxroutable");

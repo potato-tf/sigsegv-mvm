@@ -178,7 +178,7 @@
 				"CHLTVServer::ReadCompeleteDemoFile"
 				{
 					type  "fixed"
-					sym   "_ZN11CHLTVServer21ReadCompeleteDemoFileEv"
+					sym   "_ZN11CHLTVServer20ReadCompleteDemoFileEv"
 					addr  "0x19c2b0"
 					build "3283568"
 					lib   "engine"
@@ -392,13 +392,15 @@
 				"NET_SendLong"
 				{
 					type "sym"
-					sym  "_Z12NET_SendLongP11INetChanneliiPKciPK8sockaddrii"
+					sym  "_Z12NET_SendLongP11INetChanneliiP27ISteamNetworkingFakeUDPPortPKciPK8sockaddrii"
+					sym64 "_Z12NET_SendLongP11INetChanneliiPKciPK8sockaddrii"
 					lib  "engine"
 				}
 				"NET_SendTo"
 				{
 					type "sym"
-					sym  "_Z10NET_SendTobiPKciPK8sockaddrii"
+					sym  "_Z10NET_SendTobiP27ISteamNetworkingFakeUDPPortPKciPK8sockaddrii"
+					sym64 "_Z10NET_SendTobiPKciPK8sockaddrii"
 					lib  "engine"
 				}
 				"CNetChan::GetMaxRoutablePayloadSize"
@@ -1137,6 +1139,109 @@
 					type "sym"
 					sym  "_ZN12CTFGameRules21SetCustomUpgradesFileER11inputdata_t"
 				}
+				// GCC 14 ELF32 uses the complete functions; retain the legacy x64 lookups.
+				"CTFGameRules::DropSpellPickup [clone]"
+				{
+					type "sym regex"
+					sym "_ZNK12CTFGameRules15DropSpellPickupERK6Vectori"
+					sym64 "_ZNK12CTFGameRules15DropSpellPickupERK6Vectori\\.part\\..*"
+				}
+				"CBaseObject::FindBuildPointOnPlayer [clone]"
+				{
+					type "sym regex"
+					sym "_ZN11CBaseObject22FindBuildPointOnPlayerEP9CTFPlayerP11CBasePlayerRfR6Vector"
+					sym64 "_ZN11CBaseObject22FindBuildPointOnPlayerEP9CTFPlayerP11CBasePlayerRfR6Vector\\.part\\..*"
+				}
+				"PassServerEntityFilter [clone]"
+				{
+					type "sym regex"
+					sym "_Z22PassServerEntityFilterPK13IHandleEntityS1_"
+					sym64 "_Z22PassServerEntityFilterPK13IHandleEntityS1_\\.part\\..*"
+				}
+				"CTFPlayer::AddObject [clone]"
+				{
+					type "sym regex"
+					sym "_ZN9CTFPlayer9AddObjectEP11CBaseObject"
+					sym64 "_ZN9CTFPlayer9AddObjectEP11CBaseObject\\.part\\..*"
+				}
+				"CObjectTeleporter::PlayerCanBeTeleported [clone]"
+				{
+					type "sym regex"
+					sym "_ZN17CObjectTeleporter21PlayerCanBeTeleportedEP9CTFPlayer"
+					sym64 "_ZN17CObjectTeleporter21PlayerCanBeTeleportedEP9CTFPlayer\\.part\\..*"
+				}
+				"CVoteController::IsValidVoter [clone]"
+				{
+					type "sym regex"
+					sym "_ZN15CVoteController12IsValidVoterEP11CBasePlayer"
+					sym64 "_ZN15CVoteController12IsValidVoterEP11CBasePlayer\\.part\\..*"
+				}
+				"CUpgrades::ApplyUpgradeToItem [clone]"
+				{
+					type "sym regex"
+					sym "_ZN9CUpgrades18ApplyUpgradeToItemEP9CTFPlayerP13CEconItemViewiibb"
+					sym64 "_ZN9CUpgrades18ApplyUpgradeToItemEP9CTFPlayerP13CEconItemViewiibb\\.part\\..*"
+				}
+				"CTriggerHurt::HurtEntity [clone]"
+				{
+					type "sym regex"
+					sym "_ZN12CTriggerHurt10HurtEntityEP11CBaseEntityf"
+					sym64 "_ZN12CTriggerHurt10HurtEntityEP11CBaseEntityf\\.part\\..*"
+				}
+				"CUpgrades::PlayerPurchasingUpgrade [clone]"
+				{
+					type "sym regex"
+					sym "_ZN9CUpgrades23PlayerPurchasingUpgradeEP9CTFPlayeriibbb"
+					sym64 "_ZN9CUpgrades23PlayerPurchasingUpgradeEP9CTFPlayeriibbb\\.part\\..*"
+				}
+				"CTFKnife::CanPerformBackstabAgainstTarget [clone]"
+				{
+					type "sym regex"
+					sym "_ZN8CTFKnife31CanPerformBackstabAgainstTargetEP9CTFPlayer"
+					sym64 "_ZN8CTFKnife31CanPerformBackstabAgainstTargetEP9CTFPlayer\\.part\\..*"
+				}
+				"CGameMovement::GetPointContentsCached [clone]"
+				{
+					type "sym regex"
+					sym "_ZN13CGameMovement22GetPointContentsCachedERK6Vectori"
+					sym64 "_ZN13CGameMovement22GetPointContentsCachedERK6Vectori\\.part\\..*"
+				}
+				"CPopulationManager::Initialize [clone]"
+				{
+					type "sym regex"
+					sym "_ZN18CPopulationManager10InitializeEv"
+					sym64 "_ZN18CPopulationManager10InitializeEv\\.part\\..*"
+				}
+				"CTFPlayer::ItemsMatch [clone]"
+				{
+					type "sym regex"
+					sym "_ZN9CTFPlayer10ItemsMatchEP19TFPlayerClassData_tP13CEconItemViewS3_P13CTFWeaponBase"
+					sym64 "_ZN9CTFPlayer10ItemsMatchEP19TFPlayerClassData_tP13CEconItemViewS3_P13CTFWeaponBase\\.part\\..*"
+				}
+				"CTFRadiusDamageInfo::ApplyToEntity [clone]"
+				{
+					type "sym regex"
+					sym "_ZN19CTFRadiusDamageInfo13ApplyToEntityEP11CBaseEntity"
+					sym64 "_ZN19CTFRadiusDamageInfo13ApplyToEntityEP11CBaseEntity\\.part\\..*"
+				}
+				"CFuncNavCost::IsApplicableTo [clone]"
+				{
+					type "sym regex"
+					sym "_ZNK12CFuncNavCost14IsApplicableToEP20CBaseCombatCharacter"
+					sym64 "_ZNK12CFuncNavCost14IsApplicableToEP20CBaseCombatCharacter\\.part\\..*"
+				}
+				"CEconItemSchema::GetItemDefinitionByName [clone]"
+				{
+					type "sym regex"
+					sym "_ZN15CEconItemSchema23GetItemDefinitionByNameEPKc"
+					sym64 "_ZN15CEconItemSchema23GetItemDefinitionByNameEPKc\\.part\\..*"
+				}
+				"CTFGameMovement::ToggleParachute [clone]"
+				{
+					type "sym regex"
+					sym "_ZN15CTFGameMovement15ToggleParachuteEv"
+					sym64 "_ZN15CTFGameMovement15ToggleParachuteEv\\.part\\..*"
+				}
 				"CollectPlayers<CTFPlayer>"
 				{
 					type "sym"
@@ -1240,7 +1345,7 @@
 				"CBaseIssue::CBaseIssue"
 				{
 					type "sym"
-					sym  "_ZN10CBaseIssueC1EPKc"
+					sym  "_ZN10CBaseIssueC1EPKcP15CVoteController"
 				}
 				"UserMessageBegin"
 				{
@@ -1293,11 +1398,13 @@
 				}
 				"CGameEventManager::CreateEvent"
 				{
+					lib "engine"
 					type "sym"
 					sym  "_ZN17CGameEventManager11CreateEventEPKcb"
 				}
 				"CGameEventManager::FireEventIntern"
 				{
+					lib "engine"
 					type "sym"
 					sym  "_ZN17CGameEventManager15FireEventInternEP10IGameEventbb"
 				}
@@ -1896,7 +2003,7 @@
 				"SendProxy_SendPredictableId"
 				{
 					type "sym"
-					sym  "_ZL27SendProxy_SendPredictableIdPK8SendPropPKvS3_P20CSendProxyRecipientsi_0"
+					sym  "_ZL27SendProxy_SendPredictableIdPK8SendPropPKvS3_P20CSendProxyRecipientsi"
 				}
 
 				"CTFBotSquad::Leave"
@@ -3062,7 +3169,7 @@
 				"UTIL_PlayerBulletTrace"
 				{
 					type "sym"
-					sym  "_ZL22UTIL_PlayerBulletTraceRK6VectorS1_S1_jP12ITraceFilterP10CGameTrace_constprop_737"
+					sym  "_ZL22UTIL_PlayerBulletTraceRK6VectorS1_S1_jP12ITraceFilterP10CGameTrace.constprop.0"
 				}
 				"CSchemaAttributeType_String::BConvertStringToEconAttributeValue"
 				{
@@ -3208,7 +3315,7 @@
 
 				"Msg [vscript]"
 				{
-					lib "vscript"
+					lib "tier0"
 					type "sym"
 					sym  "Msg"
 				}
@@ -3419,7 +3526,6 @@
 				"CTFGameRules::GetAssister" "_ZN12CTFGameRules11GetAssisterEP11CBasePlayerS1_P11CBaseEntity"
 				"CTFGameRules::GetBonusRoundTime" "_ZN12CTFGameRules17GetBonusRoundTimeEb"
 
-				"CEyeballBossIdle::OnStart" "_ZN16CEyeballBossIdle7OnStartEP12CEyeballBossP6ActionIS0_E
 				"CEyeballBossIdle::OnStart" "_ZN16CEyeballBossIdle7OnStartEP12CEyeballBossP6ActionIS0_E"
 				"CEyeballBossIdle::Update"  "_ZN16CEyeballBossIdle6UpdateEP12CEyeballBossf"
 
@@ -3520,41 +3626,23 @@
 				// "Script_StringToFile [clone]" "_ZL19Script_StringToFilePKcS0_\\.part\\..*"
 				// "GetNextCommandEntity [clone]" "_Z20GetNextCommandEntityP11CBasePlayerPKcP11CBaseEntity\\.part\\..*"
 				// "VScriptRunScript [clone]" _Z16VScriptRunScriptPKcP9HSCRIPT__b
-
-				"CTFGameRules::DropSpellPickup [clone]" "_ZNK12CTFGameRules15DropSpellPickupERK6Vectori\\.part\\..*"
-				"CBaseObject::FindBuildPointOnPlayer [clone]" "_ZN11CBaseObject22FindBuildPointOnPlayerEP9CTFPlayerP11CBasePlayerRfR6Vector\\.part\\..*"
 				"CTFPlayerShared::UpdateChargeMeter [clone]" "_ZN15CTFPlayerShared17UpdateChargeMeterEv\\.part\\..*"
-				"PassServerEntityFilter [clone]" "_Z22PassServerEntityFilterPK13IHandleEntityS1_\\.part\\..*"
-				"CTFPlayer::AddObject [clone]" "_ZN9CTFPlayer9AddObjectEP11CBaseObject\\.part\\..*"
-				"CObjectTeleporter::PlayerCanBeTeleported [clone]" "_ZN17CObjectTeleporter21PlayerCanBeTeleportedEP9CTFPlayer\\.part\\..*"
 				"CGameMovement::CheckFalling [clone]" "_ZN13CGameMovement12CheckFallingEv\\.part\\..*"
-				"CVoteController::IsValidVoter [clone]" "_ZN15CVoteController12IsValidVoterEP11CBasePlayer\\.part\\..*"
 				"CTFPlayerShared::PulseMedicRadiusHeal [clone]" "_ZN15CTFPlayerShared20PulseMedicRadiusHealEv\\.part\\..*"
 				"CTriggerIgnite::BurnEntities [clone]" "_ZN14CTriggerIgnite12BurnEntitiesEv\\.part\\..*"
 				"CVoteController::TryCastVote [clone]" "_ZN15CVoteController11TryCastVoteEiPKc\\.part\\..*"
 				"CWeaponMedigun::CycleResistType [clone]" "_ZN14CWeaponMedigun15CycleResistTypeEv\\.part\\..*"
-				"CUpgrades::ApplyUpgradeToItem [clone]" "_ZN9CUpgrades18ApplyUpgradeToItemEP9CTFPlayerP13CEconItemViewiibb\\.part\\..*"
 				"CBaseAnimatingOverlay::FastRemoveLayer [clone]" "_ZN21CBaseAnimatingOverlay15FastRemoveLayerEi\\.part\\..*"
 				"CTFGameRules::CalcDominationAndRevenge [clone]" "_ZN12CTFGameRules24CalcDominationAndRevengeEP9CTFPlayerP11CBaseEntityS1_bPi\\.part\\..*"
 				"CTFPlayer::CanBuild [clone]" "_ZN9CTFPlayer8CanBuildEii\\.part\\..*"
-				"CTriggerHurt::HurtEntity [clone]" "_ZN12CTriggerHurt10HurtEntityEP11CBaseEntityf\\.part\\..*"
-				"CUpgrades::PlayerPurchasingUpgrade [clone]" "_ZN9CUpgrades23PlayerPurchasingUpgradeEP9CTFPlayeriibbb\\.part\\..*"
-				"CTFKnife::CanPerformBackstabAgainstTarget [clone]" "_ZN8CTFKnife31CanPerformBackstabAgainstTargetEP9CTFPlayer\\.part\\..*"
 				"CTFBotMainAction::Dodge [clone]" "_ZN16CTFBotMainAction5DodgeEP6CTFBot\\.part\\..*"
 				"CTFPlayerShared::UpdateCloakMeter [clone]" "_ZN15CTFPlayerShared16UpdateCloakMeterEv\\.part\\..*"
 				"CObjectSapper::ApplyRoboSapperEffects [clone]" "_ZN13CObjectSapper22ApplyRoboSapperEffectsEP9CTFPlayerf\\.part\\..*"
 				"CTFPlayerShared::UpdateEnergyDrinkMeter [clone]" "_ZN15CTFPlayerShared22UpdateEnergyDrinkMeterEv\\.part\\..*"
 				"CMultiPlayerAnimState::RestartGesture [clone]" "_ZN21CMultiPlayerAnimState14RestartGestureEi8Activityb\\.part\\..*"
-				"CGameMovement::GetPointContentsCached [clone]" "_ZN13CGameMovement22GetPointContentsCachedERK6Vectori\\.part\\..*"
-				"CPopulationManager::Initialize [clone]" "_ZN18CPopulationManager10InitializeEv\\.part\\..*"
 				"CTFPlayerShared::SetItemChargeMeter [clone]" "_ZN15CTFPlayerShared18SetItemChargeMeterE19loadout_positions_tf\\.part\\..*"
-				"CTFPlayer::ItemsMatch [clone]" "_ZN9CTFPlayer10ItemsMatchEP19TFPlayerClassData_tP13CEconItemViewS3_P13CTFWeaponBase\\.part\\..*"
-				"CTFRadiusDamageInfo::ApplyToEntity [clone]" "_ZN19CTFRadiusDamageInfo13ApplyToEntityEP11CBaseEntity\\.part\\..*"
-				"CFuncNavCost::IsApplicableTo [clone]" "_ZNK12CFuncNavCost14IsApplicableToEP20CBaseCombatCharacter\\.part\\..*"
-				"CEconItemSchema::GetItemDefinitionByName [clone]" "_ZN15CEconItemSchema23GetItemDefinitionByNameEPKc\\.part\\..*"
 
 				"CBasePlayer::GetInVehicle [clone]" "_ZN11CBasePlayer12GetInVehicleEP14IServerVehiclei\\.part\\..*"
-				"CTFGameMovement::ToggleParachute [clone]" "_ZN15CTFGameMovement15ToggleParachuteEv\\.part\\..*"
 			}
 			"addrs_group"
 			{
