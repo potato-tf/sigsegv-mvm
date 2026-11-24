@@ -9,7 +9,9 @@ static constexpr uint8_t s_Buf_CBasePlayer_SetVCollisionState[] = {
 #ifdef PLATFORM_64BITS
 	0x89, 0x8f, 0xc4, 0x0e, 0x00, 0x00,  // +0x0000 mov [rdi+0EC4h], ecx
 #else
-	0x89, 0x83, 0x8c, 0x0b, 0x00, 0x00, // +0000  mov [ebx+0xVVVVVVVV],eax
+	// GCC 14 ELF32: store requested collision state; compare with 1.
+	0x89, 0x86, 0x00, 0x00, 0x00, 0x00, 0x83, 0xf8,
+	0x01,
 #endif
 };
 
@@ -21,17 +23,33 @@ struct CExtract_CBasePlayer_SetVCollisionState : public IExtract<int32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CBasePlayer_SetVCollisionState);
 		
 		mask.SetRange(0x00 + 2, 4, 0x00);
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CBasePlayer_SetVCollisionState);
+		mask.SetRange(0x02, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CBasePlayer::SetVCollisionState"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0030; } // @ 0x0017
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 2; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
+		return 0x0030;
+	} // @ 0x0017
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x0000 + 2;
+#else
+		return 0x02;
+#endif
+	}
 };
 
 #elif defined _WINDOWS

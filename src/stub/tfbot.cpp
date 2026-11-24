@@ -11,14 +11,10 @@ static constexpr uint8_t s_Buf_CTFBot_m_nMission[] = {
 	0x89, 0x87, 0x00, 0x2f, 0x00, 0x00,  // +0x000e mov     [rdi+2F00h], eax
 	0x74, 0x2e,                          // +0x0014 jz      short loc_103CCD1
 #else
-	0x55,                               // +0000  push ebp
-	0x89, 0xe5,                         // +0001  mov ebp,esp
-	0x53,                               // +0003  push ebx
-	0x83, 0xec, 0x00,                   // +0004  sub esp,0xXX
-	0x8b, 0x5d, 0x08,                   // +0007  mov ebx,DWORD PTR [ebp+0x8]
-	0x8b, 0x45, 0x0c,                   // +000A  mov eax,DWORD PTR [ebp+0xc]
-	0x80, 0x7d, 0x10, 0x00,             // +000D  cmp BYTE PTR [ebp+0x10],0x0
-	0x8b, 0x93, 0x00, 0x00, 0x00, 0x00, // +0011  mov edx,DWORD PTR [ebx+0xVVVVVVVV]
+	// GCC 14 ELF32: move previous mission and new mission together with SSE2.
+	0x66, 0x0f, 0x6e, 0x8b, 0x00, 0x00, 0x00, 0x00,
+	0x66, 0x0f, 0x6e, 0xc0, 0x66, 0x0f, 0x62, 0xc1,
+	0x66, 0x0f, 0xd6, 0x83, 0x00, 0x00, 0x00, 0x00,
 #endif
 };
 
@@ -28,29 +24,43 @@ struct CExtract_CTFBot_m_nMission : public IExtract<uint32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CTFBot_m_nMission);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetRange(0x00 + 2, 4, 0x00);
 		mask.SetRange(0x08 + 2, 4, 0x00);
 		mask.SetRange(0x0e + 2, 4, 0x00);
 		mask[0x15] = 0x00;
-#else
-		mask.SetRange(0x04 + 2, 1, 0x00);
-		mask.SetRange(0x11 + 2, 4, 0x00);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CTFBot_m_nMission);
+		mask.SetRange(0x04, 4, 0x00);
+		mask.SetRange(0x14, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CTFBot::SetMission"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0200; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 2; }
+		return 0x0200;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x0011 + 2; }
+		return 0x30;
 #endif
+	}
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x0000 + 2;
+#else
+		return 0x04;
+#endif
+	}
+
 };
 
 #elif defined _WINDOWS
@@ -154,9 +164,9 @@ static constexpr uint8_t s_Buf_CTFBot_m_nBotAttrs[] = {
 	0xc7, 0x83, 0x00, 0x2f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // +0x0008 mov     dword ptr [rbx+2F00h], 0
 	0xc7, 0x83, 0xac, 0x2d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // +0x0012 mov     dword ptr [rbx+2DACh], 0
 #else
-	0xc7, 0x83, 0xb8, 0x25, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // +0000  mov dword ptr [ebx+m_nMission],0x00000000
-	0x8B, 0x83, 0xE4, 0x28, 0x00, 0x00,                         // +000A  mov eax, [ebx+??]
-	0xc7, 0x83, 0xd0, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // +0010  mov dword ptr [ebx+m_nBotAttrs],0x00000000
+	0xc7, 0x86, 0xb8, 0x25, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // +0000  mov dword ptr [ebx+m_nMission],0x00000000
+	0x8B, 0x86, 0xE4, 0x28, 0x00, 0x00,                         // +000A  mov eax, [ebx+??]
+	0xc7, 0x86, 0xd0, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // +0010  mov dword ptr [ebx+m_nBotAttrs],0x00000000
 	0x85, 0xC0,                                                  // +001A  test eax, eax
 #endif
 };

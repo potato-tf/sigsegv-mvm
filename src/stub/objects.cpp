@@ -10,11 +10,11 @@ static constexpr uint8_t s_Buf_CObjectSentrygun_FireRocket[] = {
 	0x48, 0x8b, 0x00,                                // +0x000f mov     rax, [rax]
 	0x0f, 0x2f, 0x40, 0x0c,                          // +0x0012 comiss  xmm0, dword ptr [rax+0Ch]
 #else
-    0x81, 0xEC, 0x9C, 0x01, 0x00, 0x00,             // +0000
-    0x8B, 0x5D, 0x08,                               // +0006
-    0xA1, 0x30, 0x5F, 0x79, 0x01,                   // +0009
-    0xF3, 0x0F, 0x10, 0x83, 0x08, 0x0B, 0x00, 0x00, // +000E
-    0x0F, 0x2F, 0x40, 0x0C                          // +0016
+	// GCC 14 ELF32: load rocket cooldown; resolve gpGlobals through GOT; compare curtime.
+	0x8b, 0x75, 0x08, 0xf3, 0x0f, 0x10, 0x86, 0x00,
+	0x00, 0x00, 0x00, 0x8d, 0x83, 0x00, 0x00, 0x00,
+	0x00, 0x89, 0x85, 0x00, 0x00, 0x00, 0x00, 0x8b,
+	0x00, 0x0f, 0x2f, 0x40, 0x0c,
 #endif
 };
 
@@ -26,32 +26,44 @@ struct CExtract_CObjectSentrygun_FireRocket : public IExtract<uint32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CObjectSentrygun_FireRocket);
 
-#ifdef PLATFORM_64BITS
 		buf.SetDword(0x00 + 3, (uint32_t)AddrManager::GetAddrOffset("gpGlobals", "CObjectSentrygun::FireRocket", 0x07));
 		
 		mask.SetRange(0x07 + 4, 4, 0x00);
 		mask.SetRange(0x12 + 3, 1, 0x00);
-#else
-		buf.SetDword(0x09 + 1, (uint32_t)AddrManager::GetAddr("gpGlobals"));
-		
-		mask.SetRange(0x00 + 2, 4, 0x00);
-		mask.SetRange(0x0e + 4, 4, 0x00);
-		mask.SetRange(0x16 + 3, 1, 0x00);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CObjectSentrygun_FireRocket);
+		mask.SetRange(0x07, 4, 0x00);
+		mask.SetRange(0x0d, 4, 0x00);
+		mask.SetRange(0x13, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CObjectSentrygun::FireRocket"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0060; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x007 + 4; }
+		return 0x0060;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x00E + 4; }
+		return 0x40;
 #endif
+	}
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x007 + 4;
+#else
+		return 0x07;
+#endif
+	}
+
 };
 
 #elif defined _WINDOWS

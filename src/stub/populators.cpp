@@ -15,16 +15,9 @@ static constexpr uint8_t s_Buf_CPopulationManager_m_RespecPoints[] = {
 	0x48, 0x83, 0xec, 0x08,                    // +0x0013 sub     rsp, 8
 	0xe8, 0x04, 0x3a, 0x00, 0x00,              // +0x0017 call    CUtlRBTree<...>::RemoveAll
 #else
-	0x55,                                // +0x0000 push    ebp
-	0x89, 0xe5,                          // +0x0001 mov     ebp, esp
-	0x57,                                // +0x0003 push    edi
-	0x56,                                // +0x0004 push    esi
-	0x53,                                // +0x0005 push    ebx
-	0x83, 0xec, 0x18,                    // +0x0006 sub     esp, 18h
-	0x8b, 0x5d, 0x08,                    // +0x0009 mov     ebx, [ebp+this]
-	0x8d, 0x83, 0x14, 0x07, 0x00, 0x00,  // +0x000c lea     eax, [ebx+714h]
-	0x50,                                // +0x0012 push    eax
-	0xe8, 0x38, 0x38, 0x00, 0x00,        // +0x0013 call    CUtlRBTree<...>::RemoveAll
+	// GCC 14 ELF32: load this; pass respec tree to RemoveAll.
+	0x8b, 0x75, 0x08, 0x8d, 0x86, 0x00, 0x00, 0x00,
+	0x00, 0x50, 0xe8, 0x00, 0x00, 0x00, 0x00,
 #endif
 };
 
@@ -36,29 +29,42 @@ struct CExtract_CPopulationManager_m_RespecPoints : public IExtract<int32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CPopulationManager_m_RespecPoints);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetRange(0x0c + 3, 4, 0x00);
 		mask.SetRange(0x13 + 3, 1, 0x00);
 		mask.SetRange(0x17 + 1, 4, 0x00);
-#else
-		mask.SetRange(0x06 + 2, 1, 0x00);
-		mask.SetRange(0x0c + 2, 4, 0x00);
-		mask.SetRange(0x13 + 1, 4, 0x00);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CPopulationManager_m_RespecPoints);
+		mask.SetRange(0x05, 4, 0x00);
+		mask.SetRange(0x0b, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CPopulationManager::ResetRespecPoints"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0000; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x000c + 3; }
+		return 0x0000;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x000c + 2; }
+		return 0x30;
 #endif
+	}
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x000c + 3;
+#else
+		return 0x05;
+#endif
+	}
+
 };
 
 
@@ -68,9 +74,9 @@ static constexpr uint8_t s_Buf_CPopulationManager_m_bAllocatedBots[] = {
 	0x74, 0x07,                                // +0x0007 jz      short loc_112CAB0
 	0xc3,                                      // +0x0009 retn
 #else
-	0x8b, 0x75, 0x08,                         // +0000  mov esi,[ebp+this]
-	0x80, 0xbe, 0x00, 0x00, 0x00, 0x00, 0x00, // +0003  cmp byte ptr [esi+0xVVVVVVVV],0
-	0x74, 0x00,                               // +000A  jz +0x??
+	// GCC 14 ELF32: load this; test allocated flag; save GOT register; skip allocation.
+	0x8b, 0x45, 0x08, 0x80, 0xb8, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x89, 0x7d, 0xc4, 0x74, 0x00,
 #endif
 };
 
@@ -82,27 +88,42 @@ struct CExtract_CPopulationManager_m_bAllocatedBots : public IExtract<uint32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CPopulationManager_m_bAllocatedBots);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetRange(0x00 + 2, 2, 0x00);
 		mask.SetRange(0x07 + 1, 1, 0x00);
-#else
-		mask.SetRange(0x03 + 2, 2, 0x00);
-		mask.SetRange(0x0a + 1, 1, 0x00);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CPopulationManager_m_bAllocatedBots);
+		mask.SetRange(0x05, 4, 0x00);
+		mask.SetRange(0x0c, 1, 0x00);
+		mask.SetRange(0x0e, 1, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CPopulationManager::AllocateBots"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0010; } // @ +0x0006
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 2; }
+		return 0x0010;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x0003 + 2; }
+		return 0x30;
 #endif
+	} // @ +0x0006
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x0000 + 2;
+#else
+		return 0x05;
+#endif
+	}
+
 };
 
 static constexpr uint8_t s_Buf_CPopulationManager_m_pTemplates[] = {
