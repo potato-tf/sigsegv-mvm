@@ -557,7 +557,7 @@ for sdk_name in Extension.sdks:
     # Build ANN with the target compiler and PIC, rather than linking the old
     # checked-in archive (which contains ELF32 text relocations).
     if cxx.target.arch == 'x86':
-      ann = cxx.StaticLibrary('ann_' + sdk['name'] + '_' + cxx.target.arch)
+      ann = cxx.StaticLibrary('ann_' + projectName + '_' + sdk['name'] + '_' + cxx.target.arch)
       ann.compiler.cflags += ['-fPIC', '-O2']
       ann.compiler.includes += [os.path.join(builder.currentSourcePath, 'libs', 'ann', 'include')]
       ann.sources = [os.path.join(builder.currentSourcePath, 'libs', 'ann', 'src', name + '.cpp')
