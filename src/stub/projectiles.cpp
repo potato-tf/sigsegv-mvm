@@ -23,19 +23,11 @@ static constexpr uint8_t s_Buf_CTFProjectile_Arrow_ArrowTouch[] = {
 	0x0f, 0x2f, 0x05, 0xcc, 0xcc, 0x28, 0x00,        // +0x0031 comiss  xmm0, cs:dword_148A3F4
 	0x0f, 0x83, 0xf2, 0x05, 0x00, 0x00,              // +0x0038 jnb     loc_11FDD20
 #else
-	0x55,                                           // +0000  push ebp
-	0x89, 0xe5,                                     // +0001  mov ebp,esp
-	0x57,                                           // +0003  push edi
-	0x56,                                           // +0004  push esi
-	0x53,                                           // +0005  push ebx
-	0x81, 0xec, 0xbc, 0x01, 0x00, 0x00,             // +0006  sub esp,0x1bc
-	0x8b, 0x5d, 0x08,                               // +000C  mov ebx,[ebp+this]
-	0xa1, 0x30, 0x98, 0x77, 0x01,                   // +000F  mov eax,ds:gpGlobals
-	0x8b, 0x7d, 0x0c,                               // +0014  mov edi,[ebp+arg_4]
-	0xf3, 0x0f, 0x10, 0x40, 0x0c,                   // +0017  movss xmm0,dword ptr [eax+0xc]
-	0xf3, 0x0f, 0x5c, 0x83, 0x10, 0x05, 0x00, 0x00, // +001C  subss xmm0,dword ptr [ebx+0xVVVVVVVV]
-	0x0f, 0x2f, 0x05, 0xe4, 0x51, 0x1a, 0x01,       // +0024  comiss xmm0,ds:0xXXXXXXXX
-	0x0f, 0x83, 0x9f, 0x03, 0x00, 0x00,             // +002B  jnb +0xXXXXXXXX
+	// GCC 14 ELF32: read curtime; subtract initialization time; compare age threshold.
+	0x8b, 0x00, 0xf3, 0x0f, 0x10, 0x40, 0x0c, 0xf3,
+	0x0f, 0x5c, 0x81, 0x00, 0x00, 0x00, 0x00, 0x0f,
+	0x2f, 0x83, 0x00, 0x00, 0x00, 0x00, 0x0f, 0x83,
+	0x00, 0x00, 0x00, 0x00,
 #endif
 };
 
@@ -47,33 +39,44 @@ struct CExtract_CTFProjectile_Arrow_ArrowTouch : public IExtract<uint32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
-		buf.CopyFrom(s_Buf_CTFProjectile_Arrow_ArrowTouch);
 #ifdef PLATFORM_64BITS
+		buf.CopyFrom(s_Buf_CTFProjectile_Arrow_ArrowTouch);
 		buf.SetDword(0x1a + 3, AddrManager::GetAddrOffset("gpGlobals", "CTFProjectile_Arrow::ArrowTouch", 0x21));
 		
 		mask.SetRange(0x13 + 3, 4, 0x00);
 		mask.SetRange(0x29 + 4, 4, 0x00);
 		mask.SetRange(0x31 + 3, 4, 0x00);
 		mask.SetRange(0x38 + 2, 4, 0x00);
-#else
-		buf.SetDword(0x0F + 1, (uint32_t)AddrManager::GetAddr("gpGlobals"));
-		
-		mask.SetRange(0x06 + 2, 4, 0x00);
-		mask.SetRange(0x1c + 4, 4, 0x00);
-		mask.SetRange(0x24 + 3, 4, 0x00);
-		mask.SetRange(0x2b + 2, 4, 0x00);
-#endif
+
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CTFProjectile_Arrow_ArrowTouch);
+		mask.SetRange(0x0b, 4, 0x00);
+		mask.SetRange(0x12, 4, 0x00);
+		mask.SetRange(0x18, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CTFProjectile_Arrow::ArrowTouch"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0000; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0029 + 4; }
+		return 0x0000;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x001c + 4; }
+		return 0x40;
 #endif
+	}
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x0029 + 4;
+#else
+		return 0x0b;
+#endif
+	}
+
 };
 
 #elif defined _WINDOWS

@@ -337,10 +337,10 @@ struct PlayerUpgradeHistory
 };
 
 extern StaticFuncThunk<bool, const Vector&> ft_IsSpaceToSpawnHere;
-extern StaticFuncThunk<bool, CTFBot::EventChangeAttributes_t &, KeyValues *> ft_ParseDynamicAttributes;
+extern RegisterStaticFuncThunk<bool, CTFBot::EventChangeAttributes_t &, KeyValues *> ft_ParseDynamicAttributes;
 extern StaticFuncThunk<int, int, bool> ft_MannVsMachineStats_GetAcquiredCredits;
-extern StaticFuncThunk<void, EventInfo *, const char *> ft_FireEvent;
-extern StaticFuncThunk<EventInfo *, KeyValues *> ft_ParseEvent;
+extern RegisterStaticFuncThunk<void, EventInfo *, const char *> ft_FireEvent;
+extern RegisterStaticFuncThunk<EventInfo *, KeyValues *> ft_ParseEvent;
 
 
 inline bool IsSpaceToSpawnHere(const Vector& pos)

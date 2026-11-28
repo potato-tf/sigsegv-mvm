@@ -26,6 +26,7 @@ sourceFiles += [
   'src/gameconf.cpp',
   'src/library.cpp',
   'src/mod.cpp',
+  'src/mod/common/collect_players.cpp',
   'src/prop.cpp',
 # 'src/sizeof.cpp',
 
@@ -553,6 +554,19 @@ for sdk_name in Extension.sdks:
       '-liberty',
     ]
 
+    # Build ANN with the target compiler and PIC, rather than linking the old
+    # checked-in archive (which contains ELF32 text relocations).
+    if cxx.target.arch == 'x86':
+      ann = cxx.StaticLibrary('ann_' + projectName + '_' + sdk['name'] + '_' + cxx.target.arch)
+      ann.compiler.cflags += ['-fPIC', '-O2']
+      ann.compiler.includes += [os.path.join(builder.currentSourcePath, 'libs', 'ann', 'include')]
+      ann.sources = [os.path.join(builder.currentSourcePath, 'libs', 'ann', 'src', name + '.cpp')
+                     for name in ['ANN', 'brute', 'kd_tree', 'kd_util', 'kd_split', 'kd_dump',
+                                  'kd_search', 'kd_pr_search', 'kd_fix_rad_search', 'bd_tree',
+                                  'bd_search', 'bd_pr_search', 'bd_fix_rad_search', 'perf']]
+      ann_output = builder.Add(ann)
+      binary.compiler.linkflags += [ann_output.binary]
+
     if binary.compiler.target.arch == 'x86_64':
       binary.compiler.linkdeps += builder.autoversionx64
       binary.compiler.linkflags += [
@@ -563,7 +577,6 @@ for sdk_name in Extension.sdks:
     else:
       binary.compiler.linkdeps += builder.autoversion
       binary.compiler.linkflags += [
-        os.path.join(builder.currentSourcePath, 'libs', 'ann', 'lib', 'libANN.a'),
         os.path.join(builder.currentSourcePath, 'libs', 'libudis86.a'),
         os.path.join(builder.currentSourcePath, 'libs', 'liblua.a'),
         os.path.join(builder.buildPath, 'version.o')

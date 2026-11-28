@@ -272,7 +272,7 @@
 				"CBaseEntity::IsBaseObject" "_ZNK11CBaseEntity12IsBaseObjectEv"
 				"CBaseEntity::GetTransmitState" "_ZN11CBaseEntity16GetTransmitStateEv"
 				"CBaseEntity::MyCombatWeaponPointer" "_ZN11CBaseEntity21MyCombatWeaponPointerEv"
-				"CBaseEntity::GetParametersForSound" "CBaseEntity::GetParametersForSound"
+				"CBaseEntity::GetParametersForSound" "_ZN11CBaseEntity21GetParametersForSoundEPKcR16CSoundParametersS1_"
 				"CBaseEntity::InSameTeam" "_ZNK11CBaseEntity10InSameTeamEPKS_"
 				"CBaseEntity::ReadKeyField" "_ZN11CBaseEntity12ReadKeyFieldEPKcP9variant_t"
 				"CBaseEntity::OnTakeDamage" "_ZN11CBaseEntity12OnTakeDamageERK15CTakeDamageInfo"
@@ -493,7 +493,7 @@
 				"CBaseCombatWeapon::SetIdealActivity" "_ZN17CBaseCombatWeapon16SetIdealActivityE8Activity"
 				"CBaseCombatWeapon::HasPrimaryAmmo" "_ZN17CBaseCombatWeapon14HasPrimaryAmmoEv"
 				"CBaseCombatWeapon::Holster" "_ZN17CBaseCombatWeapon7HolsterEPS_"
-				"CBaseCombatWeapon::Deploy" "_ZN17CBaseCombatWeapon7DeployEPS_"
+				"CBaseCombatWeapon::Deploy" "_ZN17CBaseCombatWeapon6DeployEv"
 				"CBaseCombatWeapon::OnActiveStateChanged" "_ZN17CBaseCombatWeapon20OnActiveStateChangedEi"
 				"CBaseCombatWeapon::FinishReload" "_ZN17CBaseCombatWeapon12FinishReloadEv"
 

@@ -615,18 +615,23 @@ if builder.backend == 'amb2':
     'PackageScript',
   ]
 
-# Automatically update version.cpp to prevent stale GetBuildTime() and GetBuildDate()
-builder.autoversion = builder.AddCommand(
-  inputs  = builder.ALWAYS_DIRTY,
-  outputs = [ 'version.o' ],
-  argv    = [ 'g++', os.path.join(builder.currentSourcePath,"src/version.cpp"), '-c', '-m32', '-include', os.path.join(builder.currentSourcePath,"src/version.h")],
-)
-
-builder.autoversionx64 = builder.AddCommand(
-  inputs  = builder.ALWAYS_DIRTY,
-  outputs = [ 'versionx64.o' ],
-  argv    = [ 'g++', os.path.join(builder.currentSourcePath,"src/version.cpp"), '-c', '-m64', '-fPIC', '-include', os.path.join(builder.currentSourcePath,"src/version.h"), '-o', 'versionx64.o'],
-)
+# Rebuild the timestamp with the selected target compiler and PIC. A non-PIC
+# version.o would reintroduce DT_TEXTREL even when every library uses PIC.
+def ConfigureVersionObjects(targets):
+  for target in targets:
+    suffix = 'x64' if target.target.arch == 'x86_64' else ''
+    version_object = 'version' + suffix + '.o'
+    version_task = builder.AddCommand(
+      inputs = builder.ALWAYS_DIRTY,
+      outputs = [version_object],
+      argv = target.cxx_argv + [
+        os.path.join(builder.currentSourcePath, 'src/version.cpp'),
+        '-c', '-m64' if suffix else '-m32', '-fPIC',
+        '-include', os.path.join(builder.currentSourcePath, 'src/version.h'),
+        '-o', version_object,
+      ],
+    )
+    setattr(builder, 'autoversion' + suffix, version_task)
 
 def ShareSdkDetection(dst, src, sdk_names = None):
   # Newer hl2sdk-manifests builds tier1/mathlib during detectSDKs() and registers
@@ -653,6 +658,7 @@ if builder.options.build_all:
   Extension.configure()
 
   builder.targets = builder.CloneableList(Extension.all_targets)
+  ConfigureVersionObjects(builder.targets)
 
   builder.Build(BuildScripts, { 'Extension': Extension, 'PackageDirSuffix': ''})
 
@@ -682,5 +688,6 @@ else:
   Extension.configure()
 
   builder.targets = builder.CloneableList(Extension.all_targets)
+  ConfigureVersionObjects(builder.targets)
 
   builder.Build(BuildScripts, { 'Extension': Extension, 'PackageDirSuffix': ''})

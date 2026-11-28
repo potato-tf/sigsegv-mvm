@@ -50,7 +50,7 @@
 				"CPopulationManager::Update"                                      "_ZN18CPopulationManager6UpdateEv"
 				"CPopulationManager::UpdateObjectiveResource"                     "_ZN18CPopulationManager23UpdateObjectiveResourceEv"
 				"CPopulationManager::WaveEnd"                                     "_ZN18CPopulationManager7WaveEndEb"
-				"CPopulationManager::IsValidPopfile"                              "_ZN18CPopulationManager14IsValidPopfileEPKc"
+				"CPopulationManager::IsValidPopfile"                              "_ZN18CPopulationManager14IsValidPopfileE10CUtlString"
 				"CPopulationManager::SetPopulationFilename"                       "_ZN18CPopulationManager21SetPopulationFilenameEPKc"
 
 				"CMissionPopulator::~CMissionPopulator [D0]"      "_ZN17CMissionPopulatorD0Ev"

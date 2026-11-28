@@ -402,7 +402,7 @@ namespace Mod::Etc::Extra_Player_Slots
         //Msg("Delete player %d %d\n", player->GetTeamNumber(), player);
     }
 
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, int, CGameMovement_GetPointContentsCached, const Vector &point, int slot)
+	DETOUR_DECL_MEMBER(int, CGameMovement_GetPointContentsCached, const Vector &point, int slot)
 	{
         int oldIndex = -1;
         auto movement = reinterpret_cast<CGameMovement *>(this);

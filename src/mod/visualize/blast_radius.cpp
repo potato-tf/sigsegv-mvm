@@ -274,7 +274,7 @@ namespace Mod::Visualize::Blast_Radius
 	}
 	
 	RefCount rc_CTFRadiusDamageInfo_ApplyToEntity;
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, int, CTFRadiusDamageInfo_ApplyToEntity, CBaseEntity *ent)
+	DETOUR_DECL_MEMBER(int, CTFRadiusDamageInfo_ApplyToEntity, CBaseEntity *ent)
 	{
 		if (rc_CTFGameRules_RadiusDamage > 0) ++rc_CTFRadiusDamageInfo_ApplyToEntity;
 		auto result = DETOUR_MEMBER_CALL(ent);

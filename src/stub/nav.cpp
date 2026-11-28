@@ -334,36 +334,58 @@ static constexpr uint8_t s_Buf_CTFNavArea_m_IncursionDistances[] = {
 	0x48, 0x63, 0xc6,                                      // +0x0000 movsxd  rax, esi
 	0xf3, 0x0f, 0x10, 0x84, 0x87, 0x08, 0x02, 0x00, 0x00,  // +0x0003 movss   xmm0, dword ptr [rdi+rax*4+208h]
 #else
-	0x8b, 0x45, 0x08,                                     // +0000  mov eax,[ebp+this]
-	0x8b, 0x7d, 0x0c,                                     // +0003  mov edi,[ebp+arg_4]
-	0xf3, 0x0f, 0x10, 0x84, 0xb8, 0x60, 0x01, 0x00, 0x00, // +0006  movss xmm0,dword ptr [eax+edi*4+0xVVVVVVVV]
+	// GCC 14 ELF32: add array base in float elements to team index; load indexed distance.
+	0x8b, 0x45, 0x08, 0x83, 0xc7, 0x00, 0x31, 0xd2,
+	0xf3, 0x0f, 0x10, 0x04, 0xb8,
 #endif
 };
 
-struct CExtract_CTFNavArea_m_IncursionDistances : public IExtract<uint32_t>
+#ifdef PLATFORM_64BITS
+using IncursionOffset = uint32_t;
+#else
+using IncursionOffset = uint8_t;
+#endif
+
+struct CExtract_CTFNavArea_m_IncursionDistances : public IExtract<IncursionOffset>
 {
-	CExtract_CTFNavArea_m_IncursionDistances() : IExtract<uint32_t>(sizeof(s_Buf_CTFNavArea_m_IncursionDistances)) {}
+	CExtract_CTFNavArea_m_IncursionDistances() : IExtract<IncursionOffset>(sizeof(s_Buf_CTFNavArea_m_IncursionDistances)) {}
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CTFNavArea_m_IncursionDistances);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetRange(0x03 + 5, 4, 0x00);
-#else
-		mask.SetRange(0x06 + 5, 4, 0x00);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CTFNavArea_m_IncursionDistances);
+		mask.SetRange(0x05, 1, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CTFNavArea::GetNextIncursionArea"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0030; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
+		return 0x0030;
+	}
+	virtual uint32_t GetExtractOffset() const override {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0003 + 5; }
+		return 0x0003 + 5;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x0006 + 5; }
+		return 0x05;
+#endif
+	}
+
+#ifndef PLATFORM_64BITS
+	intptr_t ExtractPtrAsInt() const override
+	{
+		return IExtract<IncursionOffset>::ExtractPtrAsInt() * sizeof(float);
+	}
 #endif
 };
 

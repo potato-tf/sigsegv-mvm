@@ -22,12 +22,10 @@ static constexpr uint8_t s_Buf_perteamvisuals_t_m_Sounds[] = {
 	0x49, 0x63, 0xc5,                                // +0x0012 movsxd  rax, r13d
 	0x48, 0x8b, 0x84, 0xc2, 0xc0, 0x01, 0x00, 0x00,  // +0x0015 mov     rax, [rdx+rax*8+m_Sounds]
 #else
-	0x8b, 0x88, 0x00, 0x00, 0x00, 0x00,       // +0000  mov ecx,[eax+m_Visuals]
-	0x85, 0xc9,                               // +0006  test ecx,ecx
-	0x74, 0x00,                               // +0008  jz +0x??
-	0x83, 0xff, NUM_SHOOT_SOUND_TYPES-1,      // +000A  cmp edi,NUM_SHOOT_SOUND_TYPES
-	0x77, 0x00,                               // +000D  ja +0x??
-	0x8b, 0x84, 0xb9, 0x00, 0x00, 0x00, 0x00, // +000F  mov eax,[ecx+edi*4+m_Sounds]
+	// GCC 14 ELF32: check sound index; read the team visual sound array; test pointer.
+	0x83, 0x7d, 0x0c, 0x0f, 0x77, 0x00, 0x8b, 0x45,
+	0x0c, 0x8b, 0x84, 0x82, 0x00, 0x00, 0x00, 0x00,
+	0x85, 0xc0,
 #endif
 };
 
@@ -37,6 +35,7 @@ struct CExtract_perteamvisuals_t_m_Sounds : public IExtract<int32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_perteamvisuals_t_m_Sounds);
 		
 		int off_CEconItemDefinition_m_Visuals;
@@ -46,29 +45,36 @@ struct CExtract_perteamvisuals_t_m_Sounds : public IExtract<int32_t>
 			return false;
 		}
 		
-#ifdef PLATFORM_64BITS	
 		buf.SetDword(0x00 + 3, (uint32_t)off_CEconItemDefinition_m_Visuals);
 		mask[0x0a + 1] = 0x00;
 		mask[0x10 + 1] = 0x00;
 		mask.SetDword(0x15 + 4, ~0x000003ff);
-#else
-		buf.SetDword(0x00 + 2, (uint32_t)off_CEconItemDefinition_m_Visuals);
-		mask[0x08 + 1] = 0x00;
-		mask[0x0d + 1] = 0x00;
-		mask.SetDword(0x0f + 3, ~0x000003ff);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_perteamvisuals_t_m_Sounds);
+		mask.SetRange(0x05, 1, 0x00);
+		mask.SetRange(0x0c, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CTFWeaponBase::GetShootSound"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0100; } // @ +0x0056
-#ifdef PLATFORM_64BITS	
-	virtual uint32_t GetExtractOffset() const override { return 0x0015 + 4; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
+		return 0x0100;
+	} // @ +0x0056
+	virtual uint32_t GetExtractOffset() const override
+	{
+#ifdef PLATFORM_64BITS
+		return 0x0015 + 4;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x000f + 3; }
+		return 0x0c;
 #endif
+	}
 };
 
 #elif defined _WINDOWS
@@ -87,8 +93,10 @@ static constexpr uint8_t s_Buf_CEconItemDefinition_m_Visuals[] = {
 	0x48, 0xc7, 0x84, 0xc1, 0x18, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // +0x0000 mov     qword ptr [rcx+rax*8+118h], 0
 	0x48, 0x8d, 0x0d, 0x7b, 0xeb, 0x0d, 0x01,                                // +0x000c lea     rcx, g_TeamVisualSections
 #else
-	0xc7, 0x84, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // +0000  mov dword ptr [esi+eax*4+m_Visuals],0x00000000
-	0x8b, 0x04, 0x85, 0x00, 0x00, 0x00, 0x00,                         // +000B  mov eax,g_TeamVisualSections[eax*4]
+	// GCC 14 ELF32: clear indexed team visual; read team section through GOT; test name.
+	0xc7, 0x84, 0x83, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x8b, 0x84, 0x81, 0x00, 0x00,
+	0x00, 0x00, 0x85, 0xc0,
 #endif
 };
 
@@ -98,28 +106,38 @@ struct CExtract_CEconItemDefinition_m_Visuals : public IExtract<int32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CEconItemDefinition_m_Visuals);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetDword(0x0c + 3, 0x0);
 		mask.SetDword(0x00 + 4, ~0x000003ff);
-#else
-		buf.SetDword(0x0b + 3, (uint32_t)&g_TeamVisualSections.GetRef());
-		mask.SetDword(0x00 + 3, ~0x000003ff);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CEconItemDefinition_m_Visuals);
+		mask.SetRange(0x03, 4, 0x00);
+		mask.SetRange(0x0e, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CEconItemDefinition::BInitVisualBlockFromKV"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0100; } // @ +0x0057
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
+		return 0x0100;
+	} // @ +0x0057
 	
+	virtual uint32_t GetExtractOffset() const override {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 4; }
+		return 0x0000 + 4;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 3; }
+		return 0x03;
 #endif
+	}
+
 };
 
 #elif defined _WINDOWS
@@ -143,12 +161,11 @@ static constexpr uint8_t s_Buf_CEconItemDefinition_EquipRegionMasks[] = {
 	0x66, 0x0f, 0xeb, 0xc1,                          // +0x0028 por     xmm0, xmm1
 	0x66, 0x0f, 0xd6, 0x83, 0x0c, 0x02, 0x00, 0x00,  // +0x002c movq    qword ptr [rbx+m_nEquipRegionBitMask], xmm0
 #else
-	0xe8, 0x00, 0x00, 0x00, 0x00,       // +0000  call CEconItemSchema::GetEquipRegionBitMaskByName
-	0x09, 0x86, 0x00, 0x00, 0x00, 0x00, // +0005  or [esi+m_nEquipRegionBitMask],eax
-	0x83, 0xC4, 0x10,                   // +000B
-	0x83, 0xc7, 0x01,                   // +000E  add edi,1
-	0x8b, 0x85, 0x00, 0x00, 0x00, 0x00, // +0011  mov eax,[ebp+0xXXXXXXXX]
-	0x09, 0x86, 0x00, 0x00, 0x00, 0x00, // +0017  or [ebx+m_nEquipRegionMask],eax
+	// GCC 14 ELF32: call region lookup; OR both equip masks before the packed store.
+	0xe8, 0x00, 0x00, 0x00, 0x00, 0x0b, 0x86, 0x00,
+	0x00, 0x00, 0x00, 0x83, 0xc4, 0x10, 0x8b, 0x95,
+	0x00, 0x00, 0x00, 0x00, 0x0b, 0x96, 0x00, 0x00,
+	0x00, 0x00,
 #endif
 };
 
@@ -158,30 +175,42 @@ struct CExtract_CEconItemDefinition_EquipRegionMasks : public IExtract<int32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CEconItemDefinition_EquipRegionMasks);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetDword(0x0000 + 1, 0x00000000);
 		mask.SetDword(0x0009 + 3, 0x00000000);
 		mask.SetDword(0x0014 + 4, 0x00000000);
 		mask.SetDword(0x001c + 4, 0x00000000);
 		mask.SetDword(0x002c + 4, 0x00000000);
-#else
-		mask.SetDword(0x0000 + 1, 0x00000000);
-		mask.SetDword(0x0005 + 2, 0x00000000);
-		mask[0x000b] = 0x00;
-		mask[0x000b+1] = 0x00;
-		mask[0x000b+2] = 0x00;
-		mask.SetDword(0x0011 + 2, 0x00000000);
-		mask.SetDword(0x0017 + 2, 0x00000000);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CEconItemDefinition_EquipRegionMasks);
+		mask.SetRange(0x01, 4, 0x00);
+		mask.SetRange(0x07, 4, 0x00);
+		mask.SetRange(0x10, 4, 0x00);
+		mask.SetRange(0x16, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override { return "CEconItemDefinition::BInitFromKV"; }
-	virtual uint32_t GetFuncOffMin() const override  { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override  { return 0x2000; } // @ +0x13da
+	virtual uint32_t GetFuncOffMin() const override  {
+#ifdef PLATFORM_64BITS
+		return 0x0000;
+#else
+		return 0x1300;
+#endif
+	}
+	virtual uint32_t GetFuncOffMax() const override  {
+#ifdef PLATFORM_64BITS
+		return 0x2000;
+#else
+		return 0x1500;
+#endif
+	} // @ +0x13da
 };
 
 struct CExtract_CEconItemDefinition_m_nEquipRegionBitMask : public CExtract_CEconItemDefinition_EquipRegionMasks
@@ -195,7 +224,11 @@ struct CExtract_CEconItemDefinition_m_nEquipRegionBitMask : public CExtract_CEco
 
 struct CExtract_CEconItemDefinition_m_nEquipRegionMask : public CExtract_CEconItemDefinition_EquipRegionMasks
 {
+	#ifdef PLATFORM_64BITS
 	virtual uint32_t GetExtractOffset() const override { return 0x0017 + 2; }
+#else
+	virtual uint32_t GetExtractOffset() const override { return 0x16; }
+#endif
 };
 
 #elif defined _WINDOWS
@@ -211,7 +244,8 @@ MemberFuncThunk<const CEconItemDefinition *, void, IEconItemAttributeIterator *>
 MemberFuncThunk<CAttributeManager *, float, float, CBaseEntity *, string_t, CUtlVector<CBaseEntity*> *> CAttributeManager::ft_ApplyAttributeFloatWrapper("CAttributeManager::ApplyAttributeFloatWrapper");
 MemberFuncThunk<CAttributeManager *, string_t, string_t, CBaseEntity *, string_t, CUtlVector<CBaseEntity*> *> CAttributeManager::ft_ApplyAttributeStringWrapper("CAttributeManager::ApplyAttributeStringWrapper");
 MemberFuncThunk<const CAttributeManager *, int> CAttributeManager::ft_GetGlobalCacheVersion("CAttributeManager::GetGlobalCacheVersion");
-MemberFuncThunk<CAttributeManager *, void>  CAttributeManager::ft_ClearCache("CAttributeManager::ClearCache [clone]");
+// Ordinary callers need the cdecl entry; its wrapper supplies EAX to the Linux x86 clone.
+MemberFuncThunk<CAttributeManager *, void>  CAttributeManager::ft_ClearCache("CAttributeManager::ClearCache");
 MemberFuncThunk<CAttributeManager *, void, CBaseEntity *> CAttributeManager::ft_AddProvider("CAttributeManager::AddProvider");
 MemberFuncThunk<CAttributeManager *, void, CBaseEntity *> CAttributeManager::ft_RemoveProvider("CAttributeManager::RemoveProvider");
 MemberFuncThunk<CAttributeManager *, bool, CBaseEntity *> CAttributeManager::ft_IsProvidingTo("CAttributeManager::IsProvidingTo");

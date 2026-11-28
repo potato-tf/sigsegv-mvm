@@ -1677,7 +1677,7 @@ namespace Mod::Pop::ECAttr_Extensions
 		return result;
 	}
 	
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, CEconItemDefinition *, CEconItemSchema_GetItemDefinitionByName, const char *name)
+	DETOUR_DECL_MEMBER(CEconItemDefinition *, CEconItemSchema_GetItemDefinitionByName, const char *name)
 	{
 		name = Mod::Pop::PopMgr_Extensions::GetCustomWeaponNameOverride(name);
 		return DETOUR_MEMBER_CALL(name);
@@ -2893,7 +2893,7 @@ namespace Mod::Pop::ECAttr_Extensions
 		DETOUR_MEMBER_CALL(actor);
 	}
 	
-	DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CFuncNavCost_IsApplicableTo, CBaseCombatCharacter *who)
+	DETOUR_DECL_MEMBER(bool, CFuncNavCost_IsApplicableTo, CBaseCombatCharacter *who)
 	{
 		auto data = GetDataForBot(who);
 

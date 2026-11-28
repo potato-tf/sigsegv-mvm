@@ -15,13 +15,9 @@ static constexpr uint8_t s_Buf_CTFPlayerShared_m_pOuter[] = {
 	0x48, 0x8b, 0xbf, 0xc0, 0x01, 0x00, 0x00,  // +0x0000 mov     rdi, [rdi+1C0h]; this
 	0xe9,                                      // +0x0007 jmp     _ZNK20CBaseCombatCharacter15GetActiveWeaponEv; CBaseCombatCharacter::GetActiveWeapon(void)
 #else
-	0x55,                               // +0000  push ebp
-	0x89, 0xe5,                         // +0001  mov ebp,esp
-	0x8b, 0x45, 0x08,                   // +0003  mov eax,[ebp+this]
-	0x8b, 0x80, 0x00, 0x00, 0x00, 0x00, // +0006  mov eax,[eax+m_pOuter]
-	0x89, 0x45, 0x08,                   // +000C  mov [ebp+this],eax
-	0x5d,                               // +000F  pop ebp
-	0xe9,                               // +0010  jmp CBaseCombatCharacter::GetActiveWeapon
+	// GCC 14 ELF32: load this; push m_pOuter; call GetActiveWeapon.
+	0x8b, 0x45, 0x08, 0xff, 0xb0, 0x00, 0x00, 0x00,
+	0x00, 0xe8, 0x00, 0x00, 0x00, 0x00,
 #endif
 };
 
@@ -31,25 +27,40 @@ struct CExtract_CTFPlayerShared_m_pOuter : public IExtract<uint32_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CTFPlayerShared_m_pOuter);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetRange(0x00 + 3, 4, 0x00);
-#else
-		mask.SetRange(0x06 + 2, 4, 0x00);
-#endif
+
 		
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CTFPlayerShared_m_pOuter);
+		mask.SetRange(0x05, 4, 0x00);
+		mask.SetRange(0x0a, 4, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CTFPlayerShared::GetActiveTFWeapon"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0000; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 3; }
+		return 0x0000;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x0006 + 2; }
+		return 0x20;
 #endif
+	}
+	virtual uint32_t GetExtractOffset() const override {
+#ifdef PLATFORM_64BITS
+		return 0x0000 + 3;
+#else
+		return 0x05;
+#endif
+	}
+
 };
 
 
@@ -145,10 +156,9 @@ static constexpr uint8_t s_Buf_CTFPlayerShared_m_ConditionData[] = {
 	0x48, 0x8d, 0x04, 0x5b,        // +0x0005 lea     rax, [rbx+rbx*2]
 	0x5b,                          // +0x0009 pop     rbx
 #else
-	0x8B, 0x56, 0x08,
-	0x8D, 0x04, 0x9B,
-	0x8D, 0x04, 0x82,
-	0xF3, 0x0F, 0x10, 0x40, 0x08,
+	// GCC 14 ELF32: load vector storage; index 20-byte condition_source_t; load expiry.
+	0x8b, 0x57, 0x08, 0x8d, 0x04, 0xb6, 0x8d, 0x04,
+	0x82, 0xd9, 0x40, 0x08,
 #endif
 };
 
@@ -160,25 +170,34 @@ struct CExtract_CTFPlayerShared_m_ConditionData : public IExtract<uint8_t>
 	
 	virtual bool GetExtractInfo(ByteBuf& buf, ByteBuf& mask) const override
 	{
+#ifdef PLATFORM_64BITS
 		buf.CopyFrom(s_Buf_CTFPlayerShared_m_ConditionData);
 		
-#ifdef PLATFORM_64BITS
 		mask.SetRange(0x00 + 4, 1, 0x00);
-#else
-		mask.SetRange(0x00 + 2, 1, 0x00);
-		mask.SetRange(0x09 + 4, 1, 0x00);
-#endif
+
 		return true;
+#else
+		buf.CopyFrom(s_Buf_CTFPlayerShared_m_ConditionData);
+		mask.SetRange(0x02, 1, 0x00);
+		return true;
+#endif
 	}
 	
 	virtual const char *GetFuncName() const override   { return "CTFPlayerShared::GetConditionDuration"; }
-	virtual uint32_t GetFuncOffMin() const override    { return 0x0000; }
-	virtual uint32_t GetFuncOffMax() const override    { return 0x0060; }
+	virtual uint32_t GetFuncOffMin() const override    {
+		return 0x0000;
+	}
+	virtual uint32_t GetFuncOffMax() const override    {
+		return 0x0060;
+	}
+	virtual uint32_t GetExtractOffset() const override {
 #ifdef PLATFORM_64BITS
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 4; }
+		return 0x0000 + 4;
 #else
-	virtual uint32_t GetExtractOffset() const override { return 0x0000 + 2; }
+		return 0x02;
 #endif
+	}
+
 };
 
 

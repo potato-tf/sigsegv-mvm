@@ -743,7 +743,7 @@ namespace Mod::Etc::Mapentity_Additions
 	}
     
     RefCount rc_CTriggerHurt_HurtEntity;
-    DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CTriggerHurt_HurtEntity, CBaseEntity *other, float damage)
+    DETOUR_DECL_MEMBER(bool, CTriggerHurt_HurtEntity, CBaseEntity *other, float damage)
 	{
         SCOPED_INCREMENT(rc_CTriggerHurt_HurtEntity);
 		return DETOUR_MEMBER_CALL(other, damage);
@@ -1769,7 +1769,7 @@ namespace Mod::Etc::Mapentity_Additions
         return false;
     }
 
-    DETOUR_DECL_STATIC_CALL_CONVENTION(__gcc_regcall, bool, PassServerEntityFilter, IHandleEntity *ent1, IHandleEntity *ent2)
+    DETOUR_DECL_STATIC(bool, PassServerEntityFilter, IHandleEntity *ent1, IHandleEntity *ent2)
 	{
         if (ent1 != ent2 && ent2 != nullptr)
         {
@@ -1883,7 +1883,7 @@ namespace Mod::Etc::Mapentity_Additions
         }
     }
     
-    DETOUR_DECL_MEMBER_CALL_CONVENTION(__gcc_regcall, bool, CPopulationManager_Initialize)
+    DETOUR_DECL_MEMBER(bool, CPopulationManager_Initialize)
 	{
 		auto ret = DETOUR_MEMBER_CALL();
         
